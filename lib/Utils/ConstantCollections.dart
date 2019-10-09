@@ -36,4 +36,9 @@ class ConstantCollections{
       "color":Colors.deepOrange
     }
   ];
+
+
+
+  //Preferences
+  static const PREF_VOLUME = "prefVolume";
 }

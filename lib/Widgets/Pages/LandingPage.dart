@@ -1,5 +1,6 @@
 import 'package:findpairs/PresenterViews/Pages/LandingPageView.dart';
 import 'package:findpairs/Presenters/Pages/LandingPagePresenter.dart';
+import 'package:findpairs/Widgets/Components/Buttons/SettingActionButton.dart';
 import 'package:findpairs/Widgets/Components/Lists/LandingPageMenu.dart';
 import 'package:findpairs/Widgets/Components/Text/LandingPageTitle.dart';
 import 'package:findpairs/Widgets/Pages/WrapperPage.dart';
@@ -10,15 +11,26 @@ class LandingPage extends StatefulWidget {
   _LandingPageState createState() => new _LandingPageState();
 }
 
-class _LandingPageState extends State<LandingPage> with LandingPageView{
+class _LandingPageState extends State<LandingPage> with WidgetsBindingObserver,LandingPageView{
 
   final LandingPagePresenter presenter = LandingPagePresenter();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     presenter.setView  = this;
     presenter.initiateData();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if(state == AppLifecycleState.paused){
+      presenter.pauseBackgroundMusic();
+    }else if(state == AppLifecycleState.resumed){
+      presenter.playBackgroundMusic();
+    }
   }
 
   @override
@@ -26,7 +38,7 @@ class _LandingPageState extends State<LandingPage> with LandingPageView{
     return WrapperPage(
       leftHeader: Container(),
       actions: <Widget>[
-
+        SettingActionButton()
       ],
       child: Stack(
         children: <Widget>[
@@ -54,6 +66,9 @@ class _LandingPageState extends State<LandingPage> with LandingPageView{
 
 
   @override
+  BuildContext currentContext() => context;
+
+  @override
   void notifyState() {
     super.notifyState();
     if(mounted){
@@ -66,6 +81,7 @@ class _LandingPageState extends State<LandingPage> with LandingPageView{
   @override
   void dispose() {
     presenter.disposingStream();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }

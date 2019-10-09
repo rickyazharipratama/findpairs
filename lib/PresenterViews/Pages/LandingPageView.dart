@@ -20,6 +20,8 @@ class LandingPageView{
     _activePage = active;
   }
 
+  BuildContext currentContext() => null;
+
   void notifyState(){
 
   }

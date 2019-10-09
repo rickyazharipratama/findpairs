@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 class FindPairsApp extends StatefulWidget {
   @override
   _FindPairsAppState createState() => new _FindPairsAppState();
+
+  static _FindPairsAppState of(BuildContext context) => context.ancestorStateOfType(const TypeMatcher<_FindPairsAppState>());
+
 }
 
 class _FindPairsAppState extends State<FindPairsApp> with FindPairsAppPresenterView{
@@ -18,6 +21,7 @@ class _FindPairsAppState extends State<FindPairsApp> with FindPairsAppPresenterV
   void initState() {
     super.initState();
     presenter = FindPairsAppPresenter()..setView = this;
+    presenter.initiateData();
   }
 
   @override
