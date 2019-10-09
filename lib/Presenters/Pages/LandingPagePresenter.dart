@@ -38,7 +38,6 @@ class LandingPagePresenter extends BasePagePresenter{
         folder: "assets/sounds/"
       )
     );
-    FindPairsApp.of(view.currentContext()).presenter.bgSound.
     FindPairsApp.of(view.currentContext()).presenter.bgSound.finished.listen((isFinished){
       debugPrint("music finish listen called");
        if(isFinished){
