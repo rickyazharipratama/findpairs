@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ConstantCollections{
 
   static const String APPNAME = "find pairs";
@@ -6,28 +8,32 @@ class ConstantCollections{
 
   static const List<Map<String,dynamic>> MENUS = [
     {
-      "name":"Arcade",
+      "name":"ARCADE",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
+      "color":Colors.red
     },
     {
-      "name":"Classic",
+      "name":"CLASSIC",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
+      "color":Colors.blue
     },
     {
-      "name":"Survival",
+      "name":"SURVIVAL",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
+      "color":Colors.purple
     },
     {
-      "name":"Collections",
+      "name":"COLLECTIONS",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
+      "color":Colors.deepOrange
     }
   ];
 }

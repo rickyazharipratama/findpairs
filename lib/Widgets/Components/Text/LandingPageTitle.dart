@@ -12,13 +12,14 @@ class LandingPageTitle extends StatefulWidget {
   _LandingPageTitleState createState() => new _LandingPageTitleState();
 }
 
-class _LandingPageTitleState extends State<LandingPageTitle> with LandingPageTitleView{
+class _LandingPageTitleState extends State<LandingPageTitle> with TickerProviderStateMixin,LandingPageTitleView{
 
   LandingPageTitlePresenter presenter;
 
   @override
   void initState() {
     super.initState();
+    setTick = this;
     presenter = LandingPageTitlePresenter(widget.stream)..setView = this;
     presenter.initiateData();
   }
@@ -26,8 +27,28 @@ class _LandingPageTitleState extends State<LandingPageTitle> with LandingPageTit
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: presenter.title == null ? Container() :  Text(presenter.title['name']),
-    );
+      child: presenter.animatedChars == null ? 
+        Container() 
+        : presenter.animatedChars.length == 0 ?
+          Container()
+          : RichText(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              text: TextSpan(
+                style: Theme.of(context).textTheme.subtitle,
+                children: presenter.animatedChars.map((char){
+                  int i = char['tween'].animate(char['animationController']).value;
+                  Color cl = char['color'].animate(char['animationController']).value;
+                  return TextSpan(
+                    text: presenter.texts[i],
+                    style: TextStyle(
+                      color: cl
+                    )
+                  );
+                }).toList()
+              ),
+            )
+        );
   }
 
   @override
@@ -38,5 +59,11 @@ class _LandingPageTitleState extends State<LandingPageTitle> with LandingPageTit
         
       });
     }
+  }
+
+  @override
+  void dispose() {
+    presenter.clearAnimationController();
+    super.dispose();
   }
 }

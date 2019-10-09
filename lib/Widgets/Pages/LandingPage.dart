@@ -28,23 +28,27 @@ class _LandingPageState extends State<LandingPage> with LandingPageView{
       actions: <Widget>[
 
       ],
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Stack(
         children: <Widget>[
-          Expanded(
+          Positioned.fill(
             child: LandingPageMenu(
               streamController: presenter.streamController,
             ),
           ),
-          Container(
-            height: 100,
-            child: LandingPageTitle(
-              stream: presenter.stream,
+
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              height: 100,
+              child: LandingPageTitle(
+                stream: presenter.stream,
+              ),
             ),
           )
         ],
-      ),
+      )
     );
   }
 
