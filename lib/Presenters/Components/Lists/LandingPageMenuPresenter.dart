@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/LandingPageMenuView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/ConstantCollections.dart';
@@ -26,6 +27,7 @@ class LandingPageMenuPresenter extends BaseComponentPresenter{
 
   onPageChanged(int page){
     streamController.sink.add(menus[page]);
+    FindPairsApp.of(view.currentContext()).presenter.sfxSound.play("swiping_menu.mp3");
     view.onPageChange(page);
   }
 }

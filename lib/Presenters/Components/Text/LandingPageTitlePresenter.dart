@@ -59,7 +59,7 @@ class LandingPageTitlePresenter extends BaseComponentPresenter{
     int greater = max(newText.length, oldtext.length);
     for(int i = 0; i < greater ; i++){
       AnimationController controller = AnimationController(
-        duration: Duration(milliseconds: 500), vsync: view.tick
+        duration: Duration(milliseconds: 450), vsync: view.tick
       )..addListener(view.notifyState);
       StepTween tween = StepTween(
         begin: i > oldtext.length - 1 ? 0: texts.indexOf(oldtext[i]),

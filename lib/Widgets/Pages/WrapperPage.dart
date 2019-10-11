@@ -11,10 +11,21 @@ class WrapperPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).backgroundColor,
+      clipBehavior: Clip.hardEdge,
+      color: Color(0xff8f6d68),
       child: Stack(
         children: <Widget>[
           
+          Positioned.fill(
+            child: Image.asset(
+              "assets/images/bg_landing_page.png",
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+            ),
+          ),
+
           Positioned.fill(
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top+5, 0, MediaQuery.of(context).padding.bottom),

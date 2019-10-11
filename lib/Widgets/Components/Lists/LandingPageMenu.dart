@@ -44,4 +44,7 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
       });
     }
   }
+
+  @override
+  BuildContext currentContext() => context;
 }

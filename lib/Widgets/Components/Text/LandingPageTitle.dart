@@ -42,7 +42,7 @@ class _LandingPageTitleState extends State<LandingPageTitle> with TickerProvider
                   return TextSpan(
                     text: presenter.texts[i],
                     style: TextStyle(
-                      color: cl
+                      color: Color(0xffc4a5a1)
                     )
                   );
                 }).toList()

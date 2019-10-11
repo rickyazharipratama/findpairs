@@ -26,10 +26,18 @@ class _FindPairsAppState extends State<FindPairsApp> with FindPairsAppPresenterV
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return viewState == 0 ? MaterialApp(
       title: ConstantCollections.APPNAME,
       theme: FindPairsTheme.instance.lightFindPairsTheme,
       home: LandingPage(),
-    );
+    ) : Container();
+  }
+
+  @override
+  void notifyState(){
+    if(mounted){
+      setState(() {
+      });
+    }
   }
 }

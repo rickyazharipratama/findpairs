@@ -42,6 +42,7 @@ class _LandingPageState extends State<LandingPage> with WidgetsBindingObserver,L
       ],
       child: Stack(
         children: <Widget>[
+
           Positioned.fill(
             child: LandingPageMenu(
               streamController: presenter.streamController,
@@ -80,7 +81,7 @@ class _LandingPageState extends State<LandingPage> with WidgetsBindingObserver,L
 
   @override
   void dispose() {
-    presenter.disposingStream();
+    presenter.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

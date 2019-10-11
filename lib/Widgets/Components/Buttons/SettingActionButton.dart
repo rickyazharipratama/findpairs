@@ -30,7 +30,7 @@ class _SettingActionButtonState extends State<SettingActionButton> with SingleTi
           angle: getAnimatedAngle(),
           child: Icon(
             Icons.settings,
-            color: Colors.brown,
+            color: Color(0xffc4a5a1),
             size: 40,
           ),
         ),

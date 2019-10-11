@@ -33,7 +33,7 @@ class ConstantCollections{
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Colors.deepOrange
+      "color":Color(0xff6f5451)
     }
   ];
 

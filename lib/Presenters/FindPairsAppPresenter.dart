@@ -1,15 +1,20 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:findpairs/Models/SoundModel.dart';
 import 'package:findpairs/PresenterViews/FindPairsAppPresenterView.dart';
 import 'package:findpairs/Presenters/BasePresenter.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 class FindPairsAppPresenter extends BasePresenter{
 
   FindPairsAppPresenterView _view;
-  AssetsAudioPlayer bgSound;
-  AssetsAudioPlayer particleSound;
-  
+  AudioCache musicSound;
+  AudioCache sfxSound;
+
+  AudioPlayer _musicPlayer;
+  AudioPlayer _sfxPlayer;
+
   SoundModel _soundVolume;
 
   FindPairsAppPresenterView get view => _view;
@@ -24,16 +29,48 @@ class FindPairsAppPresenter extends BasePresenter{
 
   FindPairsAppPresenter(){
     setSoundVolume = SoundModel();
-    bgSound = AssetsAudioPlayer();
-    particleSound = AssetsAudioPlayer();
+    
+    _musicPlayer = AudioPlayer(
+      mode: PlayerMode.MEDIA_PLAYER
+    )..setVolume(0.05);
+
+    _sfxPlayer = AudioPlayer(
+      mode: PlayerMode.LOW_LATENCY
+    )..setVolume(0.08);
+
+    musicSound = AudioCache(
+      prefix: "sounds/",
+      fixedPlayer: _musicPlayer
+    );
+
+    sfxSound = AudioCache(
+      prefix: "sounds/sfx/",
+      fixedPlayer: _sfxPlayer
+    );
   }
 
   @override
   void initiateData() async{
     super.initiateData();
-    await soundVolume.getValueFromPreference();
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.dark,
+      statusBarColor: Color(0x00000000),
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Color(0xff252525),
+      systemNavigationBarIconBrightness: Brightness.light
+    ));
 
     debugPrint("keLoad sampai disini");
+    await musicSound.loadAll([
+      "landing-page.ogg"
+    ]);
+    await sfxSound.loadAll([
+      "button_tap.mp3",
+      "swiping_menu.mp3"
+    ]);
+    view.setViewState = 0;
+    view.notifyState();
   }
 
   void clearBackgroundSound(){
@@ -43,5 +80,4 @@ class FindPairsAppPresenter extends BasePresenter{
   void clearParticleSound(){
     //must be clear cache
   }
-
 }
