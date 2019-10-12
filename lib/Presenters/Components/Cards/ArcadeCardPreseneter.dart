@@ -35,11 +35,11 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
       if(isCardPaired()){
         //should animate becasue  card is paired
       }else{
-
         for( int i = 0; i < selectedCards.length; i++){
-          await Future.delayed(Duration(milliseconds: 650 - (i * 150) > 100 ? 650 - (i * 150) : 100),(){
-            flippingBackCard(selectedCards[i]);
-            if(i+1 >= selectedCards.length){
+          Timer(Duration(milliseconds: 500 + (i * 150)),() async{
+            debugPrint("iterasi : "+ i.toString());
+            await flippingBackCard(selectedCards[i]);
+            if(i+1 == selectedCards.length){
               selectedCards.clear();
             }
           });
@@ -56,7 +56,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   }
 
   // call it when not pairs
-  void flippingBackCard(String val){
+  Future<void> flippingBackCard(String val) async{
     _flipBack.add(val);
   }
 

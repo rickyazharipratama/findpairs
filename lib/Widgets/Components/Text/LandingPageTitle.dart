@@ -38,7 +38,6 @@ class _LandingPageTitleState extends State<LandingPageTitle> with TickerProvider
                 style: Theme.of(context).textTheme.subtitle,
                 children: presenter.animatedChars.map((char){
                   int i = char['tween'].animate(char['animationController']).value;
-                  Color cl = char['color'].animate(char['animationController']).value;
                   return TextSpan(
                     text: presenter.texts[i],
                     style: TextStyle(

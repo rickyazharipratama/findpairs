@@ -17,16 +17,6 @@ class WrapperPage extends StatelessWidget {
         children: <Widget>[
           
           Positioned.fill(
-            child: Image.asset(
-              "assets/images/bg_landing_page.png",
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-            ),
-          ),
-
-          Positioned.fill(
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top+5, 0, MediaQuery.of(context).padding.bottom),
               child: Column(
