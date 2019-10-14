@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class StagesPage extends StatefulWidget {
   final int stage;
+  final String episode;
 
-  StagesPage({@required this.stage});
+  StagesPage({@required this.stage, @required this.episode});
 
   @override
   _StagesPageState createState() => new _StagesPageState();
@@ -32,6 +33,7 @@ class _StagesPageState extends State<StagesPage> {
           Expanded(
             child: ArcadeCard(
               stage: widget.stage,
+              episode: widget.episode,
             ),
           ),
 

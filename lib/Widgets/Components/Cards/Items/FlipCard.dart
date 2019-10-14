@@ -12,10 +12,11 @@ class FlipCard extends StatefulWidget{
   final double width;
   final double height;
   final Stream<String> flipBack;
+  final Stream<bool> restrictFlip;
   final StreamSink streamCard;
   final String value;
 
-  FlipCard({@required this.width, @required this.height, @required this.flipBack, @required this.streamCard, @required this.value});
+  FlipCard({@required this.width, @required this.height, @required this.flipBack, @required this.streamCard, @required this.restrictFlip,@required this.value});
 
   @override
   _FLipCardState createState() => new _FLipCardState();
@@ -28,7 +29,7 @@ class _FLipCardState extends State<FlipCard> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    presenter = FlipCardPresenter(widget.flipBack, widget.streamCard,widget.value)..setView = this;
+    presenter = FlipCardPresenter(widget.flipBack, widget.streamCard,widget.restrictFlip,widget.value)..setView = this;
     presenter.initiateData();
   }
 
@@ -37,13 +38,14 @@ class _FLipCardState extends State<FlipCard> with SingleTickerProviderStateMixin
     return FlipView(
       animationController: animation,
       front: BackCard(
-          onTap: presenter.onTapCard,
+          onTap: presenter.isRestrictFlipCard ? (){} : presenter.onTapCard,
           height: widget.height,
           width: widget.width,
       ),
       back: FrontCard(
         height: widget.height,
         width: widget.width,
+        value: widget.value,
       ),
     );
   }

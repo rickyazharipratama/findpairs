@@ -1,0 +1,187 @@
+{
+    "1":{
+        "vertical":2,
+        "horizontal":2,
+        "uniqueCard":2,
+        "formations":[
+            {
+                "row" : 2
+            },
+            {
+                "row" : 2
+            }
+        ]
+    },
+
+    "2":{
+        "vertical":3,
+        "horizontal":3,
+        "uniqueCard":3,
+        "formations":[
+            {
+                "row" : 1
+            },
+            {
+                "row" : 2
+            },
+            {
+                "row" : 3
+            }
+        ]
+    },
+
+    "3":{
+        "vertical":3,
+        "horizontal":3,
+        "uniqueCard":4,
+        "formations":[
+            {
+                "row" : 3
+            },
+            {
+                "row" : 2
+            },
+            {
+                "row" : 3
+            }
+        ]
+    },
+
+    "4":{
+        "vertical":4,
+        "horizontal":4,
+        "uniqueCard":5,
+        "formations":[
+            {
+                "row" : 1
+            },
+            {
+                "row" : 2
+            },
+            {
+                "row" : 3
+            },
+            {
+                "row" : 4
+            }
+        ]
+    },
+
+    "5":{
+        "vertical":3,
+        "horizontal":4,
+        "uniqueCard":6,
+        "formations":[
+            {
+                "row" : 4
+            },
+            {
+                "row" : 4
+            },
+            {
+                "row" : 4
+            }
+        ]
+    },
+    "6":{
+        "vertical":4,
+        "horizontal":4,
+        "uniqueCard":7,
+        "formations":[
+            {
+                "row" : 3
+            },
+            {
+                "row" : 4
+            },
+            {
+                "row" : 4
+            },
+            {
+                "row" : 3
+            }
+        ]
+    },
+    "7":{
+        "vertical":4,
+        "horizontal":5,
+        "uniqueCard":8,
+        "formations":[
+            {
+                "row" : 5
+            },
+            {
+                "row" : 3
+            },
+            {
+                "row" : 3
+            },
+            {
+                "row" : 5
+            }
+        ]
+    },
+    "8":{
+        "vertical":4,
+        "horizontal":5,
+        "uniqueCard":9,
+        "formations":[
+            {
+                "row" : 5
+            },
+            {
+                "row" : 4
+            },
+            {
+                "row" : 4
+            },
+            {
+                "row" : 5
+            }
+        ]
+    },
+    "9":{
+        "vertical":5,
+        "horizontal":5,
+        "uniqueCard":10,
+        "formations":[
+            {
+                "row" : 5
+            },
+            {
+                "row" : 4
+            },
+            {
+                "row" : 2
+            },
+            {
+                "row" : 4
+            },
+            {
+                "row" : 5
+            }
+        ]
+    },
+    "10":{
+        "vertical":5,
+        "horizontal":5,
+        "uniqueCard":11,
+        "formations":[
+            {
+                "row" : 5
+            },
+            {
+                "row" : 4
+            },
+            {
+                "row" : 4
+            },
+            {
+                "row" : 4
+            },
+            {
+                "row" : 5
+            }
+        ]
+    }
+}

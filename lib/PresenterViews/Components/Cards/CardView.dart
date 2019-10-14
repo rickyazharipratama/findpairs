@@ -4,6 +4,8 @@ class CardView{
 
   BuildContext currentContext() => null;
 
+  void notifyState(){}
+
   double getWidth() => MediaQuery.of(currentContext()).size.width-20;
   double getHeight() => MediaQuery.of(currentContext()).size.height - (MediaQuery.of(currentContext()).padding.top + MediaQuery.of(currentContext()).padding.bottom + 300);
 

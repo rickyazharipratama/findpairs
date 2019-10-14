@@ -1,12 +1,13 @@
 import 'package:findpairs/PresenterViews/Components/Cards/CardView.dart';
-import 'package:findpairs/Presenters/Components/Cards/ArcadeCardPreseneter.dart';
+import 'package:findpairs/Presenters/Components/Cards/ArcadeCardPresenter.dart';
 import 'package:findpairs/Widgets/Components/Cards/Items/FlipCard.dart';
 import 'package:flutter/material.dart';
 
 class ArcadeCard extends StatefulWidget {
   final int stage;
+  final String episode;
 
-  ArcadeCard({this.stage});
+  ArcadeCard({this.stage, this.episode});
   
   @override
   _ArcadeCardState createState() => new _ArcadeCardState();
@@ -14,18 +15,19 @@ class ArcadeCard extends StatefulWidget {
 
 class _ArcadeCardState extends State<ArcadeCard> with CardView{
 
-  ArcadeCardPresenter presenter = ArcadeCardPresenter();
+  ArcadeCardPresenter presenter;
 
   @override
   void initState() {
     super.initState();
+    presenter = ArcadeCardPresenter(widget.stage, widget.episode)..setView = this;
     presenter.initiateData();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    double cardWidth = getCardWidth(2, 2);
+    double cardWidth = getCardWidth(presenter.setting.horizontal, presenter.setting.vertical);
     double cardHeight = getCardHeight(cardWidth);
 
     return Container(
@@ -34,55 +36,26 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-
-            Row(
+          children: presenter.setting.formations.map((formations){
+            List<int> rows = List();
+            for(int i = 0; i  < formations.row; i++){
+              rows.add(i);
+            }
+            return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                
-
-                FlipCard(
+              children: rows.map((row){
+                return FlipCard(
                   width: cardWidth,
                   height: cardHeight,
+                  restrictFlip: presenter.restrictFlip,
                   flipBack: presenter.flipBack,
                   streamCard: presenter.selectedCardSinker,
-                  value: "1",
-                ),
-
-                FlipCard(
-                  width: cardWidth,
-                  height: cardHeight,
-                  flipBack: presenter.flipBack,
-                  streamCard: presenter.selectedCardSinker,
-                  value: "3",
-                ),
-              ],
-            ),
-
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-
-                FlipCard(
-                  width: cardWidth,
-                  height: cardHeight,
-                  flipBack: presenter.flipBack,
-                  streamCard: presenter.selectedCardSinker,
-                  value: "3",
-                ),
-
-                FlipCard(
-                  width: cardWidth,
-                  height: cardHeight,
-                  flipBack: presenter.flipBack,
-                  streamCard: presenter.selectedCardSinker,
-                  value: "1",
-                ),
-              ],
-            )
-          ],
+                  value: presenter.getAvailableCardValue().value,
+                );
+              }).toList(),
+            );
+          }).toList()
         ),
       ),
     );
@@ -90,6 +63,14 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
 
   @override
   BuildContext currentContext() => context;
+
+  @override
+  void notifyState() {
+    super.notifyState();
+    if(mounted){
+      setState(() {});
+    }
+  }
 
   @override
   void dispose() {

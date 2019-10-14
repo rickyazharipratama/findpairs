@@ -8,15 +8,21 @@ class FlipCardPresenter extends BaseComponentPresenter{
 
   FlipCardView _view;
   Stream<String> _flipBack;
+  Stream<bool> _restrictFlip;
   StreamSink _streamSink;
   String _value;
+  bool _isRestrictFLipCard = false;
 
-  FlipCardPresenter(Stream<String> stream, StreamSink sink, String val){
+  FlipCardPresenter(Stream<String> stream, StreamSink sink, Stream<bool> restrict, String val){
     _flipBack = stream;
     _flipBack.listen(needToFlipBack);
     _streamSink = sink;
     _value = val;
+    _restrictFlip = restrict;
+    _restrictFlip.listen(changeRestrictFlip);
   }
+
+  bool get isRestrictFlipCard => _isRestrictFLipCard;
 
   FlipCardView get view => _view;
   set setView(FlipCardView vw){
@@ -48,5 +54,10 @@ class FlipCardPresenter extends BaseComponentPresenter{
         view.animationController.reverse();
       }
     }
+  }
+
+  changeRestrictFlip(bool val){
+    _isRestrictFLipCard = val;
+    view.notifyState();
   }
 }

@@ -20,7 +20,7 @@ class _LandingPageMenuItemState extends State<LandingPageMenuItem> with LandingP
       child: GestureDetector(
         onTap: (){
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => StagesPage(stage: 1,)
+            builder: (context) => StagesPage(stage: 10, episode: "ep01",)
           ));
         },
         child: AnimatedContainer(

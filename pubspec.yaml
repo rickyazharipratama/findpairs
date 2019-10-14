@@ -50,6 +50,8 @@ flutter:
     - assets/sounds/sfx/button_tap.mp3
     - assets/sounds/sfx/swiping_menu.mp3
   
+    - assets/arcades/ep01.json
+
     - assets/images/bg_landing_page.png
     - assets/images/bg_menu.png
   # An image asset can refer to one or more resolution-specific "variants", see
