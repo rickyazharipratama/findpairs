@@ -7,11 +7,11 @@ class CardView{
   void notifyState(){}
 
   double getWidth() => MediaQuery.of(currentContext()).size.width-20;
-  double getHeight() => MediaQuery.of(currentContext()).size.height - (MediaQuery.of(currentContext()).padding.top + MediaQuery.of(currentContext()).padding.bottom + 300);
+  double getHeight() => MediaQuery.of(currentContext()).size.height - (MediaQuery.of(currentContext()).padding.top + MediaQuery.of(currentContext()).padding.bottom + 260);
 
   double getCardWidth(int horizontal, int vertical){
 
-    double cardWidth = (getWidth() / horizontal) - 10;
+    double cardWidth = (getWidth() / horizontal);
     double tempHeight = getCardHeight(cardWidth);
     double totalTempHeight = (tempHeight+10) * vertical;
 

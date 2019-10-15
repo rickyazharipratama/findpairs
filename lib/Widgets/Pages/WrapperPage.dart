@@ -12,7 +12,7 @@ class WrapperPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       clipBehavior: Clip.hardEdge,
-      color: Color(0xff8f6d68),
+      color: Theme.of(context).backgroundColor,
       child: Stack(
         children: <Widget>[
           
@@ -24,7 +24,7 @@ class WrapperPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                     Container(
-                      height: 75,
+                      height: 60,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -32,6 +32,7 @@ class WrapperPage extends StatelessWidget {
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.only(right: 5),
+                              child: leftHeader,
                             ),
                           ),
                           Row(

@@ -3,6 +3,10 @@
         "vertical":2,
         "horizontal":2,
         "uniqueCard":2,
+        "time":15,
+        "critTime":7,
+        "life":3,
+        "isHintAvailable":false,
         "formations":[
             {
                 "row" : 2
@@ -17,6 +21,10 @@
         "vertical":3,
         "horizontal":3,
         "uniqueCard":3,
+        "time":15,
+        "critTime":7,
+        "isHintAvailable":false,
+        "life":3,
         "formations":[
             {
                 "row" : 1
@@ -34,6 +42,10 @@
         "vertical":3,
         "horizontal":3,
         "uniqueCard":4,
+        "time":20,
+        "isHintAvailable":true,
+        "critTime":10,
+        "life":3,
         "formations":[
             {
                 "row" : 3
@@ -51,6 +63,10 @@
         "vertical":4,
         "horizontal":4,
         "uniqueCard":5,
+        "time":20,
+        "critTime":10,
+        "isHintAvailable":true,
+        "life":3,
         "formations":[
             {
                 "row" : 1
@@ -71,6 +87,10 @@
         "vertical":3,
         "horizontal":4,
         "uniqueCard":6,
+        "time":25,
+        "critTime":12,
+        "life":4,
+        "isHintAvailable":true,
         "formations":[
             {
                 "row" : 4
@@ -87,6 +107,10 @@
         "vertical":4,
         "horizontal":4,
         "uniqueCard":7,
+        "time":25,
+        "critTime":12,
+        "life":4,
+        "isHintAvailable":true,
         "formations":[
             {
                 "row" : 3
@@ -106,6 +130,10 @@
         "vertical":4,
         "horizontal":5,
         "uniqueCard":8,
+        "time":30,
+        "critTime":15,
+        "life":5,
+        "isHintAvailable":true,
         "formations":[
             {
                 "row" : 5
@@ -125,6 +153,10 @@
         "vertical":4,
         "horizontal":5,
         "uniqueCard":9,
+        "time":30,
+        "critTime":15,
+        "life":5,
+        "isHintAvailable":true,
         "formations":[
             {
                 "row" : 5
@@ -144,6 +176,10 @@
         "vertical":5,
         "horizontal":5,
         "uniqueCard":10,
+        "time":35,
+        "critTime":17,
+        "life":6,
+        "isHintAvailable":true,
         "formations":[
             {
                 "row" : 5
@@ -166,6 +202,10 @@
         "vertical":5,
         "horizontal":5,
         "uniqueCard":11,
+        "time":35,
+        "critTime":17,
+        "life":6,
+        "isHintAvailable":true,
         "formations":[
             {
                 "row" : 5

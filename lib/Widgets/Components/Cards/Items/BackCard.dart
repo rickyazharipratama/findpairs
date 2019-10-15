@@ -17,8 +17,15 @@ class BackCard extends StatelessWidget {
         height: height,
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular((this.width/100)*10),
           color: Colors.red,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: (this.width / 100) * 15,
+              color: Color(0xaa555555),
+              offset: Offset(1,10)
+            )
+          ]
         ),
       ),
     );

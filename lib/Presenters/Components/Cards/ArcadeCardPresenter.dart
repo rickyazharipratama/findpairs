@@ -6,6 +6,7 @@ import 'package:findpairs/Models/ArcadeSetting.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/CardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/ArcadeUtils.dart';
+import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:flutter/material.dart';
 
 class ArcadeCardPresenter extends BaseComponentPresenter{
@@ -14,6 +15,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   StreamController<String> _flipBack = StreamController.broadcast();
   StreamController<String> _selectedCard = StreamController();
   StreamController<bool> _restrictStream = StreamController.broadcast();
+  StreamController<ArcadeTimer> _arcadeTimer = StreamController.broadcast();
   List<String> _selectedCards = List();
   // default score will reduce
   int _stages;
@@ -39,6 +41,9 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   String get episode => _episode;
 
   List<ArcadeCardValue> get cardsValue => _cardsValue;
+
+  StreamSink<ArcadeTimer> get arcadeTimerSinker => _arcadeTimer.sink;
+  Stream<ArcadeTimer> get arcadeTimerStream => _arcadeTimer.stream;
 
   ArcadeCardPresenter(int stg, String ep){
     _stages = stg;
@@ -115,5 +120,6 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     _flipBack.close();
     _selectedCard.close();
     _restrictStream.close();
+    _arcadeTimer.close();
   }
 }

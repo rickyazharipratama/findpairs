@@ -11,7 +11,19 @@ class FindPairsTheme{
         fontFamily: "chunky",
         color: Color(0xff777777),
         fontSize: 40
-      )
+      ),
+      //stages title
+      display1: TextStyle(
+        fontFamily: "chunky",
+        color: Color(0xff777777),
+        fontSize: 30
+      ),
+      //countdown arcade
+      display2: TextStyle(
+        fontFamily: "chunky",
+        color: Color(0xff777777),
+        fontSize: 50
+      ),
     )
   );
 
