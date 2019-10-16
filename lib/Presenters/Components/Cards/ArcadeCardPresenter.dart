@@ -16,6 +16,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   StreamController<String> _selectedCard = StreamController();
   StreamController<bool> _restrictStream = StreamController.broadcast();
   StreamController<ArcadeTimer> _arcadeTimer = StreamController.broadcast();
+  StreamController<bool> _lifeControl = StreamController();
   List<String> _selectedCards = List();
   // default score will reduce
   int _stages;
@@ -44,6 +45,9 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
 
   StreamSink<ArcadeTimer> get arcadeTimerSinker => _arcadeTimer.sink;
   Stream<ArcadeTimer> get arcadeTimerStream => _arcadeTimer.stream;
+
+  StreamSink<bool> get lifeSinker => _lifeControl.sink;
+  Stream<bool> get lifeStream => _lifeControl.stream;
 
   ArcadeCardPresenter(int stg, String ep){
     _stages = stg;
@@ -100,6 +104,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
             }
           });
         }
+        lifeSinker.add(true);
       }
     }
   }
@@ -121,5 +126,6 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     _selectedCard.close();
     _restrictStream.close();
     _arcadeTimer.close();
+    _lifeControl.close();
   }
 }

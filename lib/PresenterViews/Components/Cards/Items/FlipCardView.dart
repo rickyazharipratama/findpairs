@@ -29,7 +29,7 @@ class FlipCardView{
         vibrateController.forward();
       }
     });
-    _vibrateAnimation = Tween<double>(begin: -0.01, end: 0.01).animate(
+    _vibrateAnimation = Tween<double>(begin: -0.02, end: 0.02).animate(
       CurvedAnimation(
         curve: Curves.easeInOutBack,
         parent: _vibrateController

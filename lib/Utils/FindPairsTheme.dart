@@ -24,6 +24,12 @@ class FindPairsTheme{
         color: Color(0xff777777),
         fontSize: 50
       ),
+      //lifeExtendedFont
+      display3: TextStyle(
+        fontFamily: "chunky",
+        color: Color(0xff777777),
+        fontSize: 10
+      )
     )
   );
 

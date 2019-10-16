@@ -1,6 +1,7 @@
 import 'package:findpairs/PresenterViews/Components/Cards/CardView.dart';
 import 'package:findpairs/Presenters/Components/Cards/ArcadeCardPresenter.dart';
 import 'package:findpairs/Widgets/Components/Cards/Items/FlipCard.dart';
+import 'package:findpairs/Widgets/Components/Lists/ArcadeLifes.dart';
 import 'package:findpairs/Widgets/Components/misc/ClockTimer.dart';
 import 'package:flutter/material.dart';
 
@@ -70,6 +71,17 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
                 }).toList()
               ),
             ),
+          ) : Container(),
+        ),
+
+        Positioned(
+          top: 10,
+          right: 5,
+          width: 130,
+          height: 50,
+          child: presenter.setting != null ? ArcadeLifes(
+            lifes: presenter.setting.life,
+            stream: presenter.lifeStream,
           ) : Container(),
         ),
 
