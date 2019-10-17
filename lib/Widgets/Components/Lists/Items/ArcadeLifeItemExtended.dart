@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/ArcadeLifeItemExtendedView.dart';
 import 'package:findpairs/Presenters/Components/Lists/Items/ArcadeLifeItemExtendedPresenter.dart';
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart' as vector;
 
 class ArcadeLifeItemExtended extends StatefulWidget {
   final int lifeExtended;
@@ -29,8 +30,8 @@ class _ArcadeLifeItemExtendedState extends State<ArcadeLifeItemExtended> with Ti
 
   @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle:anim.value,
+    return Transform(
+      transform: vector.Matrix4.translation(getShakingTranslation(progress: anim.value)),
       child: Container(
         width: 20,
         height: 20,

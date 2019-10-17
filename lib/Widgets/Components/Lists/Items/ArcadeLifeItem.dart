@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:findpairs/Factories/Painters/ParticlePainter.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/ArcadeLifeItemView.dart';
 import 'package:findpairs/Presenters/Components/Lists/Items/ArcadeLIfeItemPresenter.dart';
+import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 
@@ -23,26 +25,36 @@ class _ArcadeLifeItemState extends State<ArcadeLifeItem> with TickerProviderStat
   @override
   void initState() {
     super.initState();
-    setAnimationController = this;
+    setAnimationController(this, ExplodeType.Drop);
     presenter = ArcadeLifeItemPresenter(widget.lifeStream, widget.sinker,widget.tag)..setView = this;
     presenter.initiateData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return viewMode == 0 ?
-    Transform.rotate(
-      angle: animation.value,
-      child: IconShadowWidget(
-        Icon(
-          Icons.favorite,
-          color: Colors.red,
-          size: 40,
+    return animationController.value < 0.3 ?
+      Transform(
+        transform: Matrix4.translation(getShakingTranslation(progress: shakingAnimation.value)),
+        child: IconShadowWidget(
+          Icon(
+            Icons.favorite,
+            color: Colors.red,
+            size: 40,
+          ),
+          shadowColor: Color(0xff333333),
+          showShadow: true,
+        )
+      ): Container(
+          padding: const EdgeInsets.only(left: 5, right: 5),
+          width: 40,
+          height: 40,
+          child: CustomPaint(
+            foregroundPainter: ParticlePainter(
+              particles: presenter.particles,
+              span: animationController.value
+            ),
         ),
-        shadowColor: Color(0xff333333),
-        showShadow: true,
-      )
-    ) : Container();
+      );
   }
 
 

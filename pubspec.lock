@@ -57,13 +57,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  explosion_animation:
-    dependency: "direct main"
-    description:
-      name: explosion_animation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -102,13 +95,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.7"
-  palette_generator:
-    dependency: transitive
-    description:
-      name: palette_generator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
   path:
     dependency: transitive
     description:
@@ -213,7 +199,7 @@ packages:
     source: hosted
     version: "2.0.2"
   vector_math:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: vector_math
       url: "https://pub.dartlang.org"

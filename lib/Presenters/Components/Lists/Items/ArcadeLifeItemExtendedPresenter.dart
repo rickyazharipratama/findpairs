@@ -42,18 +42,9 @@ class ArcadeLifeItemExtendedPresenter extends BaseComponentPresenter{
     if(status == AnimationStatus.completed){
       view.animationController.reverse();
     }else if(status == AnimationStatus.dismissed){
-      if(view.bouncing < 3){
-        view.animationController.forward();
-        view.setBouncing = view.bouncing+1;
-      }else{
-        view.animationController.stop();
-        view.setBouncing = 0;
-        setLifeExtended = lifeExtended - 1;
-        if(lifeExtended == 0){
-          _disposeLifeExtended.add(true);
-        }else{
-          view.notifyState();
-        }
+      setLifeExtended = lifeExtended - 1;
+      if(lifeExtended == 0){
+        _disposeLifeExtended.add(true);
       }
     }
   }
