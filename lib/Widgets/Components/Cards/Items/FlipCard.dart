@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:findpairs/Models/ArcadeCardValue.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/Items/FlipCardView.dart';
 import 'package:findpairs/Presenters/Components/Cards/Item/FlipCardPresenter.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
@@ -12,11 +13,11 @@ class FlipCard extends StatefulWidget{
 
   final double width;
   final double height;
-  final Stream<String> flipBack;
+  final Stream<int> flipBack;
   final Stream<bool> restrictFlip;
   final Stream<ArcadeTimer> arcadeTime;
   final StreamSink streamCard;
-  final String value;
+  final ArcadeCardValue value;
 
   FlipCard({@required this.width, @required this.height, @required this.flipBack, @required this.streamCard, @required this.restrictFlip,@required this.value, @required this.arcadeTime});
 
@@ -36,6 +37,16 @@ class _FLipCardState extends State<FlipCard> with TickerProviderStateMixin,FlipC
   }
 
   @override
+  void didUpdateWidget(FlipCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(widget.value != presenter.value){
+      presenter.reinitiateCard();
+      presenter.setValue = widget.value;
+      notifyState();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Transform.rotate(
       angle: vibrateAnimation.value,
@@ -49,7 +60,7 @@ class _FLipCardState extends State<FlipCard> with TickerProviderStateMixin,FlipC
         back: FrontCard(
           height: widget.height,
           width: widget.width,
-          value: widget.value,
+          value: presenter.value.value,
         ),
       ),
     );

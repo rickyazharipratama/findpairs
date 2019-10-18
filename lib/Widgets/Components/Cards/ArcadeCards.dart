@@ -64,7 +64,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
                         flipBack: presenter.flipBack,
                         streamCard: presenter.selectedCardSinker,
                         arcadeTime: presenter.arcadeTimerStream,
-                        value: presenter.getAvailableCardValue().value,
+                        value: presenter.getAvailableCardValue(),
                       );
                     }).toList(),
                   );
@@ -92,6 +92,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
             counter: presenter.setting.time,
             critTime: presenter.setting.critTime,
             sinker: presenter.arcadeTimerSinker,
+            stream: presenter.arcadeTimerStream,
           ) : Container(),
         )
       ],

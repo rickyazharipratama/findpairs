@@ -1,3 +1,5 @@
+import 'package:findpairs/Utils/EnumUtils.dart';
+import 'package:findpairs/Widgets/Modals/NegativeArcadeModal.dart';
 import 'package:flutter/material.dart';
 
 class CardView{
@@ -22,5 +24,19 @@ class CardView{
     return cardWidth;
   }
   double getCardHeight(double width) => (width * 13 ) / 9;
+
+  Future<ArcadeAction> showNegativeDialog({
+    String title,
+  }) async{
+    return await showDialog(
+      context: currentContext(),
+      barrierDismissible: false,
+      builder: (context) => NegativeArcadeModal()
+    );
+  }
+
+  void closeView(){
+    Navigator.of(currentContext()).pop();
+  }
 
 }

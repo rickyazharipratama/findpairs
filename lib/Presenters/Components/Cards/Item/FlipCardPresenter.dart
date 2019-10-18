@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:findpairs/Models/ArcadeCardValue.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/Items/FlipCardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
@@ -8,14 +9,14 @@ import 'package:flutter/cupertino.dart';
 class FlipCardPresenter extends BaseComponentPresenter{
 
   FlipCardView _view;
-  Stream<String> _flipBack;
+  Stream<int> _flipBack;
   Stream<bool> _restrictFlip;
   Stream<ArcadeTimer> _arcadeTime;
   StreamSink _streamSink;
-  String _value;
+  ArcadeCardValue _value;
   bool _isRestrictFLipCard = false;
 
-  FlipCardPresenter(Stream<String> stream, StreamSink sink, Stream<bool> restrict,Stream<ArcadeTimer> at, String val){
+  FlipCardPresenter(Stream<int> stream, StreamSink sink, Stream<bool> restrict,Stream<ArcadeTimer> at, ArcadeCardValue val){
     _flipBack = stream;
     _flipBack.listen(needToFlipBack);
     _streamSink = sink;
@@ -34,7 +35,10 @@ class FlipCardPresenter extends BaseComponentPresenter{
   }
 
   StreamSink get streamSink => _streamSink;
-  String get value => _value;
+  ArcadeCardValue get value => _value;
+  set setValue(ArcadeCardValue val){
+    _value= val;
+  }
   
   @override
   void initiateData() {
@@ -51,10 +55,10 @@ class FlipCardPresenter extends BaseComponentPresenter{
     }
   }
 
-  needToFlipBack(String val){
-    if(val == this.value){
+  needToFlipBack(int val){
+    if(val == value.key){
       if(view.isOpen){
-        debugPrint("flipping back: "+DateTime.now().millisecondsSinceEpoch.toString()+", with value: "+val);
+        debugPrint("flipping back: "+DateTime.now().millisecondsSinceEpoch.toString()+", with value: "+value.value);
         view.setOpen = false;
         view.animationController.reverse();
       }
@@ -69,6 +73,13 @@ class FlipCardPresenter extends BaseComponentPresenter{
       _isRestrictFLipCard = true;
       view.vibrateController.stop();
       view.notifyState();
+    }
+  }
+
+  reinitiateCard(){
+    if(view.isOpen){
+      view.animationController.reverse();
+      view.setOpen = false;
     }
   }
 

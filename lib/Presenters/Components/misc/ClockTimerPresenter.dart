@@ -10,6 +10,7 @@ class CLockTimerPresenter extends BaseComponentPresenter{
   int _countDown;
   int _critTime;
   StreamSink<ArcadeTimer> _sinker;
+  Stream<ArcadeTimer>_stream;
 
   ClockTimerView get view => _view;
   set setView(ClockTimerView vw){
@@ -28,10 +29,12 @@ class CLockTimerPresenter extends BaseComponentPresenter{
 
   Timer timer;
   
-  CLockTimerPresenter(int timer, int critTime,StreamSink<ArcadeTimer> sink){
+  CLockTimerPresenter(int timer, int critTime,StreamSink<ArcadeTimer> sink, Stream<ArcadeTimer> stream){
     _countDown = timer;
     _critTime = critTime;
     setSinker = sink;
+    _stream = stream;
+    _stream.listen(onStreamListen);
   }
 
   @override
@@ -51,6 +54,12 @@ class CLockTimerPresenter extends BaseComponentPresenter{
        }
        view.notifyState();
     });
+  }
+
+  onStreamListen(ArcadeTimer type){
+    if(type == ArcadeTimer.onTimeMustStop){
+      timer.cancel();
+    }
   }
 
   dispose(){

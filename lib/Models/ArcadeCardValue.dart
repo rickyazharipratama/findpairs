@@ -1,6 +1,7 @@
 class ArcadeCardValue{
 
   String _value;
+  int key;
   bool _isAlreadySelected = false;
 
   String get value => _value;
@@ -11,7 +12,7 @@ class ArcadeCardValue{
     _isAlreadySelected = val;
   }
 
-  ArcadeCardValue(String val){
+  ArcadeCardValue(int key,String val){
     _value = val;
   }
 }

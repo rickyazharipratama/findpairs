@@ -27,7 +27,16 @@ class _ArcadeLifesState extends State<ArcadeLifes> with  ArcadeLifesView{
   }
 
   @override
+  void didUpdateWidget(ArcadeLifes oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print(widget.lifes.toString());
+    presenter.initiateData();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print("extend : "+presenter.extendedLifes.toString());
+    print("lifes : "+presenter.lifes.length.toString());
     return Container(
       width: 130,
       height: 50,

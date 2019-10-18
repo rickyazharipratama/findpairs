@@ -33,6 +33,10 @@ class ArcadeLifesPresenter extends BaseComponentPresenter{
 
   List<int> get lifes => _lifes;
 
+  set setInitialCounter(int val){
+    _initialCounter = val;
+  }
+
   ArcadeLifesPresenter(Stream<bool> stream, int life){
     _lifeLostListener = stream;
     _lifeLostListener.listen(onLifeLost);
@@ -42,7 +46,12 @@ class ArcadeLifesPresenter extends BaseComponentPresenter{
   @override
   initiateData(){
     int right = 0;
-    _lifes = List();
+    _extendedlifes = 0;
+    if(_lifes == null){
+      _lifes = List();
+    }else{
+      _lifes.clear();
+    }
     for(int i = 0; i < _initialCounter; i++){
       _lifes.add(right);
       if(i > 4){
@@ -50,7 +59,6 @@ class ArcadeLifesPresenter extends BaseComponentPresenter{
       }
       right+=15;
     }
-    print("extendedLife = "+extendedLifes.toString());
     if(extendedLifes > 0){
       _extendedControl.stream.listen(onExtendedDispose);
     }
@@ -68,6 +76,9 @@ class ArcadeLifesPresenter extends BaseComponentPresenter{
       }else{
         //should dispose heart;
         _lifeStreamControl.sink.add(tg);
+        Timer(const Duration(milliseconds: 600),(){
+          view.notifyState();
+        });
       }
     }
   }

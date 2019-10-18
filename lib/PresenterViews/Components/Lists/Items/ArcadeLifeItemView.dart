@@ -27,7 +27,7 @@ class ArcadeLifeItemView{
     _explodeType = type;
     _animationController = AnimationController(
       vsync: tick,
-      duration: const Duration(milliseconds: 800)
+      duration: const Duration(milliseconds: 600)
     )..addListener(notifyState);
     _shakingAnimation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
       parent: _animationController,
