@@ -17,6 +17,8 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   StreamController<bool> _restrictStream = StreamController.broadcast();
   StreamController<ArcadeTimer> _arcadeTimer = StreamController.broadcast();
   StreamController<bool> _lifeControl = StreamController();
+  StreamController<int> _currentTime = StreamController();
+
   List<ArcadeCardValue> _selectedCards = List();
   // default score will reduce
   int _stages;
@@ -24,12 +26,20 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   int stageScore = 100;
   ArcadeSetting _setting;
   List<ArcadeCardValue> _cardsValue;
+  int _mustPaired= 0;
+  int _currentLife;
+  int _currentCountDown = 0;
 
 
   CardView get view => _view;
   set setView(CardView vw){
     _view = vw;
   }
+
+  set setMustPaired(int val){
+    _mustPaired = val;
+  }
+  int get mustPaired => _mustPaired;
 
   List<ArcadeCardValue> get selectedCards => _selectedCards;
 
@@ -49,6 +59,14 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   StreamSink<bool> get lifeSinker => _lifeControl.sink;
   Stream<bool> get lifeStream => _lifeControl.stream;
 
+  StreamSink<int> get currentCD => _currentTime.sink;
+  Stream<int> get cdStream => _currentTime.stream;
+
+  int get currentLife => _currentLife;
+  set setCurrentLife(int val){
+    _currentLife = val;
+  }
+
   ArcadeCardPresenter(int stg, String ep){
     _stages = stg;
     _episode = ep;
@@ -60,6 +78,8 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     _selectedCard.stream.listen(addSelectedCard);
     ArcadeUtils utils = ArcadeUtils(episode);
     _setting = await utils.getArcadeSetting(stages.toString());
+    setCurrentLife = _setting.life;
+    setMustPaired = _setting.uniqueCard;
     _cardsValue = List();
     for(int i = 0; i < 2; i++){
       for(int j= 0;j < _setting.uniqueCard;j++){
@@ -67,6 +87,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
       }
     }
     arcadeTimerStream.listen(timeIsUp);
+    cdStream.listen(getCurrentCountdown);
     view.notifyState();
   }
   
@@ -86,13 +107,17 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   addSelectedCard(ArcadeCardValue card) async{
     debugPrint("selected card = "+card.value);
     selectedCards.add(card);
-    if(selectedCards.length >= 2){
+    if(selectedCards.length == 2){
       _restrictStream.add(true);
       if(isCardPaired()){
         //should animate becasue  card is paired
+        selectedCards.forEach((selected){
+          _cardsValue[_cardsValue.indexOf(selected)].setAlreadyPaired = true;
+        });
         Timer(const Duration(milliseconds: 500),(){
           selectedCards.clear();
           _restrictStream.add(false);
+          allCardIsPaired();
         });
       }else{
         for( int i = 0; i < selectedCards.length; i++){
@@ -105,9 +130,9 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
             }
           });
         }
-        setting.setLife = setting.life - 1;
+        setCurrentLife = currentLife - 1;
         lifeSinker.add(true);
-        if(setting.life == 0){
+        if(currentLife == 0){
           arcadeTimerSinker.add(ArcadeTimer.onTimeMustStop);
           _restrictStream.add(true);
           Timer(Duration(milliseconds: 400),() async{
@@ -119,8 +144,55 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     }
   }
 
+  List<ArcadeCardValue> gethint(){
+
+    List<ArcadeCardValue> notPairedCards = cardsValue.where((card)=> !card.isAlreadyPaired).toList();
+    if(notPairedCards.length > 1){
+      Random rand = Random();
+      List<ArcadeCardValue> hintCards = List();
+      ArcadeCardValue firstCard = notPairedCards[rand.nextInt(notPairedCards.length - 1)];
+      hintCards.add(firstCard);
+      notPairedCards.forEach((card){
+        if(card.value == firstCard.value && card.key != firstCard.key){
+          hintCards.add(card);
+        }
+      });
+      return hintCards;
+    }
+    return List();
+  }
+
+  void allCardIsPaired() async{
+    if(mustPaired == 0){
+      print("all is paired");
+      arcadeTimerSinker.add(ArcadeTimer.onTimeMustStop);
+      ArcadeAction act = await view.showCompleteDialog(
+        star: getStarScore()
+      );
+      if(act == ArcadeAction.retryGame){
+        reInitiateGame();
+      }
+    }
+  }
+
+  int getStarScore(){
+    double dividerLife = 100 / _setting.life;
+    double dividerTime = 100 / _setting.time;
+    double currentScoreByLife = currentLife * dividerLife;
+    double currentScoreByTime = _currentCountDown * dividerTime;
+    double totalScore = currentScoreByLife + currentScoreByTime;
+    if(totalScore > 81){
+      return 3;
+    }else if(totalScore > 41 && totalScore < 80){
+      return 2;
+    }else{
+      return 1;
+    }
+  }
+
   bool isCardPaired(){
     if(selectedCards[0].value == selectedCards[1].value){
+      setMustPaired = mustPaired - 1;
       return true;
     }
     return false;
@@ -138,6 +210,10 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
       negativeActionDecider(act);
      }
    }
+
+  void getCurrentCountdown(int cd){
+    _currentCountDown = cd;
+  }
 
   negativeActionDecider(ArcadeAction act){
     if(act == ArcadeAction.retryGame){
@@ -158,6 +234,8 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     selectedCards.clear();
     ArcadeUtils utils = ArcadeUtils(episode);
     _setting = await utils.getArcadeSetting(stages.toString());
+    setCurrentLife = _setting.life;
+    setMustPaired = _setting.uniqueCard;
     if(_cardsValue != null){
       _cardsValue.clear();
     }else{
@@ -178,5 +256,6 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     _restrictStream.close();
     _arcadeTimer.close();
     _lifeControl.close();
+    _currentTime.close();
   }
 }

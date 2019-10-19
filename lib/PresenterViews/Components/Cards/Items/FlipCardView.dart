@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
+import 'package:vector_math/vector_math_64.dart';
 
 class FlipCardView{
 
@@ -9,7 +12,7 @@ class FlipCardView{
   Animation<double> _vibrateAnimation;
 
   bool _isOpen = false;
-
+  bool _isStartShaking = false;
 
   AnimationController get animationController => _animationController;
   Animation<double> get animation => _animation;
@@ -29,7 +32,7 @@ class FlipCardView{
         vibrateController.forward();
       }
     });
-    _vibrateAnimation = Tween<double>(begin: -0.02, end: 0.02).animate(
+    _vibrateAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         curve: Curves.easeInOutBack,
         parent: _vibrateController
@@ -37,6 +40,13 @@ class FlipCardView{
     );
   }
 
+  Vector3 getShakingTranslation({
+    double progress,
+  }){
+    Random rand = Random();
+    double offset = rand.nextInt(3) + 1 * sin(progress * pi * (rand.nextInt(3) + 1));
+    return Vector3(offset, offset,offset);
+  }
 
   set setAnimationController(Duration duration){
     _animationController = AnimationController(
@@ -52,6 +62,11 @@ class FlipCardView{
   bool get isOpen => _isOpen;
   set setOpen(bool val){
     _isOpen = val;
+  }
+
+  bool get isStartShaking => _isStartShaking;
+  set setStartShaking(bool val){
+    _isStartShaking = val;
   }
 
   TickerProvider ticker(){

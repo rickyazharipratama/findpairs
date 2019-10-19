@@ -1,4 +1,5 @@
 import 'package:findpairs/Utils/EnumUtils.dart';
+import 'package:findpairs/Widgets/Modals/CompleteArcadeModal.dart';
 import 'package:findpairs/Widgets/Modals/NegativeArcadeModal.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +38,18 @@ class CardView{
 
   void closeView(){
     Navigator.of(currentContext()).pop();
+  }
+
+  Future<ArcadeAction> showCompleteDialog({
+    int star
+  }) async{
+    return await showDialog(
+      context:  currentContext(),
+      barrierDismissible:  false,
+      builder: (context) => CompleteArcadeModal(
+        starScore: star,
+      )
+    );
   }
 
 }

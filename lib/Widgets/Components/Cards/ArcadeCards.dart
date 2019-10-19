@@ -80,7 +80,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
           width: 130,
           height: 50,
           child: presenter.setting != null ? ArcadeLifes(
-            lifes: presenter.setting.life,
+            lifes: presenter.currentLife,
             stream: presenter.lifeStream,
           ) : Container(),
         ),
@@ -93,6 +93,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
             critTime: presenter.setting.critTime,
             sinker: presenter.arcadeTimerSinker,
             stream: presenter.arcadeTimerStream,
+            timerSink: presenter.currentCD,
           ) : Container(),
         )
       ],

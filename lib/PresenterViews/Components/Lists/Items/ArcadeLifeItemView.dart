@@ -14,6 +14,7 @@ class ArcadeLifeItemView{
   List<Color> _colors;
 
   AnimationController get animationController => _animationController;
+  
   Animation get animation => _animation;
   Animation get shakingAnimation => _shakingAnimation;
 
@@ -27,12 +28,13 @@ class ArcadeLifeItemView{
     _explodeType = type;
     _animationController = AnimationController(
       vsync: tick,
-      duration: const Duration(milliseconds: 600)
+      duration: const Duration(milliseconds: 300)
     )..addListener(notifyState);
     _shakingAnimation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
       parent: _animationController,
       curve: Interval(0.0,0.3, curve: Curves.easeInBack)
     ));
+
     _animation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
       parent: _animationController,
       curve: Interval(0.3, 1, curve: type == ExplodeType.Spread ? Curves.linear : Curves.bounceOut )

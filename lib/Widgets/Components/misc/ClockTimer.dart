@@ -10,8 +10,9 @@ class ClockTimer extends StatefulWidget {
   final int critTime;
   final StreamSink<ArcadeTimer> sinker;
   final Stream<ArcadeTimer> stream;
+  final StreamSink<int> timerSink;
 
-  ClockTimer({@required this.counter, @required this.sinker, @required this.critTime, @required this.stream});
+  ClockTimer({@required this.counter, @required this.sinker, @required this.critTime, @required this.stream, @required this.timerSink});
 
   @override
   _ClockTimerState createState() => new _ClockTimerState();
@@ -24,7 +25,7 @@ class _ClockTimerState extends State<ClockTimer> with TickerProviderStateMixin, 
   @override
   void initState() {
     super.initState();
-    presenter = CLockTimerPresenter(widget.counter, widget.critTime,widget.sinker, widget.stream)..setView = this;
+    presenter = CLockTimerPresenter(widget.counter, widget.critTime,widget.sinker, widget.stream, widget.timerSink)..setView = this;
     setAnimationController = this;
     presenter.initiateData();
   }

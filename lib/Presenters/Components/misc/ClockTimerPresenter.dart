@@ -10,6 +10,7 @@ class CLockTimerPresenter extends BaseComponentPresenter{
   int _countDown;
   int _critTime;
   StreamSink<ArcadeTimer> _sinker;
+  StreamSink<int> _cdSinker;
   Stream<ArcadeTimer>_stream;
 
   ClockTimerView get view => _view;
@@ -29,12 +30,13 @@ class CLockTimerPresenter extends BaseComponentPresenter{
 
   Timer timer;
   
-  CLockTimerPresenter(int timer, int critTime,StreamSink<ArcadeTimer> sink, Stream<ArcadeTimer> stream){
+  CLockTimerPresenter(int timer, int critTime,StreamSink<ArcadeTimer> sink, Stream<ArcadeTimer> stream, StreamSink<int> sinker2){
     _countDown = timer;
     _critTime = critTime;
     setSinker = sink;
     _stream = stream;
     _stream.listen(onStreamListen);
+    _cdSinker = sinker2;
   }
 
   @override
@@ -59,6 +61,7 @@ class CLockTimerPresenter extends BaseComponentPresenter{
   onStreamListen(ArcadeTimer type){
     if(type == ArcadeTimer.onTimeMustStop){
       timer.cancel();
+      _cdSinker.add(countDown);
     }
   }
 

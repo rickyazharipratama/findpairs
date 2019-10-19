@@ -107,4 +107,10 @@ class _NegativeArcadeModalState extends State<NegativeArcadeModal> with SingleTi
       });
     }
   }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 }

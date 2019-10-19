@@ -48,10 +48,12 @@ class _FLipCardState extends State<FlipCard> with TickerProviderStateMixin,FlipC
 
   @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: vibrateAnimation.value,
+    return Transform(
+      transform:  isStartShaking ? Matrix4.translation(getShakingTranslation(
+        progress: vibrateAnimation.value
+      )) : Matrix4.rotationX(0),
       child: FlipView(
-        animationController: animation,
+        animationController: animationController,
         front: BackCard(
             onTap: presenter.isRestrictFlipCard ? (){} : presenter.onTapCard,
             height: widget.height,
