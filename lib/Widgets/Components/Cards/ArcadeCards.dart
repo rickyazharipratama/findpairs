@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:findpairs/PresenterViews/Components/Cards/CardView.dart';
 import 'package:findpairs/Presenters/Components/Cards/ArcadeCardPresenter.dart';
 import 'package:findpairs/Widgets/Components/Cards/Items/FlipCard.dart';
@@ -8,8 +10,10 @@ import 'package:flutter/material.dart';
 class ArcadeCard extends StatefulWidget {
   final int stage;
   final String episode;
+  final StreamSink<int> stageSinker;
+  final StreamSink<String> episodeSinker;
 
-  ArcadeCard({this.stage, this.episode});
+  ArcadeCard({this.stage, this.episode, @required this.stageSinker, @required this.episodeSinker});
   
   @override
   _ArcadeCardState createState() => new _ArcadeCardState();
@@ -22,7 +26,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
   @override
   void initState() {
     super.initState();
-    presenter = ArcadeCardPresenter(widget.stage, widget.episode)..setView = this;
+    presenter = ArcadeCardPresenter(widget.stage, widget.episode,widget.stageSinker, widget.episodeSinker)..setView = this;
     presenter.initiateData();
   }
 
@@ -65,6 +69,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
                         streamCard: presenter.selectedCardSinker,
                         arcadeTime: presenter.arcadeTimerStream,
                         value: presenter.getAvailableCardValue(),
+                        paired: presenter.pairedStream,
                       );
                     }).toList(),
                   );

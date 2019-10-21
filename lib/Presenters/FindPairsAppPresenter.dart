@@ -69,6 +69,7 @@ class FindPairsAppPresenter extends BasePresenter{
       "button_tap.mp3",
       "swiping_menu.mp3"
     ]);
+
     view.setViewState = 0;
     view.notifyState();
   }

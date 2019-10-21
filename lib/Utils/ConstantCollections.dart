@@ -6,6 +6,11 @@ class ConstantCollections{
   static const int APPVERSION = 1;
 
 
+  static const List<Map<String,dynamic>> ARCADE_SETTING = [{
+    "episode":"Episode-01",
+    "totalStage": 10
+  }];
+
   static const List<Map<String,dynamic>> MENUS = [
     {
       "name":"ARCADE",
@@ -41,4 +46,5 @@ class ConstantCollections{
 
   //Preferences
   static const PREF_VOLUME = "prefVolume";
+  static const PREF_ARCADE_LOG = "prefArcadeLog";
 }

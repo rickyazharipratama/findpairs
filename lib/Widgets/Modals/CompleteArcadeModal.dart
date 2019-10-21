@@ -62,35 +62,44 @@ class _CompleteArcadeModalState extends State<CompleteArcadeModal> with TickerPr
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
 
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Transform.rotate(
-                        angle: -0.1,
+                    Transform.scale(
+                      scale: star2.value,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Transform.rotate(
+                          angle: -0.1,
+                          child: Icon(
+                            widget.starScore > 1 ? Icons.star : Icons.star_border,
+                            size: 70,
+                            color: Colors.yellow,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Transform.scale(
+                      scale: star1.value,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Icon(
-                          widget.starScore > 1 ? Icons.star : Icons.star_border,
-                          size: 70,
+                          Icons.star,
+                          size: 80,
                           color: Colors.yellow,
                         ),
                       ),
                     ),
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
-                      child: Icon(
-                        Icons.star,
-                        size: 80,
-                        color: Colors.yellow,
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Transform.rotate(
-                        angle: 0.1,
-                        child: Icon(
-                          widget.starScore > 2 ? Icons.star : Icons.star_border,
-                          size: 70,
-                          color: Colors.yellow,
+                    Transform.scale(
+                      scale: star3.value,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Transform.rotate(
+                          angle: 0.1,
+                          child: Icon(
+                            widget.starScore > 2 ? Icons.star : Icons.star_border,
+                            size: 70,
+                            color: Colors.yellow,
+                          ),
                         ),
                       ),
                     )
@@ -109,11 +118,14 @@ class _CompleteArcadeModalState extends State<CompleteArcadeModal> with TickerPr
                     Container( width: 25),
                     
                     Expanded(
-                      child: ArcadeResultButton(
-                        onTap: (){
-                          Navigator.of(context).pop(ArcadeAction.retryGame);
-                        },
-                        title: "RETRY",
+                      child: Transform.scale(
+                        scale: animButton.value,
+                        child: ArcadeResultButton(
+                          onTap: (){
+                            Navigator.of(context).pop(ArcadeAction.retryGame);
+                          },
+                          title: "RETRY",
+                        ),
                       ),
                     ),
 
@@ -122,25 +134,31 @@ class _CompleteArcadeModalState extends State<CompleteArcadeModal> with TickerPr
                     ),
 
                     Expanded(
-                      child: ArcadeResultButton(
-                        onTap: (){
-                          Navigator.of(context).pop(ArcadeAction.nextStage);
-                        },
-                        title: "NEXT",
+                      child: Transform.scale(
+                        scale: animButton.value,
+                        child: ArcadeResultButton(
+                          onTap: (){
+                            Navigator.of(context).pop(ArcadeAction.nextStage);
+                          },
+                          title: "NEXT",
+                        ),
                       ),
                     ),
                     Container( width: 25)
                   ],
                 ) : 
                 Center(
-                  child: SizedBox(
-                    width: wrapperWidth - 50,
-                    height: 80,
-                    child: ArcadeResultButton(
-                      onTap: (){
-                        Navigator.of(context).pop(ArcadeAction.exitGame);
-                      },
-                      title: "EXIT",
+                  child: Transform.scale(
+                    scale: animButton.value,
+                    child: SizedBox(
+                      width: wrapperWidth - 50,
+                      height: 80,
+                      child: ArcadeResultButton(
+                        onTap: (){
+                          Navigator.of(context).pop(ArcadeAction.exitGame);
+                        },
+                        title: "EXIT",
+                      ),
                     ),
                   ),
                 ),

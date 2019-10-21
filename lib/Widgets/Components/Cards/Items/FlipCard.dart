@@ -16,10 +16,11 @@ class FlipCard extends StatefulWidget{
   final Stream<int> flipBack;
   final Stream<bool> restrictFlip;
   final Stream<ArcadeTimer> arcadeTime;
+  final Stream<int> paired;
   final StreamSink streamCard;
   final ArcadeCardValue value;
 
-  FlipCard({@required this.width, @required this.height, @required this.flipBack, @required this.streamCard, @required this.restrictFlip,@required this.value, @required this.arcadeTime});
+  FlipCard({@required this.width, @required this.height, @required this.flipBack, @required this.streamCard, @required this.restrictFlip,@required this.value, @required this.paired, @required this.arcadeTime});
 
   @override
   _FLipCardState createState() => new _FLipCardState();
@@ -52,18 +53,22 @@ class _FLipCardState extends State<FlipCard> with TickerProviderStateMixin,FlipC
       transform:  isStartShaking ? Matrix4.translation(getShakingTranslation(
         progress: vibrateAnimation.value
       )) : Matrix4.rotationX(0),
-      child: FlipView(
-        animationController: animationController,
-        front: BackCard(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FlipView(
+          animationController: animationController,
+          front: BackCard(
             onTap: presenter.isRestrictFlipCard ? (){} : presenter.onTapCard,
             height: widget.height,
             width: widget.width,
-        ),
-        back: FrontCard(
-          height: widget.height,
-          width: widget.width,
-          value: presenter.value.value,
-        ),
+          ),
+          back: FrontCard(
+            height: widget.height,
+            width: widget.width,
+            paired: widget.paired,
+            value: presenter.value,
+          )
+        )
       ),
     );
   }

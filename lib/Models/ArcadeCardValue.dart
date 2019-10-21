@@ -18,6 +18,7 @@ class ArcadeCardValue{
   }
 
   ArcadeCardValue(int key,String val){
+    this.key = key;
     _value = val;
   }
 }

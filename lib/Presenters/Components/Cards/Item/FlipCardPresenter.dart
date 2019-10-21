@@ -58,7 +58,7 @@ class FlipCardPresenter extends BaseComponentPresenter{
   needToFlipBack(int val){
     if(val == value.key){
       if(view.isOpen){
-        debugPrint("flipping back: "+DateTime.now().millisecondsSinceEpoch.toString()+", with value: "+value.value);
+        debugPrint("flipping back: "+DateTime.now().millisecondsSinceEpoch.toString()+", with value: "+value.value+" & key: "+value.key.toString());
         view.setOpen = false;
         view.animationController.reverse();
       }
@@ -75,7 +75,8 @@ class FlipCardPresenter extends BaseComponentPresenter{
       view.setStartShaking = false;
       view.vibrateController.stop();
       view.notifyState();
-    }else if(timer == ArcadeTimer.onTimeMustStop){
+    }else if(timer == ArcadeTimer.onTimeMustStop
+    || timer == ArcadeTimer.onGameFinished){
       _isRestrictFLipCard = true;
       view.setStartShaking = false;
       view.vibrateController.stop();

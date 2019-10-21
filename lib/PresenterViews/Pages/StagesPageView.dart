@@ -1,0 +1,6 @@
+class StagesPageView{
+
+
+  notifyState(){}
+
+}

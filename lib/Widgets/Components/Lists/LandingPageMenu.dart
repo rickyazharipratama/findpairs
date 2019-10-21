@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:findpairs/PresenterViews/Components/Lists/LandingPageMenuView.dart';
 import 'package:findpairs/Presenters/Components/Lists/LandingPageMenuPresenter.dart';
+import 'package:findpairs/Widgets/Components/Lists/Items/ArcadeMenuItem.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/LandingPageMenuItem.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,15 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
     return PageView(
       controller: controller,
       onPageChanged: presenter.onPageChanged,
-      children: presenter.menus.map((item)=> LandingPageMenuItem(isActive: presenter.menus.indexOf(item) == activePage, menu: item)).toList(),
+      children: presenter.menus.map((item){
+        if(item['name'] == "ARCADE"){
+          return ArcadeMenuItem(
+            isActive: presenter.menus.indexOf(item) == activePage,
+            menu: item,
+          );
+        }
+        return LandingPageMenuItem(isActive: presenter.menus.indexOf(item) == activePage, menu: item);
+      }).toList()
     );
   }
 

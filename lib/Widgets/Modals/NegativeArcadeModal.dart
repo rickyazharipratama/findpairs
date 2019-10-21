@@ -62,11 +62,14 @@ class _NegativeArcadeModalState extends State<NegativeArcadeModal> with SingleTi
                     ),
 
                     Expanded(
-                      child: ArcadeResultButton(
-                        onTap: (){
-                          Navigator.of(context, rootNavigator: true).pop(ArcadeAction.retryGame);
-                        },
-                        title: "RETRY",
+                      child: Transform.scale(
+                        scale: animButton.value,
+                        child: ArcadeResultButton(
+                          onTap: (){
+                            Navigator.of(context, rootNavigator: true).pop(ArcadeAction.retryGame);
+                          },
+                          title: "RETRY",
+                        ),
                       ),
                     ),
 
@@ -75,11 +78,14 @@ class _NegativeArcadeModalState extends State<NegativeArcadeModal> with SingleTi
                     ),
 
                     Expanded(
-                      child: ArcadeResultButton(
-                        onTap: (){
-                          Navigator.of(context, rootNavigator: true).pop(ArcadeAction.exitGame);
-                        },
-                        title: "EXIT",
+                      child: Transform.scale(
+                        scale: animButton.value,
+                        child: ArcadeResultButton(
+                          onTap: (){
+                            Navigator.of(context, rootNavigator: true).pop(ArcadeAction.exitGame);
+                          },
+                          title: "EXIT",
+                        ),
                       ),
                     ),
 

@@ -6,6 +6,10 @@ class CompleteArcadeModalView{
 
   AnimationController _animationController;
   Animation _animation;
+  Animation _star1;
+  Animation _star2;
+  Animation _star3;
+  Animation _animButton;
 
   double _width;
   double _height;
@@ -33,15 +37,59 @@ class CompleteArcadeModalView{
 
   AnimationController get animationController => _animationController;
   Animation get animation => _animation;
+  Animation get star1 => _star1;
+  Animation get star2 => _star2;
+  Animation get star3 => _star3;
+  Animation get animButton => _animButton;
 
   set setAnimationController(TickerProvider tick){
     _animationController = AnimationController(
       vsync: tick,
-      duration: const Duration(milliseconds: 250)
+      duration: const Duration(milliseconds: 1000)
     )..addListener(notifyState);
     _animation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        curve: Curves.bounceInOut,
+        curve: Interval(
+          0.0, 0.2,
+          curve: Curves.bounceInOut
+        ),
+        parent: _animationController
+      )
+    );
+    _star1 = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        curve: Interval(
+          0.25,0.5,
+          curve: Curves.bounceInOut
+        ),
+        parent: _animationController
+      )
+    );
+    _star2 = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        curve: Interval(
+          0.45,0.7,
+          curve: Curves.bounceInOut
+        ),
+        parent: _animationController
+      )
+    );
+    _star3 = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        curve: Interval(
+          0.65,0.9,
+          curve: Curves.bounceInOut
+        ),
+        parent: _animationController
+      )
+    );
+
+    _animButton = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        curve: Interval(
+          0.9,1.0,
+          curve: Curves.bounceInOut
+        ),
         parent: _animationController
       )
     );

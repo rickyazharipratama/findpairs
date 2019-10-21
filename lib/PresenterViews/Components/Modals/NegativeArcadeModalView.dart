@@ -9,6 +9,7 @@ class NegativeArcadeModalView{
 
   AnimationController _animationController;
   Animation _animation;
+  Animation _animButton;
 
 
   double get width => _width;
@@ -32,16 +33,31 @@ class NegativeArcadeModalView{
 
   AnimationController get animationController => _animationController;
   Animation get animation => _animation;
+  Animation get animButton => _animButton;
 
   set setAnimationController(TickerProvider tick){
     _animationController = AnimationController(
       vsync: tick,
-      duration: const Duration(milliseconds: 250)
+      duration: const Duration(milliseconds: 350)
     )..addListener(notifyState);
+
     _animation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
-      curve: Curves.bounceInOut,
+      curve: Interval(
+        0,0.7,
+        curve: Curves.bounceInOut
+      ),
       parent: _animationController
     ));
+
+    _animButton = Tween<double>(begin: 0, end:  1).animate(
+      CurvedAnimation(
+        curve: Interval(
+          0.7,1,
+          curve: Curves.bounceInOut
+        ),
+        parent: _animationController
+      )
+    );
   }
 
   BuildContext currentContext() => null;

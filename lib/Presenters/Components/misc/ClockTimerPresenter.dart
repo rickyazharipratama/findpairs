@@ -61,6 +61,8 @@ class CLockTimerPresenter extends BaseComponentPresenter{
   onStreamListen(ArcadeTimer type){
     if(type == ArcadeTimer.onTimeMustStop){
       timer.cancel();
+    }else if(type == ArcadeTimer.onGameFinished){
+      timer.cancel();
       _cdSinker.add(countDown);
     }
   }

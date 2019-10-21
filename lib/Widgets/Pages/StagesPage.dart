@@ -1,3 +1,5 @@
+import 'package:findpairs/PresenterViews/Pages/StagesPageView.dart';
+import 'package:findpairs/Presenters/Pages/StagesPagePresenter.dart';
 import 'package:findpairs/Widgets/Components/Buttons/PauseActionButton.dart';
 import 'package:findpairs/Widgets/Components/Cards/ArcadeCards.dart';
 import 'package:findpairs/Widgets/Pages/WrapperPage.dart';
@@ -13,7 +15,18 @@ class StagesPage extends StatefulWidget {
   _StagesPageState createState() => new _StagesPageState();
 }
 
-class _StagesPageState extends State<StagesPage> {
+class _StagesPageState extends State<StagesPage> with StagesPageView{
+
+  StagesPagePresenter presenter;
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = StagesPagePresenter(
+      episode: widget.episode,
+      stage: widget.stage
+    )..setView = this..initiateData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +34,7 @@ class _StagesPageState extends State<StagesPage> {
       leftHeader: Padding(
         padding: const EdgeInsets.all(10),
         child: Text(
-          "Stage "+widget.stage.toString(),
+          "Stage "+presenter.stage.toString(),
           style: Theme.of(context).textTheme.display1,
         ),
       ),
@@ -31,7 +44,20 @@ class _StagesPageState extends State<StagesPage> {
       child: ArcadeCard(
         episode: widget.episode,
         stage: widget.stage,
+        episodeSinker: presenter.episodeSink,
+        stageSinker: presenter.stageSink,
       )
     );
   }
+
+  @override
+  notifyState() {
+    super.notifyState();
+    if(mounted){
+      setState(() {
+        
+      });
+    }
+  }
+
 }

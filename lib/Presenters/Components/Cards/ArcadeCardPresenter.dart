@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:findpairs/Models/ArcadeCardValue.dart';
+import 'package:findpairs/Models/ArcadeLogPlayer.dart';
 import 'package:findpairs/Models/ArcadeSetting.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/CardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
@@ -18,17 +19,21 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   StreamController<ArcadeTimer> _arcadeTimer = StreamController.broadcast();
   StreamController<bool> _lifeControl = StreamController();
   StreamController<int> _currentTime = StreamController();
+  StreamController<int> _pairedController = StreamController.broadcast();
+
+  StreamSink<int> stageSink;
+  StreamSink<String> episodeSink;
 
   List<ArcadeCardValue> _selectedCards = List();
   // default score will reduce
   int _stages;
   String _episode;
-  int stageScore = 100;
   ArcadeSetting _setting;
   List<ArcadeCardValue> _cardsValue;
   int _mustPaired= 0;
   int _currentLife;
   int _currentCountDown = 0;
+
 
 
   CardView get view => _view;
@@ -48,7 +53,12 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   StreamSink<ArcadeCardValue> get selectedCardSinker => _selectedCard.sink;
 
   ArcadeSetting get setting => _setting;
+
+  set setStages(int val){
+    _stages = val;
+  }
   int get stages => _stages;
+
   String get episode => _episode;
 
   List<ArcadeCardValue> get cardsValue => _cardsValue;
@@ -62,14 +72,19 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   StreamSink<int> get currentCD => _currentTime.sink;
   Stream<int> get cdStream => _currentTime.stream;
 
+  StreamSink<int> get pairedSink =>_pairedController.sink;
+  Stream<int> get pairedStream => _pairedController.stream;
+
   int get currentLife => _currentLife;
   set setCurrentLife(int val){
     _currentLife = val;
   }
 
-  ArcadeCardPresenter(int stg, String ep){
+  ArcadeCardPresenter(int stg, String ep, StreamSink<int> stgSink, StreamSink<String>epSink){
     _stages = stg;
     _episode = ep;
+    stageSink = stgSink;
+    episodeSink = epSink;
   }
 
   @override
@@ -113,9 +128,10 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
         //should animate becasue  card is paired
         selectedCards.forEach((selected){
           _cardsValue[_cardsValue.indexOf(selected)].setAlreadyPaired = true;
+          pairedSink.add(selected.key);
         });
+        selectedCards.clear();
         Timer(const Duration(milliseconds: 500),(){
-          selectedCards.clear();
           _restrictStream.add(false);
           allCardIsPaired();
         });
@@ -162,28 +178,50 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     return List();
   }
 
-  void allCardIsPaired() async{
+  void allCardIsPaired(){
     if(mustPaired == 0){
       print("all is paired");
-      arcadeTimerSinker.add(ArcadeTimer.onTimeMustStop);
-      ArcadeAction act = await view.showCompleteDialog(
-        star: getStarScore()
-      );
-      if(act == ArcadeAction.retryGame){
-        reInitiateGame();
-      }
+      arcadeTimerSinker.add(ArcadeTimer.onGameFinished);
     }
   }
 
-  int getStarScore(){
+  void completingGame() async{
     double dividerLife = 100 / _setting.life;
     double dividerTime = 100 / _setting.time;
     double currentScoreByLife = currentLife * dividerLife;
     double currentScoreByTime = _currentCountDown * dividerTime;
     double totalScore = currentScoreByLife + currentScoreByTime;
-    if(totalScore > 81){
+    print("current cd :"+_currentCountDown.toString());
+    print("currentScore by life : "+currentScoreByLife.toString());
+    print("current score by time : "+currentScoreByTime.toString());
+    print("total score : "+ totalScore.toString());
+    int star = getStarScore(totalScore);
+    ArcadeAction act = await view.showCompleteDialog(
+      star: star
+    );
+    if(act == ArcadeAction.retryGame){
+      reInitiateGame();
+    }else if(act == ArcadeAction.nextStage){
+      ArcadeLogPlayer log = ArcadeLogPlayer();
+      await log.retrieveData();
+      log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages - 1].setScore = totalScore;
+      log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages - 1].setStar = star;
+     if(this.stages < log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs.length){
+       log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages].setLocked = false;
+       this.setStages = log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages].stage;
+       print("stages "+this.stages.toString());
+       stageSink.add(this.stages);
+       reInitiateGame();
+     }else{
+       //it should change episode because it's already reach the max stages
+     }
+    }
+  }
+
+  int getStarScore(double totalScore){
+    if(totalScore > 130){
       return 3;
-    }else if(totalScore > 41 && totalScore < 80){
+    }else if(totalScore > 71 && totalScore < 130){
       return 2;
     }else{
       return 1;
@@ -213,6 +251,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
 
   void getCurrentCountdown(int cd){
     _currentCountDown = cd;
+    completingGame();
   }
 
   negativeActionDecider(ArcadeAction act){
@@ -257,5 +296,6 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     _arcadeTimer.close();
     _lifeControl.close();
     _currentTime.close();
+    _pairedController.close();
   }
 }

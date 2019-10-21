@@ -1,0 +1,5 @@
+class FrontCardView{
+
+  void notifyState(){}
+
+}
