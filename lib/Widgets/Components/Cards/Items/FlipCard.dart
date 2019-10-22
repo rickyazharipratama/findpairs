@@ -53,23 +53,20 @@ class _FLipCardState extends State<FlipCard> with TickerProviderStateMixin,FlipC
       transform:  isStartShaking ? Matrix4.translation(getShakingTranslation(
         progress: vibrateAnimation.value
       )) : Matrix4.rotationX(0),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FlipView(
-          animationController: animationController,
-          front: BackCard(
-            onTap: presenter.isRestrictFlipCard ? (){} : presenter.onTapCard,
-            height: widget.height,
-            width: widget.width,
-          ),
-          back: FrontCard(
-            height: widget.height,
-            width: widget.width,
-            paired: widget.paired,
-            value: presenter.value,
-          )
+      child: FlipView(
+        animationController: animationController,
+        front: BackCard(
+          onTap: presenter.isRestrictFlipCard ? (){} : presenter.onTapCard,
+          height: widget.height,
+          width: widget.width,
+        ),
+        back: FrontCard(
+          height: widget.height,
+          width: widget.width,
+          paired: widget.paired,
+          value: presenter.value,
         )
-      ),
+      )
     );
   }
 

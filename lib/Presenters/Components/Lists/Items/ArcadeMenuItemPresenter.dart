@@ -43,6 +43,7 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
     ArcadeLogPlayer log = ArcadeLogPlayer.initialize();
     log.episodes[0].logs[0].setLocked = false;
     log.savingToPreference();
-    view.gotoStage(log.episodes[0].episode, log.episodes[0].logs[0].stage);
+    //view.gotoStage(log.episodes[0].episode, log.episodes[0].logs[0].stage);
+    view.gotoStage(log.episodes[0].episode, 11);
   }
 }

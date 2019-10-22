@@ -43,7 +43,7 @@ class FlipCardPresenter extends BaseComponentPresenter{
   @override
   void initiateData() {
     super.initiateData();
-    view.setAnimationController = const Duration(milliseconds: 500);
+    view.setAnimationController = const Duration(milliseconds: 300);
     view.setVibrateController = const Duration(milliseconds: 100);
   }
 

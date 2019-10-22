@@ -29,7 +29,7 @@ class _ArcadeLifesState extends State<ArcadeLifes> with  ArcadeLifesView{
   @override
   void didUpdateWidget(ArcadeLifes oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print(widget.lifes.toString());
+    presenter.setInitialCounter = widget.lifes;
     presenter.initiateData();
   }
 

@@ -1,6 +1,7 @@
 import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:findpairs/Widgets/Modals/CompleteArcadeModal.dart';
 import 'package:findpairs/Widgets/Modals/NegativeArcadeModal.dart';
+import 'package:findpairs/Widgets/Pages/ArcadeSeeYouNextEpisode.dart';
 import 'package:flutter/material.dart';
 
 class CardView{
@@ -10,17 +11,20 @@ class CardView{
   void notifyState(){}
 
   double getWidth() => MediaQuery.of(currentContext()).size.width-20;
-  double getHeight() => MediaQuery.of(currentContext()).size.height - (MediaQuery.of(currentContext()).padding.top + MediaQuery.of(currentContext()).padding.bottom + 260);
+  double getHeight() => MediaQuery.of(currentContext()).size.height - (MediaQuery.of(currentContext()).padding.top + MediaQuery.of(currentContext()).padding.bottom + 180);
 
   double getCardWidth(int horizontal, int vertical){
 
-    double cardWidth = ((getWidth() - (5 * horizontal)) / horizontal);
+    double cardWidth = ((getWidth() - (10 * horizontal)) / horizontal);
     double tempHeight = getCardHeight(cardWidth);
     double totalTempHeight = (tempHeight+10) * vertical;
+    print("total temp height : "+totalTempHeight.toString());
+    print("space height : "+ getHeight().toString());
 
     while (totalTempHeight >= getHeight()){
       cardWidth-= 2;
       totalTempHeight = (getCardHeight(cardWidth) + 10) * vertical;
+      print("total temp height : "+totalTempHeight.toString());
     }
     return cardWidth;
   }
@@ -52,4 +56,15 @@ class CardView{
     );
   }
 
+  void goToClosingArcade(){
+    Navigator.of(currentContext()).pop();
+    Navigator.of(currentContext()).push(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (context){
+          return ArcadeSeeYouNextEpisode();
+        }
+      )
+    );
+  }
 }

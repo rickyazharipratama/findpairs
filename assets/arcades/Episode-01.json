@@ -60,7 +60,7 @@
     },
 
     "4":{
-        "vertical":4,
+        "vertical":3,
         "horizontal":4,
         "uniqueCard":5,
         "time":20,
@@ -69,13 +69,10 @@
         "life":4,
         "formations":[
             {
-                "row" : 1
+                "row" : 4
             },
             {
                 "row" : 2
-            },
-            {
-                "row" : 3
             },
             {
                 "row" : 4

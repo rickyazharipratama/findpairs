@@ -33,6 +33,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   int _mustPaired= 0;
   int _currentLife;
   int _currentCountDown = 0;
+  bool _isAlreadyTimeUp = false;
 
 
 
@@ -54,11 +55,19 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
 
   ArcadeSetting get setting => _setting;
 
+  bool get isAlreadyTimeUp => _isAlreadyTimeUp;
+  set setAlreadyTimeUp(bool val){
+    _isAlreadyTimeUp = val;
+  }
+
   set setStages(int val){
     _stages = val;
   }
   int get stages => _stages;
 
+  set setEpisode(String ep){
+    _episode = ep;
+  }
   String get episode => _episode;
 
   List<ArcadeCardValue> get cardsValue => _cardsValue;
@@ -95,6 +104,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     _setting = await utils.getArcadeSetting(stages.toString());
     setCurrentLife = _setting.life;
     setMustPaired = _setting.uniqueCard;
+    setAlreadyTimeUp = false;
     _cardsValue = List();
     for(int i = 0; i < 2; i++){
       for(int j= 0;j < _setting.uniqueCard;j++){
@@ -186,36 +196,51 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   }
 
   void completingGame() async{
-    double dividerLife = 100 / _setting.life;
-    double dividerTime = 100 / _setting.time;
-    double currentScoreByLife = currentLife * dividerLife;
-    double currentScoreByTime = _currentCountDown * dividerTime;
-    double totalScore = currentScoreByLife + currentScoreByTime;
-    print("current cd :"+_currentCountDown.toString());
-    print("currentScore by life : "+currentScoreByLife.toString());
-    print("current score by time : "+currentScoreByTime.toString());
-    print("total score : "+ totalScore.toString());
-    int star = getStarScore(totalScore);
-    ArcadeAction act = await view.showCompleteDialog(
-      star: star
-    );
-    if(act == ArcadeAction.retryGame){
-      reInitiateGame();
-    }else if(act == ArcadeAction.nextStage){
-      ArcadeLogPlayer log = ArcadeLogPlayer();
-      await log.retrieveData();
-      log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages - 1].setScore = totalScore;
-      log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages - 1].setStar = star;
-     if(this.stages < log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs.length){
-       log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages].setLocked = false;
-       this.setStages = log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages].stage;
-       print("stages "+this.stages.toString());
-       log.savingToPreference();
-       stageSink.add(this.stages);
-       reInitiateGame();
-     }else{
-       //it should change episode because it's already reach the max stages
-     }
+    if(!isAlreadyTimeUp){
+      double dividerLife = 100 / _setting.life;
+      double dividerTime = 100 / _setting.time;
+      double currentScoreByLife = currentLife * dividerLife;
+      double currentScoreByTime = _currentCountDown * dividerTime;
+      double totalScore = currentScoreByLife + currentScoreByTime;
+      print("current cd :"+_currentCountDown.toString());
+      print("currentScore by life : "+currentScoreByLife.toString());
+      print("current score by time : "+currentScoreByTime.toString());
+      print("total score : "+ totalScore.toString());
+      int star = getStarScore(totalScore);
+      ArcadeAction act = await view.showCompleteDialog(
+        star: star
+      );
+      if(act == ArcadeAction.retryGame){
+        reInitiateGame();
+      }else if(act == ArcadeAction.nextStage){
+        ArcadeLogPlayer log = ArcadeLogPlayer();
+        await log.retrieveData();
+        log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages - 1].setScore = totalScore;
+        log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages - 1].setStar = star;
+        if(this.stages < log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs.length){
+          log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages].setLocked = false;
+          this.setStages = log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages].stage;
+          print("stages "+this.stages.toString());
+          log.savingToPreference();
+          stageSink.add(this.stages);
+          reInitiateGame();
+        }else{
+          //it should change episode because it's already reach the max stages
+          int index = log.episodes.indexWhere((episode) => episode.episode == this.episode);
+          if(index < log.episodes.length - 1){
+            this.setEpisode = log.episodes[index+1].episode;
+            this.setStages = 1;
+            log.episodes[index+1].logs[0].setLocked = false;
+            log.savingToPreference();
+            episodeSink.add(this.episode);
+            stageSink.add(this.stages);
+            reInitiateGame();
+          }else{
+            //must show page see you in next episode
+            view.goToClosingArcade();
+          }
+        }
+      }
     }
   }
 
@@ -245,6 +270,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
    //for time is up
    void timeIsUp(ArcadeTimer type) async{
      if(type == ArcadeTimer.onTimeUp){
+       setAlreadyTimeUp = true;
       ArcadeAction act =  await view.showNegativeDialog();
       negativeActionDecider(act);
      }
@@ -272,6 +298,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
       await flippingBackCard(val.key);
     });
     selectedCards.clear();
+    setAlreadyTimeUp = false;
     ArcadeUtils utils = ArcadeUtils(episode);
     _setting = await utils.getArcadeSetting(stages.toString());
     setCurrentLife = _setting.life;

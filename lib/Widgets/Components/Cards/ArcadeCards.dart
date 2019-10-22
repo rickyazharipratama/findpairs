@@ -32,18 +32,11 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
 
   @override
   Widget build(BuildContext context) {
-    double cardWidth = 0;
-    double cardHeight = 0;
-    if(presenter.setting != null){
-      cardWidth = getCardWidth(presenter.setting.horizontal, presenter.setting.vertical);
-      cardHeight = getCardHeight(cardWidth);
-    }
-
     return Stack(
       children: <Widget>[
         Positioned(
           top: 50,
-          bottom: MediaQuery.of(context).padding.bottom + 80,
+          bottom: MediaQuery.of(context).padding.bottom,
           left: 0,
           right: 0,
           child: presenter.setting != null ? Container(
@@ -61,9 +54,11 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: rows.map((row){
+                      print("screen width : "+MediaQuery.of(context).size.width.toString());
+                      print("card width : "+getCardWidth(presenter.setting.horizontal, presenter.setting.vertical).toString());
                       return FlipCard(
-                        width: cardWidth,
-                        height: cardHeight,
+                        width: getCardWidth(presenter.setting.horizontal, presenter.setting.vertical),
+                        height: getCardHeight(getCardWidth(presenter.setting.horizontal, presenter.setting.vertical)),
                         restrictFlip: presenter.restrictFlip,
                         flipBack: presenter.flipBack,
                         streamCard: presenter.selectedCardSinker,
@@ -92,7 +87,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
 
         // countedounw
         Positioned(
-          top: 20,
+          top: 10,
           child: presenter.setting != null ? ClockTimer(
             counter: presenter.setting.time,
             critTime: presenter.setting.critTime,
