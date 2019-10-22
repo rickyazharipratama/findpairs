@@ -73,7 +73,7 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
                         Transform.scale(
                           scale: presenter.isNeedAdvancedMenu ? animationContinue.value:0,
                           child: ArcadeItemMenuButton(
-                            onTap: (){},
+                            onTap: presenter.continueArcade,
                             title: "Continue",
                           ),
                         ),

@@ -14,7 +14,7 @@ class CardView{
 
   double getCardWidth(int horizontal, int vertical){
 
-    double cardWidth = (getWidth() / horizontal);
+    double cardWidth = ((getWidth() - (5 * horizontal)) / horizontal);
     double tempHeight = getCardHeight(cardWidth);
     double totalTempHeight = (tempHeight+10) * vertical;
 

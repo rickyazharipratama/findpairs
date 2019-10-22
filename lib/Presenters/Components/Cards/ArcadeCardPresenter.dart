@@ -210,6 +210,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
        log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages].setLocked = false;
        this.setStages = log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages].stage;
        print("stages "+this.stages.toString());
+       log.savingToPreference();
        stageSink.add(this.stages);
        reInitiateGame();
      }else{

@@ -45,7 +45,7 @@
         "time":20,
         "isHintAvailable":true,
         "critTime":10,
-        "life":3,
+        "life":4,
         "formations":[
             {
                 "row" : 3
@@ -66,7 +66,7 @@
         "time":20,
         "critTime":10,
         "isHintAvailable":true,
-        "life":3,
+        "life":4,
         "formations":[
             {
                 "row" : 1
@@ -89,7 +89,7 @@
         "uniqueCard":6,
         "time":25,
         "critTime":12,
-        "life":4,
+        "life":5,
         "isHintAvailable":true,
         "formations":[
             {
@@ -109,7 +109,7 @@
         "uniqueCard":7,
         "time":25,
         "critTime":12,
-        "life":4,
+        "life":5,
         "isHintAvailable":true,
         "formations":[
             {
@@ -155,7 +155,7 @@
         "uniqueCard":9,
         "time":30,
         "critTime":15,
-        "life":5,
+        "life":6,
         "isHintAvailable":true,
         "formations":[
             {

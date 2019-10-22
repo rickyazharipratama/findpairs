@@ -22,6 +22,7 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
 
   void continueArcade() async{
     //should spawning   stage selection
+    view.goToSelectionStage();
   }
 
 

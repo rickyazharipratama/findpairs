@@ -1,3 +1,4 @@
+import 'package:findpairs/Widgets/Pages/SelectArcadeStage.dart';
 import 'package:findpairs/Widgets/Pages/StagesPage.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,12 @@ class ArcadeMenuItemView{
   void gotoStage(String episode, int stage){
     Navigator.of(currentContext()).push(MaterialPageRoute(
       builder: (context) => StagesPage(stage: stage, episode: episode)
+    ));
+  }
+
+  void goToSelectionStage(){
+    Navigator.of(currentContext()).push(MaterialPageRoute(
+      builder: (context) => SelectArcadeStage()
     ));
   }
 
