@@ -17,28 +17,32 @@ class ConstantCollections{
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Colors.red
+      "color":Color(0xffbc262c),
+      "iconColor":Color(0xff77161a)
     },
     {
       "name":"CLASSIC",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Colors.blue
+      "color":Colors.blue,
+      "iconColor":Color(0xff951e23)
     },
     {
       "name":"SURVIVAL",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Colors.purple
+      "color":Colors.purple,
+      "iconColor":Color(0xff951e23)
     },
     {
       "name":"COLLECTIONS",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Color(0xff6f5451)
+      "color":Color(0xff6f5451),
+      "iconColor":Color(0xff951e23)
     }
   ];
 

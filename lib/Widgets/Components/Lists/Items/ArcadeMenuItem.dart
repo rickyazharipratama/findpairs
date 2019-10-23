@@ -7,7 +7,9 @@ class ArcadeMenuItem extends StatefulWidget {
 
   final bool isActive;
   final Map<String,dynamic> menu;
-  ArcadeMenuItem({this.isActive, this.menu});
+  final double width;
+  final double height;
+  ArcadeMenuItem({this.isActive, this.menu, @required this.width, @required this.height});
 
   @override
   _ArcadeMenuItemState createState() => new _ArcadeMenuItemState();
@@ -33,6 +35,8 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
         onTap: widget.isActive? presenter.isNeedAdvancedMenu ? (){} : presenter.checkingStages : (){},
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
+          width: widget.width,
+          height: widget.height,
           margin: widget.isActive ? EdgeInsets.fromLTRB(10, 0, 10, 20) : EdgeInsets.fromLTRB(15, 30, 15, 15),
           decoration: BoxDecoration(
             color:widget.menu['color'],
@@ -48,22 +52,29 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
           ),
           child: Stack(
             children: <Widget>[
+              
               Positioned.fill(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.asset(
-                    "assets/images/bg_menu.png",
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: presenter.isNeedAdvancedMenu ? iconSlider.value : 0 ),
+                    child: Image.asset(
+                      "assets/images/arcade-menu.png",
+                      width: widget.width * 3.5 / 5,
+                      fit: BoxFit.fitWidth,
+                      color: widget.menu['iconColor'],
+                      colorBlendMode: BlendMode.srcATop,
+                      filterQuality: FilterQuality.high,
+                    ),
                   ),
                 ),
               ),
-              
+
 
               Positioned(
                 bottom: 0,
                 left: 0,
                 right: 0,
+                height: 140,
                 child: presenter.isNeedAdvancedMenu ?  Container(
                   padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
                   child: Column(

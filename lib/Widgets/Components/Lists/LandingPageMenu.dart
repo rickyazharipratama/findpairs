@@ -38,6 +38,8 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
           return ArcadeMenuItem(
             isActive: presenter.menus.indexOf(item) == activePage,
             menu: item,
+            height: getCardHeight(),
+            width: getCardWidth(),
           );
         }
         return LandingPageMenuItem(isActive: presenter.menus.indexOf(item) == activePage, menu: item);

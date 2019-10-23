@@ -40,16 +40,7 @@ class _LandingPageMenuItemState extends State<LandingPageMenuItem> with LandingP
           ),
           child: Stack(
             children: <Widget>[
-              Positioned.fill(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.asset(
-                    "assets/images/bg_menu.png",
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                  ),
-                ),
-              )
+              
             ],
           ),
         ),

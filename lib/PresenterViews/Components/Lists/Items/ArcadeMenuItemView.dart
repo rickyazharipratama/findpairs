@@ -8,20 +8,32 @@ class ArcadeMenuItemView{
   AnimationController _controller;
   Animation _animationContinue;
   Animation _newgame;
+  Animation _iconSlider;
 
   AnimationController get controller => _controller;
   Animation get animationContinue => _animationContinue;
   Animation get animationNewGame => _newgame;
+  Animation get iconSlider => _iconSlider;
 
   set setAnimationController(TickerProvider tick){
     _controller = AnimationController(
       vsync: tick,
-      duration: const Duration(milliseconds: 500)
+      duration: const Duration(milliseconds: 700)
     )..addListener(notifyState);
+
+    _iconSlider = Tween<double>(begin: 0, end: 30).animate(
+      CurvedAnimation(
+        curve: Interval(
+          0.0,0.25,
+          curve: Curves.bounceInOut
+        ),
+        parent: _controller
+      )
+    );
     _animationContinue = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         curve: Interval(
-          0,0.8,
+          0.2, 0.8,
           curve: Curves.bounceInOut
         ),
         parent: _controller
@@ -30,7 +42,7 @@ class ArcadeMenuItemView{
     _newgame = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         curve: Interval(
-          0.2,1,
+          0.4,1,
           curve: Curves.bounceInOut
         ),
         parent: _controller

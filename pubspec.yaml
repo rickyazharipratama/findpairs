@@ -56,6 +56,7 @@ flutter:
 
     - assets/images/bg_landing_page.png
     - assets/images/bg_menu.png
+    - assets/images/arcade-menu.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

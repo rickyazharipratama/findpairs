@@ -16,6 +16,7 @@ class ArcadeItemMenuButton extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
         padding: const EdgeInsets.all(10),
+        height: 50,
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(10),
