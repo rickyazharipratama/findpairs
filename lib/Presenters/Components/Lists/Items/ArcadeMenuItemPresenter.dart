@@ -23,6 +23,8 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
   void continueArcade() async{
     //should spawning   stage selection
     view.goToSelectionStage();
+    setNeedAdvancedMenu = false;
+    view.notifyState();
   }
 
 
@@ -34,7 +36,7 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
       initiateArcade();
     }else{
       setNeedAdvancedMenu = true;
-      view.controller.forward();
+      view.controller.forward(from: 0);
     }
   }
 
@@ -43,7 +45,11 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
     ArcadeLogPlayer log = ArcadeLogPlayer.initialize();
     log.episodes[0].logs[0].setLocked = false;
     log.savingToPreference();
-    //view.gotoStage(log.episodes[0].episode, log.episodes[0].logs[0].stage);
-    view.gotoStage(log.episodes[0].episode, 11);
+    view.gotoStage(log.episodes[0].episode, log.episodes[0].logs[0].stage);
+    //view.gotoStage(log.episodes[0].episode, 11);
+    if(isNeedAdvancedMenu){
+      setNeedAdvancedMenu = false;
+      view.notifyState();
+    }
   }
 }

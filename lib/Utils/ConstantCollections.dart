@@ -8,7 +8,7 @@ class ConstantCollections{
 
   static const List<Map<String,dynamic>> ARCADE_SETTING = [{
     "episode":"Episode-01",
-    "totalStage": 10
+    "totalStage": 31
   }];
 
   static const List<Map<String,dynamic>> MENUS = [
