@@ -33,7 +33,7 @@ class LockStageSelection extends StatelessWidget {
                       child: Text(
                         stage.toString(),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.display3,
+                        style: Theme.of(context).textTheme.display4,
                       ),
                     ),
                   ),

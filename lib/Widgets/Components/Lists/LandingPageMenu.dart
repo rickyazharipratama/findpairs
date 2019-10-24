@@ -34,7 +34,7 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
       controller: controller,
       onPageChanged: presenter.onPageChanged,
       children: presenter.menus.map((item){
-        if(item['name'] == "ARCADE"){
+        if(item['name'].toString().toLowerCase() == "arcade"){
           return ArcadeMenuItem(
             isActive: presenter.menus.indexOf(item) == activePage,
             menu: item,
@@ -42,7 +42,12 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
             width: getCardWidth(),
           );
         }
-        return LandingPageMenuItem(isActive: presenter.menus.indexOf(item) == activePage, menu: item);
+        return LandingPageMenuItem(
+          isActive: presenter.menus.indexOf(item) == activePage, 
+          menu: item,
+          height: getCardHeight(),
+          width: getCardWidth(),
+        );
       }).toList()
     );
   }

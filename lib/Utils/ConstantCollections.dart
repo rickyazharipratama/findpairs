@@ -13,36 +13,44 @@ class ConstantCollections{
 
   static const List<Map<String,dynamic>> MENUS = [
     {
-      "name":"ARCADE",
+      "name":"Arcade",
+      "icon":"assets/images/arcade-menu.png",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
       "color":Color(0xffbc262c),
+      "gradientColor":Color(0xffd22a30),
       "iconColor":Color(0xff77161a)
     },
     {
-      "name":"CLASSIC",
+      "name":"Classic",
+      "icon":"assets/images/classic.png",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Colors.blue,
-      "iconColor":Color(0xff951e23)
+      "color":Color(0xffcfad56),
+      "gradientColor":Color(0xffe6c163),
+      "iconColor":Color(0xffac893b)
     },
     {
-      "name":"SURVIVAL",
+      "name":"Survival",
+      "icon":"assets/images/survival.png",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Colors.purple,
-      "iconColor":Color(0xff951e23)
+      "color":Color(0xff67ad2c),
+      "gradientColor":Color(0xff7ac838),
+      "iconColor":Color(0xff037231)
     },
     {
-      "name":"COLLECTIONS",
+      "name":"Collection",
+      "icon":"assets/images/collections.png",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Color(0xff6f5451),
-      "iconColor":Color(0xff951e23)
+      "color":Color(0xfff77d00),
+      "gradientColor":Color(0xfff99229),
+      "iconColor":Color(0xffca5d00)
     }
   ];
 

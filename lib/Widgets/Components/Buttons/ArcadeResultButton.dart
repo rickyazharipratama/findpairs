@@ -36,19 +36,23 @@ class _ArcadeResultButtonState extends State<ArcadeResultButton> with SingleTick
         child: Container(
           height: 60,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-            border: Border.all(
-              color: Colors.transparent,
-              width: 5
-            ),
+            borderRadius: BorderRadius.circular(5),
+            color: Color(0xffe8e8ef),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x77333333),
+                blurRadius: 17,
+                offset: Offset(-1,18),
+                spreadRadius: 0
+              )
+            ]
           ),
           child: Center(
             child: Text(
               presenter.title,
               maxLines: 1,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.display2,
+              style: Theme.of(context).textTheme.display3,
             ),
           ),
         ),

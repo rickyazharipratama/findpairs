@@ -57,6 +57,9 @@ flutter:
     - assets/images/bg_landing_page.png
     - assets/images/bg_menu.png
     - assets/images/arcade-menu.png
+    - assets/images/collections.png
+    - assets/images/classic.png
+    - assets/images/survival.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
@@ -72,6 +75,12 @@ flutter:
     - family: chunky
       fonts:
         - asset: assets/fonts/chunky.ttf
+    - family: fruit
+      fonts:
+        - asset: assets/fonts/fruitz.otf  
+    - family : avocado
+      fonts:
+        - asset: assets/fonts/avocado.ttf
     
   
   # For details regarding fonts from package dependencies,

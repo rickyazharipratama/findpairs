@@ -54,7 +54,9 @@ class FinishedStageSelection extends StatelessWidget {
                       child: Text(
                         stage.toString(),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.display3,
+                        style: Theme.of(context).textTheme.display4.apply(
+                          color: Color(0xfffaa675)
+                        ),
                       ),
                     ),
                   ),
@@ -138,7 +140,9 @@ class FinishedStageSelection extends StatelessWidget {
                   child: Text(
                     "RETRY",
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.display3,
+                    style: Theme.of(context).textTheme.display4.apply(
+                      color: Color(0xfff7f5cb)
+                    ),
                   ),
                 ),
               ),

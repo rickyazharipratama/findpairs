@@ -1,6 +1,6 @@
-import 'package:findpairs/PresenterViews/Components/Buttons/ArcadeItemMenuButton.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/ArcadeMenuItemView.dart';
 import 'package:findpairs/Presenters/Components/Lists/Items/ArcadeMenuItemPresenter.dart';
+import 'package:findpairs/Widgets/Components/Buttons/ArcadeItemMenuButton.dart';
 import 'package:flutter/material.dart';
 
 class ArcadeMenuItem extends StatefulWidget {
@@ -39,7 +39,18 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
           height: widget.height,
           margin: widget.isActive ? EdgeInsets.fromLTRB(10, 0, 10, 20) : EdgeInsets.fromLTRB(15, 30, 15, 15),
           decoration: BoxDecoration(
-            color:widget.menu['color'],
+             gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                widget.menu['color'],
+                widget.menu['gradientColor']
+              ],
+              stops: [
+                0,0.8
+              ],
+
+            ),
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(

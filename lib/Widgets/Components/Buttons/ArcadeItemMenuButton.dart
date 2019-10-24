@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 class ArcadeItemMenuButton extends StatelessWidget {
 
-  final Color bgColor;
   final VoidCallback onTap;
   final String title;
 
-  ArcadeItemMenuButton({ this.bgColor : Colors.white, @required this.onTap, @required this.title});
+  ArcadeItemMenuButton({@required this.onTap, @required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +17,17 @@ class ArcadeItemMenuButton extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         height: 50,
         decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(10),
+          color: Color(0xffe8e8ef),
+          border: Border.all(
+            color: Color(0xffdadadf),
+            width: 2
+          ),
+          borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
           child: Text(
             title,
-            style: Theme.of(context).textTheme.display3,
+            style: Theme.of(context).textTheme.display4,
           ),
         ),
       ),

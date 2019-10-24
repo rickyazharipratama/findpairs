@@ -47,7 +47,10 @@ class OpenStageSelection extends StatelessWidget {
                       child: Text(
                         stage.toString(),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.display3,
+                        style: Theme.of(context).textTheme.display4.apply(
+                          color: Color(0xfffaa675)
+                        ),
+
                       ),
                     ),
                   ),
@@ -86,7 +89,9 @@ class OpenStageSelection extends StatelessWidget {
                   child: Text(
                     "PLAY",
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.display3,
+                    style: Theme.of(context).textTheme.display4.apply(
+                      color: Color(0xfff7f5cb)
+                    ),
                   ),
                 ),
               ),
