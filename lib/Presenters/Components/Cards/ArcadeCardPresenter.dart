@@ -106,16 +106,31 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     setMustPaired = _setting.uniqueCard;
     setAlreadyTimeUp = false;
     _cardsValue = List();
-    for(int i = 0; i < 2; i++){
-      for(int j= 0;j < _setting.uniqueCard;j++){
-        _cardsValue.add(ArcadeCardValue((_setting.uniqueCard * i) + j,j.toString()));
-      }
+    List<int> numbers = generateRandomNumber(_setting.uniqueCard);
+    for(int i = 0; i  < numbers.length; i++){
+      _cardsValue.add(ArcadeCardValue(i,numbers[i]));
     }
     arcadeTimerStream.listen(timeIsUp);
     cdStream.listen(getCurrentCountdown);
     view.notifyState();
   }
   
+
+  List<int> generateRandomNumber(int length){
+    Random rand = Random();
+    List<int> numbers = List();
+    List<int> tmp = List();
+    for(int i = 0; i < length; i ++){
+      int number = rand.nextInt(32);
+      while(numbers.contains(number)){
+        number = rand.nextInt(32);
+      }
+      numbers.add(number);
+      tmp.add(number);
+    }
+    numbers.addAll(tmp);
+    return numbers;
+  }
 
   ArcadeCardValue getAvailableCardValue(){
     List<ArcadeCardValue> available = _cardsValue.where((val)=> !val.isAlreadySelected).toList();
@@ -130,7 +145,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   }
 
   addSelectedCard(ArcadeCardValue card) async{
-    debugPrint("selected card = "+card.value);
+    debugPrint("selected card = "+card.value.toString());
     selectedCards.add(card);
     if(selectedCards.length == 2){
       _restrictStream.add(true);
@@ -308,10 +323,9 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     }else{
       _cardsValue = List();
     }
-    for(int i = 0; i < 2; i++){
-      for(int j= 0;j < _setting.uniqueCard;j++){
-        _cardsValue.add(ArcadeCardValue((_setting.uniqueCard * i) + j,j.toString()));
-      }
+    List<int> numbers = generateRandomNumber(_setting.uniqueCard);
+    for(int i = 0; i  < numbers.length; i++){
+      _cardsValue.add(ArcadeCardValue(i,numbers[i]));
     }
     _restrictStream.add(false);
     view.notifyState();

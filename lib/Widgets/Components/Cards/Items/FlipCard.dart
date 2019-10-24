@@ -13,6 +13,7 @@ class FlipCard extends StatefulWidget{
 
   final double width;
   final double height;
+  final String episode;
   final Stream<int> flipBack;
   final Stream<bool> restrictFlip;
   final Stream<ArcadeTimer> arcadeTime;
@@ -20,7 +21,7 @@ class FlipCard extends StatefulWidget{
   final StreamSink streamCard;
   final ArcadeCardValue value;
 
-  FlipCard({@required this.width, @required this.height, @required this.flipBack, @required this.streamCard, @required this.restrictFlip,@required this.value, @required this.paired, @required this.arcadeTime});
+  FlipCard({@required this.width, @required this.height, @required this.flipBack, @required this.streamCard, @required this.restrictFlip,@required this.value, @required this.paired, @required this.arcadeTime, @required this.episode});
 
   @override
   _FLipCardState createState() => new _FLipCardState();
@@ -56,11 +57,13 @@ class _FLipCardState extends State<FlipCard> with TickerProviderStateMixin,FlipC
       child: FlipView(
         animationController: animationController,
         front: BackCard(
+          episode: widget.episode,
           onTap: presenter.isRestrictFlipCard ? (){} : presenter.onTapCard,
           height: widget.height,
           width: widget.width,
         ),
         back: FrontCard(
+          episode: widget.episode,
           height: widget.height,
           width: widget.width,
           paired: widget.paired,

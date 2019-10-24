@@ -1,6 +1,7 @@
 import 'package:findpairs/Models/ArcadeCardValue.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/Items/FrontCardView.dart';
 import 'package:findpairs/Presenters/Components/Cards/Item/FrontCardPresenter.dart';
+import 'package:findpairs/Utils/ConstantCollections.dart';
 import 'package:flutter/material.dart';
 
 class FrontCard extends StatefulWidget {
@@ -8,12 +9,14 @@ class FrontCard extends StatefulWidget {
   final double height;
   final ArcadeCardValue value;
   final Stream<int> paired;
+  final String episode;
 
   FrontCard({
     @required this.width,
     @required this.height,
     @required this.value,
-    @required this.paired
+    @required this.paired,
+    @required this.episode
   });
 
   @override
@@ -58,9 +61,11 @@ class _FrontCardState extends State<FrontCard> with FrontCardView{
         ]
       ),
       child: Center(
-        child: Text(
-          presenter.value.value
-        ),
+        child: Image.asset(
+          ConstantCollections.cards[widget.episode][presenter.value.value],
+          width: (widget.width * 3) / 4,
+          fit: BoxFit.fitWidth,
+        )
       ),
     );
   }

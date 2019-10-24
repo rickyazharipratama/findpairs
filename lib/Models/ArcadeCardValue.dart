@@ -1,11 +1,11 @@
 class ArcadeCardValue{
 
-  String _value;
+  int _value;
   int key;
   bool _isAlreadySelected = false;
   bool _isAlreadyPaired = false;
 
-  String get value => _value;
+  int get value => _value;
   bool get  isAlreadySelected => _isAlreadySelected;
   bool get isAlreadyPaired => _isAlreadyPaired;
 
@@ -17,7 +17,7 @@ class ArcadeCardValue{
     _isAlreadyPaired = val;
   }
 
-  ArcadeCardValue(int key,String val){
+  ArcadeCardValue(int key,int val){
     this.key = key;
     _value = val;
   }

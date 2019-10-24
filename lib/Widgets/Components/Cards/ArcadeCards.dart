@@ -64,6 +64,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
                         streamCard: presenter.selectedCardSinker,
                         arcadeTime: presenter.arcadeTimerStream,
                         value: presenter.getAvailableCardValue(),
+                        episode: presenter.episode,
                         paired: presenter.pairedStream,
                       );
                     }).toList(),

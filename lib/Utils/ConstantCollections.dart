@@ -59,4 +59,51 @@ class ConstantCollections{
   //Preferences
   static const PREF_VOLUME = "prefVolume";
   static const PREF_ARCADE_LOG = "prefArcadeLog";
+
+
+  static const Map<String, List<String>> cards ={
+    "Episode-01" : [
+      "assets/images/galaxies/space-ship-3.png",
+      "assets/images/galaxies/milky-way.png",
+      "assets/images/galaxies/space-station.png",
+      "assets/images/galaxies/venus.png",
+      "assets/images/galaxies/saturn.png",
+      "assets/images/galaxies/artificial-gravity-modulo.png",
+      "assets/images/galaxies/europa.png",
+      "assets/images/galaxies/comet-1.png",
+      "assets/images/galaxies/mars.png",
+      "assets/images/galaxies/uranus.png",
+      "assets/images/galaxies/satellite.png",
+      "assets/images/galaxies/planet-earth-4.png",
+      "assets/images/galaxies/planet-earth-1.png",
+      "assets/images/galaxies/mercury.png",
+      "assets/images/galaxies/jupiter.png",
+      "assets/images/galaxies/space-ship-7.png",
+      "assets/images/galaxies/space-ship-6.png",
+      "assets/images/galaxies/space-ship-2.png",
+      "assets/images/galaxies/observatory.png",
+      "assets/images/galaxies/meteorite.png",
+      "assets/images/galaxies/sputnik.png",
+      "assets/images/galaxies/spaceship-1.png",
+      "assets/images/galaxies/space-station-1.png",
+      "assets/images/galaxies/space-ship.png",
+      "assets/images/galaxies/moon.png",
+      "assets/images/galaxies/ursa-major.png",
+      "assets/images/galaxies/ufo.png",
+      "assets/images/galaxies/sun.png",
+      "assets/images/galaxies/stargate.png",
+      "assets/images/galaxies/neptune.png",
+      "assets/images/galaxies/comet.png",
+      "assets/images/galaxies/satellite-2.png"
+    ]
+  };
+
+  static const Map<String,dynamic> backCards = {
+    "Episode-01":{
+      "icon":"assets/images/galaxies/solar-system.png",
+      "color": Colors.red,
+      "gradientColor": Colors.red
+    }
+  };
+
 }
