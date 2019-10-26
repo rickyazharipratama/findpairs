@@ -35,11 +35,15 @@ class _StagesPageState extends State<StagesPage> with StagesPageView{
         padding: const EdgeInsets.all(10),
         child: Text(
           "Stage "+presenter.stage.toString(),
-          style: Theme.of(context).textTheme.display1,
+          style: Theme.of(context).textTheme.display1.apply(
+            color: Colors.white
+          ),
         ),
       ),
       actions: <Widget>[
-        PauseActionButton()
+        PauseActionButton(
+          
+        )
       ],
       child: ArcadeCard(
         episode: widget.episode,

@@ -65,8 +65,8 @@ class _CompleteArcadeModalState extends State<CompleteArcadeModal> with TickerPr
                     borderRadius: BorderRadius.circular((wrapperWidth / 100) * 10),
                     gradient: LinearGradient(
                       colors: [
-                        Color(0xff459a2f),
-                        Color(0xff7cae6f)
+                        Color(0xff86b600),
+                        Color(0xff9bc622)
                       ],
                       stops: [
                         0,0.8
@@ -117,6 +117,7 @@ class _CompleteArcadeModalState extends State<CompleteArcadeModal> with TickerPr
                           Container(
                             width: 1,
                             height: 50,
+                            color: Colors.white,
                             margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                           ),
 

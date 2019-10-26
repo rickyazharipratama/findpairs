@@ -47,7 +47,9 @@ class _ClockTimerState extends State<ClockTimer> with TickerProviderStateMixin, 
         child: Center(
           child: Text(
             presenter.countDown.toString(),
-            style: Theme.of(context).textTheme.display2,
+            style: Theme.of(context).textTheme.display2.apply(
+              color: Colors.white
+            ),
           ),
         ),
       )

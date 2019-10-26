@@ -3,6 +3,10 @@ import 'package:findpairs/Presenters/Components/Buttons/PauseActionButtonPresent
 import 'package:flutter/material.dart';
 
 class PauseActionButton extends StatefulWidget {
+  final Color color;
+
+  PauseActionButton({this.color : Colors.white});
+
   @override
   _PauseActionButtonState createState() => new _PauseActionButtonState();
 }
@@ -31,7 +35,7 @@ class _PauseActionButtonState extends State<PauseActionButton> with SingleTicker
             scale: anim.value,
             child: Icon(
               Icons.pause,
-              color: Color(0xffc4a5a1),
+              color: widget.color,
               size : 40
             ),
           ),
