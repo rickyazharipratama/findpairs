@@ -41,12 +41,12 @@ class FinishedStageSelection extends StatelessWidget {
                         color: Colors.transparent,
                         width: 2
                       ),
-                      color: Color(0xfff7f5cb),
+                      color: Color(0xfff4efa9),
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 10,
                           offset: Offset(0,10),
-                          color: Color(0xffc1c0c7)
+                          color: Color(0x99333333)
                         )
                       ]
                     ),
@@ -55,7 +55,7 @@ class FinishedStageSelection extends StatelessWidget {
                         stage.toString(),
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.display4.apply(
-                          color: Color(0xfffaa675)
+                          color: Color(0xfff77d00)
                         ),
                       ),
                     ),
@@ -78,7 +78,7 @@ class FinishedStageSelection extends StatelessWidget {
                           child: Icon(
                             star > 1 ? Icons.star : Icons.star_border,
                             size: (width /3) - 5,
-                            color: Colors.yellow,
+                            color: Color(0xfff77d00),
                           ),
                         ),
                       ),
@@ -88,7 +88,7 @@ class FinishedStageSelection extends StatelessWidget {
                         child: Icon(
                           Icons.star,
                           size: width / 3,
-                          color: Colors.yellow,
+                          color: Color(0xfff77d00),
                         ),
                       ),
 
@@ -99,7 +99,7 @@ class FinishedStageSelection extends StatelessWidget {
                           child: Icon(
                             star > 2 ? Icons.star : Icons.star_border,
                             size: (width/3) - 5,
-                            color: Colors.yellow,
+                            color: Color(0xfff77d00),
                           ),
                         ),
                       )
@@ -132,7 +132,7 @@ class FinishedStageSelection extends StatelessWidget {
                     BoxShadow(
                       blurRadius: 10,
                       offset: Offset(0,10),
-                      color: Color(0xffc1c0c7)
+                      color: Color(0xff333333)
                     )
                   ]
                 ),

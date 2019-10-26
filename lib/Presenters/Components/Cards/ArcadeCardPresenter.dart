@@ -177,7 +177,10 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
           arcadeTimerSinker.add(ArcadeTimer.onTimeMustStop);
           _restrictStream.add(true);
           Timer(Duration(milliseconds: 400),() async{
-            ArcadeAction act =  await view.showNegativeDialog();
+            ArcadeAction act =  await view.showNegativeDialog(
+              episode: this.episode,
+              title: "Game Over"
+            );
             negativeActionDecider(act);
           });
         }
@@ -223,7 +226,9 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
       print("total score : "+ totalScore.toString());
       int star = getStarScore(totalScore);
       ArcadeAction act = await view.showCompleteDialog(
-        star: star
+        star: star,
+        episode: this.episode,
+        message: getCompleteMessage(star)
       );
       if(act == ArcadeAction.retryGame){
         reInitiateGame();
@@ -259,6 +264,16 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     }
   }
 
+
+  String getCompleteMessage( int star){
+    if(star == 3){
+      return "Excellent";
+    }else if(star == 2){
+      return "Very Good";
+    }
+    return "Good";
+  }
+
   int getStarScore(double totalScore){
     if(totalScore > 130){
       return 3;
@@ -286,7 +301,10 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
    void timeIsUp(ArcadeTimer type) async{
      if(type == ArcadeTimer.onTimeUp){
        setAlreadyTimeUp = true;
-      ArcadeAction act =  await view.showNegativeDialog();
+      ArcadeAction act =  await view.showNegativeDialog(
+        episode: this.episode,
+        title: "Time's Up"
+      );
       negativeActionDecider(act);
      }
    }

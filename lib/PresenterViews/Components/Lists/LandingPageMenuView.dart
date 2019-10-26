@@ -7,7 +7,7 @@ class LandingPageMenuView{
 
 
   double getCardHeight(){
-    return MediaQuery.of(currentContext()).size.height - (MediaQuery.of(currentContext()).padding.top + MediaQuery.of(currentContext()).padding.bottom + 180);
+    return (MediaQuery.of(currentContext()).size.height - (MediaQuery.of(currentContext()).padding.top + MediaQuery.of(currentContext()).padding.bottom + 180)) * 3 / 4;
   }
 
   double getCardWidth(){

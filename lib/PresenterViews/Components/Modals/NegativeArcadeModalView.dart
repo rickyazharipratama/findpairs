@@ -6,6 +6,8 @@ class NegativeArcadeModalView{
   double _height;
   double _wrapperWidth;
   double _wrapperHeight;
+  double _iconWidth;
+
 
   AnimationController _animationController;
   Animation _animation;
@@ -18,6 +20,7 @@ class NegativeArcadeModalView{
   double get wrapperWidth => _wrapperWidth;
   double get wrapperHeight => _wrapperHeight;
 
+
   set setWidth(double halfWidth){
     _width = halfWidth + (halfWidth / 2) + (halfWidth / 2) / 2;
   }
@@ -29,6 +32,11 @@ class NegativeArcadeModalView{
   }
   set setWrapperHeight(double height){
     _wrapperHeight = height - 40;
+  }
+
+  double get iconWidth => _iconWidth;
+  set setIconWidth(double val){
+    _iconWidth = val;
   }
 
   AnimationController get animationController => _animationController;

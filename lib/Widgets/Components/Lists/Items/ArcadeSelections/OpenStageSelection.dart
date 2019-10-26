@@ -34,12 +34,12 @@ class OpenStageSelection extends StatelessWidget {
                         color: Colors.transparent,
                         width: 2
                       ),
-                      color: Color(0xfff7f5cb),
+                      color: Color(0xfff4efa9),
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 10,
                           offset: Offset(0,10),
-                          color: Color(0xffc1c0c7)
+                          color: Color(0xff333333)
                         )
                       ]
                     ),
@@ -48,7 +48,7 @@ class OpenStageSelection extends StatelessWidget {
                         stage.toString(),
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.display4.apply(
-                          color: Color(0xfffaa675)
+                          color: Color(0xfff77d00)
                         ),
 
                       ),
@@ -81,7 +81,7 @@ class OpenStageSelection extends StatelessWidget {
                     BoxShadow(
                       blurRadius: 10,
                       offset: Offset(0,10),
-                      color: Color(0xffc1c0c7)
+                      color: Color(0x99333333)
                     )
                   ]
                 ),

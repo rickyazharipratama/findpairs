@@ -15,13 +15,13 @@ class ArcadeMenuItemView{
   Animation get animationNewGame => _newgame;
   Animation get iconSlider => _iconSlider;
 
-  set setAnimationController(TickerProvider tick){
+  setAnimationController(TickerProvider tick, double height){
     _controller = AnimationController(
       vsync: tick,
-      duration: const Duration(milliseconds: 700)
+      duration: const Duration(milliseconds: 800)
     )..addListener(notifyState);
 
-    _iconSlider = Tween<double>(begin: 0, end: 30).animate(
+    _iconSlider = Tween<double>(begin: 0, end: height).animate(
       CurvedAnimation(
         curve: Interval(
           0.0,0.25,

@@ -1,13 +1,15 @@
 import 'package:findpairs/PresenterViews/Components/Modals/CompleteArcadeModalView.dart';
+import 'package:findpairs/Utils/ConstantCollections.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:findpairs/Widgets/Components/Buttons/ArcadeResultButton.dart';
 import 'package:flutter/material.dart';
 
 class CompleteArcadeModal extends StatefulWidget {
   final int starScore;
-  final bool isHaveNextLevel;
+  final String message;
+  final String episode;
 
-  CompleteArcadeModal({this.starScore, this.isHaveNextLevel :true});
+  CompleteArcadeModal({this.starScore, @required this.message, @required this.episode});
   
   @override
   _CompleteArcadeModalState createState() => new _CompleteArcadeModalState();
@@ -26,9 +28,10 @@ class _CompleteArcadeModalState extends State<CompleteArcadeModal> with TickerPr
   @override
   Widget build(BuildContext context) {
     setWidth = MediaQuery.of(currentContext()).size.width / 2;
-    setHeight = width;
-    setWrapperHeight = height;
+    setHeight = width + width / 2;
+    setWrapperHeight = height - 20;
     setWrapperWidth = width;
+    double iconHeight = wrapperHeight / 2;
     return Center(
       child: Transform.scale(
         scale: animation.value,
@@ -39,22 +42,104 @@ class _CompleteArcadeModalState extends State<CompleteArcadeModal> with TickerPr
             children: <Widget>[
               
               Positioned(
-                top: 40,
+                top: 0,
                 left: 0,
                 right: 0,
-                child: Container(
-                  height: wrapperHeight,
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular((wrapperWidth / 100) * 5),
-                    color: Colors.green
+                child: Center(
+                  child: Image.asset(
+                    ConstantCollections.arcadeDialogsIcon[widget.episode]['positive'],
+                    height: iconHeight,
+                    fit: BoxFit.fitHeight,
                   ),
                 ),
               ),
 
               Positioned(
-                top: 0,
+                top: iconHeight - 20,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: wrapperHeight - iconHeight + 20,
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular((wrapperWidth / 100) * 10),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xff459a2f),
+                        Color(0xff7cae6f)
+                      ],
+                      stops: [
+                        0,0.8
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight
+                    )
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            widget.message,
+                            style: Theme.of(context).textTheme.subtitle.apply(
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                          ),
+                        )
+                      ),
+                      Container(
+                        height: 1,
+                        color: Colors.white,
+                      ),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                  
+                          Expanded(
+                            child: Transform.scale(
+                              scale: animButton.value,
+                              child: ArcadeResultButton(
+                                onTap: (){
+                                  Navigator.of(context).pop(ArcadeAction.retryGame);
+                                },
+                                title: "RETRY",
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            width: 1,
+                            height: 50,
+                            margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                          ),
+
+                          Expanded(
+                            child: Transform.scale(
+                              scale: animButton.value,
+                              child: ArcadeResultButton(
+                                onTap: (){
+                                  Navigator.of(context).pop(ArcadeAction.nextStage);
+                                },
+                                title: "NEXT",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ) 
+                    ],
+                  ),
+                ),
+              ),
+                
+              Positioned(
+                top: iconHeight - 75,
                 left: 0,
                 right: 0,
                 child: Row(
@@ -106,63 +191,6 @@ class _CompleteArcadeModalState extends State<CompleteArcadeModal> with TickerPr
                   ],
                 ),
               ),
-
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: widget.isHaveNextLevel ? Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container( width: 25),
-                    
-                    Expanded(
-                      child: Transform.scale(
-                        scale: animButton.value,
-                        child: ArcadeResultButton(
-                          onTap: (){
-                            Navigator.of(context).pop(ArcadeAction.retryGame);
-                          },
-                          title: "RETRY",
-                        ),
-                      ),
-                    ),
-
-                    Container(
-                      width: 15,
-                    ),
-
-                    Expanded(
-                      child: Transform.scale(
-                        scale: animButton.value,
-                        child: ArcadeResultButton(
-                          onTap: (){
-                            Navigator.of(context).pop(ArcadeAction.nextStage);
-                          },
-                          title: "NEXT",
-                        ),
-                      ),
-                    ),
-                    Container( width: 25)
-                  ],
-                ) : 
-                Center(
-                  child: Transform.scale(
-                    scale: animButton.value,
-                    child: SizedBox(
-                      width: wrapperWidth - 50,
-                      height: 80,
-                      child: ArcadeResultButton(
-                        onTap: (){
-                          Navigator.of(context).pop(ArcadeAction.exitGame);
-                        },
-                        title: "EXIT",
-                      ),
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
         ),

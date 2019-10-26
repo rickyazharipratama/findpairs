@@ -4,8 +4,9 @@ class ArcadeItemMenuButton extends StatelessWidget {
 
   final VoidCallback onTap;
   final String title;
+  final Color color;
 
-  ArcadeItemMenuButton({@required this.onTap, @required this.title});
+  ArcadeItemMenuButton({@required this.onTap, @required this.title, @required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,9 @@ class ArcadeItemMenuButton extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: Theme.of(context).textTheme.display4,
+            style: Theme.of(context).textTheme.display4.apply(
+              color: this.color
+            ),
           ),
         ),
       ),

@@ -35,24 +35,14 @@ class _ArcadeResultButtonState extends State<ArcadeResultButton> with SingleTick
         scale: animation.value,
         child: Container(
           height: 60,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Color(0xffe8e8ef),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0x77333333),
-                blurRadius: 17,
-                offset: Offset(-1,18),
-                spreadRadius: 0
-              )
-            ]
-          ),
           child: Center(
             child: Text(
               presenter.title,
               maxLines: 1,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.display3,
+              style: Theme.of(context).textTheme.display3.apply(
+                color: Colors.white
+              ),
             ),
           ),
         ),
@@ -65,5 +55,4 @@ class _ArcadeResultButtonState extends State<ArcadeResultButton> with SingleTick
     presenter.dispose();
     super.dispose();
   }
-
 }

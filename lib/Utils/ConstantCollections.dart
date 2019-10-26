@@ -18,19 +18,19 @@ class ConstantCollections{
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Color(0xffbc262c),
-      "gradientColor":Color(0xffd22a30),
-      "iconColor":Color(0xff77161a)
+      "color":Color(0xffcc3b34),
+      "gradientColor":Color(0xfffb5b54),
+      "iconColor":Color(0xff9d2a25)
     },
     {
-      "name":"Classic",
+      "name":"Pick",
       "icon":"assets/images/classic.png",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Color(0xffcfad56),
-      "gradientColor":Color(0xffe6c163),
-      "iconColor":Color(0xffac893b)
+      "color":Color(0xfff3b560),
+      "gradientColor":Color(0xfff2ce9c),
+      "iconColor":Color(0xffc8944b)
     },
     {
       "name":"Survival",
@@ -38,9 +38,9 @@ class ConstantCollections{
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Color(0xff67ad2c),
-      "gradientColor":Color(0xff7ac838),
-      "iconColor":Color(0xff037231)
+      "color":Color(0xff6772c6),
+      "gradientColor":Color(0xff9aa3ea),
+      "iconColor":Color(0xff515a99)
     },
     {
       "name":"Collection",
@@ -101,9 +101,15 @@ class ConstantCollections{
   static const Map<String,dynamic> backCards = {
     "Episode-01":{
       "icon":"assets/images/galaxies/solar-system.png",
-      "color": Colors.red,
-      "gradientColor": Colors.red
+      "color": Color(0xff9f072e),
+      "gradientColor": Color(0xffd94168)
     }
   };
 
+  static const Map<String,dynamic> arcadeDialogsIcon = {
+    "Episode-01":{
+      "negative":"assets/images/galaxies/monkey.png",
+      "positive":"assets/images/galaxies/astronaut.png"
+    }
+  };
 }

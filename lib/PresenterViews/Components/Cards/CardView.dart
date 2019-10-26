@@ -32,11 +32,15 @@ class CardView{
 
   Future<ArcadeAction> showNegativeDialog({
     String title,
+    String episode
   }) async{
     return await showDialog(
       context: currentContext(),
       barrierDismissible: false,
-      builder: (context) => NegativeArcadeModal()
+      builder: (context) => NegativeArcadeModal(
+        message: title,
+        episode: episode,
+      )
     );
   }
 
@@ -45,13 +49,17 @@ class CardView{
   }
 
   Future<ArcadeAction> showCompleteDialog({
-    int star
+    int star,
+    String message,
+    String episode
   }) async{
     return await showDialog(
       context:  currentContext(),
       barrierDismissible:  false,
       builder: (context) => CompleteArcadeModal(
         starScore: star,
+        episode: episode,
+        message: message,
       )
     );
   }

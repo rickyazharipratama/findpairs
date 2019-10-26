@@ -44,7 +44,9 @@ class _SelectArcadeStageState extends State<SelectArcadeStage> with SelectArcade
                   child: Text(
                     episode.episode,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.display2,
+                    style: Theme.of(context).textTheme.display2.apply(
+                      color: Color(0xfffaa675)
+                    ),
                   ),
                 ),
               ),

@@ -54,8 +54,7 @@ flutter:
   
     - assets/arcades/Episode-01.json
 
-    - assets/images/bg_landing_page.png
-    - assets/images/bg_menu.png
+    - assets/images/bg.png
     - assets/images/arcade-menu.png
     - assets/images/collections.png
     - assets/images/classic.png
@@ -95,6 +94,8 @@ flutter:
     - assets/images/galaxies/satellite-2.png
     
     - assets/images/galaxies/solar-system.png
+    - assets/images/galaxies/monkey.png
+    - assets/images/galaxies/astronaut.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

@@ -3,6 +3,10 @@ import 'package:findpairs/Presenters/Components/Buttons/SettingActionButtonPrese
 import 'package:flutter/material.dart';
 
 class SettingActionButton extends StatefulWidget {
+  final Color color;
+
+  SettingActionButton({this.color : const Color(0xffe6e7e9)});
+
   @override
   _SettingActionButtonState createState() => new _SettingActionButtonState();
 }
@@ -30,7 +34,7 @@ class _SettingActionButtonState extends State<SettingActionButton> with SingleTi
           angle: getAnimatedAngle(),
           child: Icon(
             Icons.settings,
-            color: Color(0xffc4a5a1),
+            color: widget.color,
             size: 40,
           ),
         ),

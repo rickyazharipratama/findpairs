@@ -36,7 +36,7 @@ class FindPairsTheme{
         fontFamily: "avocado",
         color: Color(0xff777777),
         fontSize: 20
-      )
+      ),
     )
   );
 
