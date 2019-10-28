@@ -1,3 +1,4 @@
+import 'package:findpairs/FindPairsApp.dart';
 import 'package:flutter/widgets.dart';
 
 class PrepareToPlayView{
@@ -56,6 +57,7 @@ class PrepareToPlayView{
     if(status == AnimationStatus.completed){
       if(messageMode == 0){
         setMessageMode = 1;
+        FindPairsApp.of(currentContext()).presenter.sfxSound.play("start_arcade.mp3");
         _message = "Start";
         animationController.forward(from: 0);
       }else{

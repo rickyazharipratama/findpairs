@@ -71,7 +71,10 @@ class FindPairsAppPresenter extends BasePresenter{
       "lost_life.mp3",
       "card_flip.mp3",
       "cheers.mp3",
-      "awww.mp3"
+      "awww.mp3",
+      "tick_tock.mp3",
+      "ready_arcade.mp3",
+      "start_arcade.mp3"
     ]);
 
     view.setViewState = 0;

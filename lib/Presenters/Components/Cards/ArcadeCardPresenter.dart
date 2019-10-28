@@ -186,6 +186,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
           arcadeTimerSinker.add(ArcadeTimer.onTimeMustStop);
           _restrictStream.add(true);
           Timer(Duration(milliseconds: 400),() async{
+            FindPairsApp.of(view.currentContext()).presenter.sfxSound..fixedPlayer.stop();
             FindPairsApp.of(view.currentContext()).presenter.sfxSound.play("awww.mp3");
             ArcadeAction act =  await view.showNegativeDialog(
               episode: this.episode,
@@ -235,6 +236,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
       print("current score by time : "+currentScoreByTime.toString());
       print("total score : "+ totalScore.toString());
       int star = getStarScore(totalScore);
+      FindPairsApp.of(view.currentContext()).presenter.sfxSound.fixedPlayer.stop();
       FindPairsApp.of(view.currentContext()).presenter.sfxSound.play("cheers.mp3");
       ArcadeAction act = await view.showCompleteDialog(
         star: star,
@@ -312,6 +314,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
    void timeIsUp(ArcadeTimer type) async{
      if(type == ArcadeTimer.onTimeUp){
        setAlreadyTimeUp = true;
+       FindPairsApp.of(view.currentContext()).presenter.sfxSound.fixedPlayer.stop();
        FindPairsApp.of(view.currentContext()).presenter.sfxSound.play("awww.mp3");
       ArcadeAction act =  await view.showNegativeDialog(
         episode: this.episode,

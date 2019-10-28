@@ -55,6 +55,9 @@ flutter:
     - assets/sounds/sfx/card_flip.mp3
     - assets/sounds/sfx/awww.mp3
     - assets/sounds/sfx/cheers.mp3
+    - assets/sounds/sfx/tick_tock.mp3
+    - assets/sounds/sfx/ready_arcade.mp3
+    - assets/sounds/sfx/start_arcade.mp3
   
     - assets/arcades/Episode-01.json
 
