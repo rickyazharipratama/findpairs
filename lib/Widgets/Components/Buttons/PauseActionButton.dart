@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:findpairs/PresenterViews/Components/Buttons/PauseActionButtonView.dart';
 import 'package:findpairs/Presenters/Components/Buttons/PauseActionButtonPresenter.dart';
+import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:flutter/material.dart';
 
 class PauseActionButton extends StatefulWidget {
   final Color color;
+  final StreamSink<GamePauseType> sinker;
 
-  PauseActionButton({this.color : Colors.white});
+  PauseActionButton({this.color : Colors.white, @required this.sinker});
 
   @override
   _PauseActionButtonState createState() => new _PauseActionButtonState();
@@ -18,7 +22,7 @@ class _PauseActionButtonState extends State<PauseActionButton> with SingleTicker
   @override
   void initState() {
     super.initState();
-    presenter = PauseActionButtonPresenter()..setView = this;
+    presenter = PauseActionButtonPresenter(widget.sinker)..setView = this;
     setAnimationController = this;
   }
 

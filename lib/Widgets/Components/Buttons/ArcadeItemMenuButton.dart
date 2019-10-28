@@ -10,12 +10,11 @@ class ArcadeItemMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(10),
       child: Container(
         margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
         height: 50,
         decoration: BoxDecoration(
           color: Color(0xffe8e8ef),
@@ -23,7 +22,7 @@ class ArcadeItemMenuButton extends StatelessWidget {
             color: Color(0xffdadadf),
             width: 2
           ),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Center(
           child: Text(

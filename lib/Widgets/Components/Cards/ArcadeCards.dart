@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:findpairs/PresenterViews/Components/Cards/CardView.dart';
 import 'package:findpairs/Presenters/Components/Cards/ArcadeCardPresenter.dart';
+import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:findpairs/Widgets/Components/Cards/Items/FlipCard.dart';
 import 'package:findpairs/Widgets/Components/Lists/ArcadeLifes.dart';
 import 'package:findpairs/Widgets/Components/misc/ClockTimer.dart';
@@ -12,8 +13,9 @@ class ArcadeCard extends StatefulWidget {
   final String episode;
   final StreamSink<int> stageSinker;
   final StreamSink<String> episodeSinker;
+  final Stream<GamePauseType> pauseStream;
 
-  ArcadeCard({this.stage, this.episode, @required this.stageSinker, @required this.episodeSinker});
+  ArcadeCard({this.stage, this.episode, @required this.stageSinker, @required this.episodeSinker, @required this.pauseStream});
   
   @override
   _ArcadeCardState createState() => new _ArcadeCardState();
@@ -26,7 +28,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
   @override
   void initState() {
     super.initState();
-    presenter = ArcadeCardPresenter(widget.stage, widget.episode,widget.stageSinker, widget.episodeSinker)..setView = this;
+    presenter = ArcadeCardPresenter(widget.stage, widget.episode,widget.stageSinker, widget.episodeSinker, widget.pauseStream)..setView = this;
     presenter.initiateData();
   }
 

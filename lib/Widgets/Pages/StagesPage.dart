@@ -42,7 +42,7 @@ class _StagesPageState extends State<StagesPage> with StagesPageView{
       ),
       actions: <Widget>[
         PauseActionButton(
-          
+          sinker: presenter.pauseSink,
         )
       ],
       child: ArcadeCard(
@@ -50,6 +50,7 @@ class _StagesPageState extends State<StagesPage> with StagesPageView{
         stage: widget.stage,
         episodeSinker: presenter.episodeSink,
         stageSinker: presenter.stageSink,
+        pauseStream: presenter.pauseStream,
       )
     );
   }

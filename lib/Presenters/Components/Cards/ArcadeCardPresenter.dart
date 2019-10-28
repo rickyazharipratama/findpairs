@@ -21,6 +21,8 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   StreamController<int> _currentTime = StreamController();
   StreamController<int> _pairedController = StreamController.broadcast();
 
+  Stream<GamePauseType> pauseStream;
+
   StreamSink<int> stageSink;
   StreamSink<String> episodeSink;
 
@@ -89,11 +91,13 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     _currentLife = val;
   }
 
-  ArcadeCardPresenter(int stg, String ep, StreamSink<int> stgSink, StreamSink<String>epSink){
+  ArcadeCardPresenter(int stg, String ep, StreamSink<int> stgSink, StreamSink<String>epSink, Stream<GamePauseType> stream){
     _stages = stg;
     _episode = ep;
     stageSink = stgSink;
     episodeSink = epSink;
+    pauseStream = stream;
+    pauseStream.listen(onListeningPause);
   }
 
   @override
@@ -110,11 +114,15 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     for(int i = 0; i  < numbers.length; i++){
       _cardsValue.add(ArcadeCardValue(i,numbers[i]));
     }
-    arcadeTimerStream.listen(timeIsUp);
     cdStream.listen(getCurrentCountdown);
+    arcadeTimerStream.listen(timeIsUp);
     view.notifyState();
+    if(await view.prepareToPlay()){
+       arcadeTimerSinker.add(ArcadeTimer.onTimeStarted);
+    }
   }
   
+
 
   List<int> generateRandomNumber(int length){
     Random rand = Random();
@@ -347,6 +355,21 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     }
     _restrictStream.add(false);
     view.notifyState();
+    if(await view.prepareToPlay()){
+       arcadeTimerSinker.add(ArcadeTimer.onTimeStarted);
+    }
+  }
+
+  onListeningPause(GamePauseType type) async{
+    if(type == GamePauseType.onGameresume){
+      if(await view.prepareToPlay()){
+        arcadeTimerSinker.add(ArcadeTimer.onTimeStarted);
+      }
+    }else if(type == GamePauseType.onGameExit){
+      view.closeView();
+    }else if(type == GamePauseType.onGamePause){
+      arcadeTimerSinker.add(ArcadeTimer.onTimeMustStop);
+    }
   }
 
   dispose(){

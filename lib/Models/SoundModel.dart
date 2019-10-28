@@ -7,15 +7,21 @@ class SoundModel{
 
   double _musicVolume;
   double _particleVolume;
+  bool _isSilentMode = false;
 
   double get musicVolume => _musicVolume;
   double get particleVolume => _particleVolume;
+  bool get isSilentMode => _isSilentMode;
 
   set setMusicVolume(double val){
     _musicVolume = val;
   }
   set setParticleVolume(double val){
     _particleVolume  = val;
+  }
+
+  set setSilentMode(bool val){
+    _isSilentMode = val;
   }
 
   getValueFromPreference() async{
@@ -29,6 +35,7 @@ class SoundModel{
       Map<String,dynamic> vl = jsonDecode(strVolume);
       setMusicVolume = vl['musicVolume'];
       setParticleVolume = vl['particleVolume'];
+      setSilentMode = vl['silentMode'];
     }
   }
 
@@ -40,7 +47,8 @@ class SoundModel{
   Map<String,dynamic> getMap(){
     return{
       "musicVolume": musicVolume == null ? 0.6 : musicVolume,
-      "particleVolume": particleVolume == null ? 0.6 : particleVolume
+      "particleVolume": particleVolume == null ? 0.6 : particleVolume,
+      "silentMode": isSilentMode == null ? false : isSilentMode
     };
   }
 

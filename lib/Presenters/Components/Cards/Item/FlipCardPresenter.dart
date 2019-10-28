@@ -68,8 +68,10 @@ class FlipCardPresenter extends BaseComponentPresenter{
   onlisteningArcadeTimer(ArcadeTimer timer){
     debugPrint("start shaking");
     if(timer == ArcadeTimer.onAlmostTimeUp){
-      view.setStartShaking = true;
-      view.vibrateController.forward();
+      if(!view.isStartShaking){
+        view.setStartShaking = true;
+        view.vibrateController.forward();
+      }
     }else if(timer == ArcadeTimer.onTimeUp){
       _isRestrictFLipCard = true;
       view.setStartShaking = false;

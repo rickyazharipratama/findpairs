@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:findpairs/PresenterViews/Pages/StagesPageView.dart';
 import 'package:findpairs/Presenters/Pages/BasePagePresenter.dart';
+import 'package:findpairs/Utils/EnumUtils.dart';
 
 class StagesPagePresenter extends BasePagePresenter{
 
@@ -9,6 +10,7 @@ class StagesPagePresenter extends BasePagePresenter{
 
   StreamController<int> _stagesController = StreamController();
   StreamController<String> _episodeController = StreamController();
+  StreamController<GamePauseType> _pauseController = StreamController();
 
 
   StagesPagePresenter({int stage, String episode}){
@@ -31,6 +33,8 @@ class StagesPagePresenter extends BasePagePresenter{
   StreamSink<String> get episodeSink => _episodeController.sink;
   Stream<String> get episodeStream => _episodeController.stream;
 
+  StreamSink<GamePauseType> get pauseSink => _pauseController.sink;
+  Stream<GamePauseType> get pauseStream => _pauseController.stream;
 
   set setView(StagesPageView vw){
     _view = vw;
@@ -61,5 +65,6 @@ class StagesPagePresenter extends BasePagePresenter{
   void dispose(){
     _stagesController.close();
     _episodeController.close();
+    _pauseController.close();
   }
 }

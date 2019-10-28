@@ -1,4 +1,7 @@
+import 'package:findpairs/Utils/EnumUtils.dart';
+import 'package:findpairs/Widgets/Modals/PauseMenuModal.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class PauseActionButtonView{
 
@@ -24,6 +27,16 @@ class PauseActionButtonView{
   }
 
   BuildContext currentContext() => null;
+
+  Future<GamePauseType> openPauseMenu() async{
+    return showDialog(
+      context: currentContext(),
+      barrierDismissible: false,
+      builder: (context){
+        return PauseMenuModal();
+      }
+    );
+  }
 
   void notifyState(){}
 }

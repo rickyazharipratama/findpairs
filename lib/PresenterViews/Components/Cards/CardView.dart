@@ -1,6 +1,7 @@
 import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:findpairs/Widgets/Modals/CompleteArcadeModal.dart';
 import 'package:findpairs/Widgets/Modals/NegativeArcadeModal.dart';
+import 'package:findpairs/Widgets/Modals/PrepareToPlayModal.dart';
 import 'package:findpairs/Widgets/Pages/ArcadeSeeYouNextEpisode.dart';
 import 'package:flutter/material.dart';
 
@@ -61,6 +62,14 @@ class CardView{
         episode: episode,
         message: message,
       )
+    );
+  }
+
+  Future<bool> prepareToPlay() async{
+    return await showDialog(
+      context: currentContext(),
+      barrierDismissible: false,
+      builder: (context) => PrepareToPlay()
     );
   }
 

@@ -41,15 +41,23 @@ class CLockTimerPresenter extends BaseComponentPresenter{
 
   @override
   initiateData(){
+    
+  }
+
+  startTime(){
     int lastTimer = DateTime.now().millisecondsSinceEpoch;
+    bool isAlreadyShaking = false;
     timer = Timer.periodic(const Duration(milliseconds: 1000), (tm){
        int curr = DateTime.now().millisecondsSinceEpoch;
        int diff = curr - lastTimer;
        lastTimer = curr;
        setCountDown = countDown -  (diff / 1000).round();
-       if(countDown  == _critTime){
-         _sinker.add(ArcadeTimer.onAlmostTimeUp);
-         view.animationController.forward();
+       if(countDown  <= _critTime && countDown > 0){
+         if(!isAlreadyShaking){
+          isAlreadyShaking = true;
+          _sinker.add(ArcadeTimer.onAlmostTimeUp);
+          view.animationController.forward();
+         }
        }else if(countDown == 0){
          timer.cancel();
          _sinker.add(ArcadeTimer.onTimeUp);
@@ -58,8 +66,15 @@ class CLockTimerPresenter extends BaseComponentPresenter{
     });
   }
 
+
   onStreamListen(ArcadeTimer type){
-    if(type == ArcadeTimer.onTimeMustStop){
+    if(type == ArcadeTimer.onTimeStarted){
+      if(timer != null){
+        timer.cancel();
+        timer = null;
+      }
+      startTime();
+    }else if(type == ArcadeTimer.onTimeMustStop){
       timer.cancel();
     }else if(type == ArcadeTimer.onGameFinished){
       timer.cancel();
