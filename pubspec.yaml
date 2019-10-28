@@ -51,6 +51,10 @@ flutter:
     - assets/sounds/landing-page.ogg
     - assets/sounds/sfx/button_tap.mp3
     - assets/sounds/sfx/swiping_menu.mp3
+    - assets/sounds/sfx/lost_life.mp3
+    - assets/sounds/sfx/card_flip.mp3
+    - assets/sounds/sfx/awww.mp3
+    - assets/sounds/sfx/cheers.mp3
   
     - assets/arcades/Episode-01.json
 

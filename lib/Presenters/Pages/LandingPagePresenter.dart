@@ -31,13 +31,11 @@ class LandingPagePresenter extends BasePagePresenter{
   @override
   void initiateData()async{
     super.initiateData();
-    playBackgroundMusic();
   }
 
   @override
   playBackgroundMusic() {
     super.playBackgroundMusic();
-    FindPairsApp.of(view.currentContext()).presenter.musicSound.loop("landing-page.ogg");
   }
 
   @override
@@ -55,6 +53,5 @@ class LandingPagePresenter extends BasePagePresenter{
   @override
   void disposeBackgroundMusic() {
     super.disposeBackgroundMusic();
-    FindPairsApp.of(view.currentContext()).presenter.musicSound.clear("landing-page.ogg");
   }
 }

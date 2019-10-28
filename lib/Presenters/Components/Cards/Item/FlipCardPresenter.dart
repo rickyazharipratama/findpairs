@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/Models/ArcadeCardValue.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/Items/FlipCardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
@@ -49,6 +50,7 @@ class FlipCardPresenter extends BaseComponentPresenter{
 
   void onTapCard(){
     if(!view.isOpen){
+      FindPairsApp.of(view.currentContext()).presenter.sfxSound.play("card_flip.mp3");
       view.animationController.forward();
       view.setOpen = true;
       streamSink.add(value);

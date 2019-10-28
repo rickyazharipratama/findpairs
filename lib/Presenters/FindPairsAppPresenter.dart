@@ -62,12 +62,16 @@ class FindPairsAppPresenter extends BasePresenter{
     ));
 
     debugPrint("keLoad sampai disini");
-    await musicSound.loadAll([
-      "landing-page.ogg"
-    ]);
+    // await musicSound.loadAll([
+    //   "landing-page.ogg"
+    // ]);
     await sfxSound.loadAll([
       "button_tap.mp3",
-      "swiping_menu.mp3"
+      "swiping_menu.mp3",
+      "lost_life.mp3",
+      "card_flip.mp3",
+      "cheers.mp3",
+      "awww.mp3"
     ]);
 
     view.setViewState = 0;

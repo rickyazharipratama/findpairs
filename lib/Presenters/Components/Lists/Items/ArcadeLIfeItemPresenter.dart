@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/Models/Painters/ParticleModel.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/ArcadeLifeItemView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
@@ -64,8 +65,10 @@ class ArcadeLifeItemPresenter extends BaseComponentPresenter{
 
   void explode(){
     if(view.animationController.isDismissed){
+      FindPairsApp.of(view.currentContext()).presenter.sfxSound.play("lost_life.mp3");
       view.animationController.reset();
       view.animationController.forward();
+      
 
     }
   }

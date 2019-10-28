@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/ArcadeLifeItemExtendedView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,6 +36,7 @@ class ArcadeLifeItemExtendedPresenter extends BaseComponentPresenter{
   }
 
   void onListenExtendedLife(int life){
+    FindPairsApp.of(view.currentContext()).presenter.sfxSound.play("lost_life.mp3");
     view.animationController.forward();
   }
 
