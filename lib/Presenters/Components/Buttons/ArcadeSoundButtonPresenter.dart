@@ -20,10 +20,6 @@ class ArcadeSoundButtonPresenter extends BaseComponentPresenter{
   void initiateData() async{
     super.initiateData();
     await soundControl.getValueFromPreference();
-    if(soundControl.isSilentMode == null){
-      soundControl.setSilentMode = false;
-      soundControl.setValueToPreference();
-    }
     view.notifyState();
   }
 

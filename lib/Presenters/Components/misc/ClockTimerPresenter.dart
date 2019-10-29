@@ -4,6 +4,7 @@ import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/PresenterViews/Components/misc/ClockTImerView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
+import 'package:findpairs/Utils/SoundManager.dart';
 
 class CLockTimerPresenter extends BaseComponentPresenter{
 
@@ -56,9 +57,12 @@ class CLockTimerPresenter extends BaseComponentPresenter{
        if(countDown  <= _critTime && countDown > 0){
          if(!isAlreadyShaking){
           isAlreadyShaking = true;
-          _sinker.add(ArcadeTimer.onAlmostTimeUp);
-          FindPairsApp.of(view.currentContext()).presenter.sfxSound.play("tick_tock.mp3");
+          SoundManager.manager.play(
+            player: FindPairsApp.of(view.currentContext()).presenter.miscSound,
+            filename: "tick_tock.mp3"
+          );
           view.animationController.forward();
+          _sinker.add(ArcadeTimer.onAlmostTimeUp);
          }
        }else if(countDown == 0){
          timer.cancel();

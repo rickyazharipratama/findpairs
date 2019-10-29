@@ -1,6 +1,5 @@
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:findpairs/Models/SoundModel.dart';
 import 'package:findpairs/PresenterViews/FindPairsAppPresenterView.dart';
 import 'package:findpairs/Presenters/BasePresenter.dart';
 import 'package:flutter/rendering.dart';
@@ -9,43 +8,33 @@ import 'package:flutter/services.dart';
 class FindPairsAppPresenter extends BasePresenter{
 
   FindPairsAppPresenterView _view;
-  AudioCache musicSound;
-  AudioCache sfxSound;
-
-  AudioPlayer _musicPlayer;
-  AudioPlayer _sfxPlayer;
-
-  SoundModel _soundVolume;
+  AudioCache miscSound;
+  AudioCache particleSound;
+  AudioPlayer _miscAudioPlayer;
+  AudioPlayer _particleAudioPlayer;
 
   FindPairsAppPresenterView get view => _view;
   set setView(FindPairsAppPresenterView vw){
     _view = vw;
   }
 
-  SoundModel get soundVolume => _soundVolume;
-  set setSoundVolume(SoundModel model){
-    _soundVolume = model;
-  }
-
   FindPairsAppPresenter(){
-    setSoundVolume = SoundModel();
-    
-    _musicPlayer = AudioPlayer(
+  
+    _miscAudioPlayer = AudioPlayer(
       mode: PlayerMode.MEDIA_PLAYER
-    )..setVolume(0.05);
-
-    _sfxPlayer = AudioPlayer(
+    );
+    _particleAudioPlayer = AudioPlayer(
       mode: PlayerMode.LOW_LATENCY
-    )..setVolume(0.08);
-
-    musicSound = AudioCache(
-      prefix: "sounds/",
-      fixedPlayer: _musicPlayer
     );
 
-    sfxSound = AudioCache(
+    miscSound = AudioCache(
       prefix: "sounds/sfx/",
-      fixedPlayer: _sfxPlayer
+      fixedPlayer: _miscAudioPlayer
+    );
+
+    particleSound = AudioCache(
+      prefix: "sounds/sfx/",
+      fixedPlayer: _particleAudioPlayer
     );
   }
 
@@ -60,23 +49,19 @@ class FindPairsAppPresenter extends BasePresenter{
       systemNavigationBarColor: Color(0xff252525),
       systemNavigationBarIconBrightness: Brightness.light
     ));
-
     debugPrint("keLoad sampai disini");
-    // await musicSound.loadAll([
-    //   "landing-page.ogg"
-    // ]);
-    await sfxSound.loadAll([
+    await miscSound.loadAll([
+      "tick_tock.mp3",
+    ]);
+    await particleSound.loadAll([
       "button_tap.mp3",
-      "swiping_menu.mp3",
       "lost_life.mp3",
       "card_flip.mp3",
       "cheers.mp3",
       "awww.mp3",
-      "tick_tock.mp3",
       "ready_arcade.mp3",
       "start_arcade.mp3"
     ]);
-
     view.setViewState = 0;
     view.notifyState();
   }

@@ -65,6 +65,18 @@ class _ArcadeSoundButtonState extends State<ArcadeSoundButton> with SingleTicker
   }
 
   @override
+  void notifyState(){
+    if(mounted){
+      setState(() {
+        
+      });
+    }
+  }
+
+  @override
+  BuildContext currentContext() => context;
+
+  @override
   void dispose() {
     presenter.dispose();
     super.dispose();

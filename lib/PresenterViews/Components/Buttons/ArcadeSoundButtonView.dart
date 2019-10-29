@@ -24,4 +24,5 @@ class ArcadeSoundButtonView{
   }
 
   void notifyState(){}
+  BuildContext currentContext() => null;
 }

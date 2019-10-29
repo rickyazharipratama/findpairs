@@ -1,7 +1,5 @@
-
 import 'dart:async';
 
-import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/PresenterViews/Pages/LandingPageView.dart';
 import 'package:findpairs/Presenters/Pages/BasePagePresenter.dart';
 
@@ -41,13 +39,11 @@ class LandingPagePresenter extends BasePagePresenter{
   @override
   pauseBackgroundMusic() {
     super.pauseBackgroundMusic();
-    FindPairsApp.of(view.currentContext()).presenter.musicSound.fixedPlayer.pause();
   }
   
   @override
   stopBackgroundMusic() {
     super.stopBackgroundMusic();
-    FindPairsApp.of(view.currentContext()).presenter.musicSound.fixedPlayer.stop();
   }
 
   @override

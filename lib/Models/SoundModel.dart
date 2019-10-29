@@ -28,8 +28,9 @@ class SoundModel{
     SharedPreferences pref = await SharedPreferences.getInstance();
     String strVolume  = pref.getString(ConstantCollections.PREF_VOLUME);
     if(strVolume == null){
-        setMusicVolume = .6;
-        setParticleVolume = .6;
+        setMusicVolume = 0.1;
+        setParticleVolume = 0.1;
+        setSilentMode = false;
         setValueToPreference();
     }else{
       Map<String,dynamic> vl = jsonDecode(strVolume);

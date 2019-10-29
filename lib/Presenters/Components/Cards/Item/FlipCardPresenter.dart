@@ -5,6 +5,7 @@ import 'package:findpairs/Models/ArcadeCardValue.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/Items/FlipCardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
+import 'package:findpairs/Utils/SoundManager.dart';
 import 'package:flutter/cupertino.dart';
 
 class FlipCardPresenter extends BaseComponentPresenter{
@@ -50,7 +51,10 @@ class FlipCardPresenter extends BaseComponentPresenter{
 
   void onTapCard(){
     if(!view.isOpen){
-      FindPairsApp.of(view.currentContext()).presenter.sfxSound.play("card_flip.mp3");
+      SoundManager.manager.play(
+        player: FindPairsApp.of(view.currentContext()).presenter.particleSound,
+        filename: "card_flip.mp3"
+      );
       view.animationController.forward();
       view.setOpen = true;
       streamSink.add(value);
@@ -84,6 +88,9 @@ class FlipCardPresenter extends BaseComponentPresenter{
       _isRestrictFLipCard = true;
       view.setStartShaking = false;
       view.vibrateController.stop();
+      view.notifyState();
+    }else if(timer == ArcadeTimer.onTimeStarted){
+      _isRestrictFLipCard = false;
       view.notifyState();
     }
   }
