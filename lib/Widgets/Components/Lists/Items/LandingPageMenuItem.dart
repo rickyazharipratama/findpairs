@@ -1,4 +1,5 @@
 import 'package:findpairs/PresenterViews/Components/Lists/Items/LandingPageMenuItemView.dart';
+import 'package:findpairs/Widgets/Pages/FInderPage.dart';
 import 'package:flutter/material.dart';
 
 class LandingPageMenuItem extends StatefulWidget {
@@ -27,7 +28,13 @@ class _LandingPageMenuItemState extends State<LandingPageMenuItem> with LandingP
             right: 0,
             bottom: 0,
             child: GestureDetector(
-              onTap: (){},
+              onTap: (){
+                if(widget.menu['name'].toString().toLowerCase() == "finder"){
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context)=> FinderPage()
+                  ));
+                }
+              },
               child: AnimatedContainer(
                 width: widget.width,
                 height: widget.height,

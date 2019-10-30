@@ -57,7 +57,8 @@ flutter:
     - assets/sounds/sfx/ready_arcade.mp3
     - assets/sounds/sfx/start_arcade.mp3
   
-    - assets/arcades/Episode-01.json
+    - assets/json/arcades/Episode-01.json
+    - assets/json/Finder.json
 
     - assets/images/bg.png
     - assets/images/arcade-menu.png

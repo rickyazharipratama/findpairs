@@ -1,0 +1,7 @@
+class FinderScoreTextView{
+
+  void notifyState(){
+    
+  }
+
+}

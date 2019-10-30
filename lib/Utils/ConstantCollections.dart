@@ -23,7 +23,7 @@ class ConstantCollections{
       "iconColor":Color(0xff9d2a25)
     },
     {
-      "name":"Pick",
+      "name":"Finder",
       "icon":"assets/images/classic.png",
       "version":1,
       "isAvailable": true,
@@ -59,7 +59,12 @@ class ConstantCollections{
   //Preferences
   static const PREF_VOLUME = "prefVolume";
   static const PREF_ARCADE_LOG = "prefArcadeLog";
-
+  //Preference finder
+  static const PREF_FINDER_SCORE = "prefFinderscore";
+  static const PREF_FINDER_RATIO = "prefFinderRatio";
+  static const PREF_FINDER_LIFE = "prefFinderLife";
+  static const PREF_FINDER_TOTAL_MOVE = "prefFinderTotalMove";
+  static const PREF_FINDER_CORRECT_MOVE = "prefCorrectMove";
 
   static const Map<String, List<String>> cards ={
     "Episode-01" : [

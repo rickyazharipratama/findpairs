@@ -12,7 +12,7 @@ class ArcadeUtils{
   }
 
   Future<Map<String,dynamic>> getSettingArcade(String stages) async{
-    String jsonAsset = await rootBundle.loadString("assets/arcades/"+episode+".json");
+    String jsonAsset = await rootBundle.loadString("assets/json/arcades/"+episode+".json");
     return (jsonDecode(jsonAsset)[stages]);
   } 
 }
