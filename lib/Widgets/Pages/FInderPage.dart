@@ -57,7 +57,11 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
                 children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
-                      child: StackedCards(),
+                      child: StackedCards(
+                        stackedSink: presenter.stackedCardSink,
+                        cardPaired: presenter.cardPairedStream,
+                        boardCardStream: presenter.boardCardStream,
+                      ),
                     ),
                     
                     Expanded(
@@ -91,8 +95,18 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
             ),
 
             Expanded(
-              child: FinderCards(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: FinderCards(
+                  stackedStream: presenter.stackedCardStream,
+                  boardCardSink: presenter.boardCardSink,
+                ),
+              ),
             ),
+
+            Container(
+              height: 80,
+            )
           ],
         ),
       ),

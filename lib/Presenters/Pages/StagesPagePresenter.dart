@@ -11,6 +11,7 @@ class StagesPagePresenter extends BasePagePresenter{
   StreamController<int> _stagesController = StreamController();
   StreamController<String> _episodeController = StreamController();
   StreamController<GamePauseType> _pauseController = StreamController();
+  
 
 
   StagesPagePresenter({int stage, String episode}){
@@ -35,6 +36,8 @@ class StagesPagePresenter extends BasePagePresenter{
 
   StreamSink<GamePauseType> get pauseSink => _pauseController.sink;
   Stream<GamePauseType> get pauseStream => _pauseController.stream;
+
+  
 
   set setView(StagesPageView vw){
     _view = vw;

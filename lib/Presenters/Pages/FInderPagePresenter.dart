@@ -10,6 +10,9 @@ class FinderPagePresenter extends BasePagePresenter{
   StreamController<GamePauseType> _pauseController = StreamController();
   StreamController<int> _increaseScoreController = StreamController();
   StreamController<int> _reduceScoreController = StreamController();
+  StreamController<List<int>> _stackedCardController = StreamController();
+  StreamController<List<int>> _boardCardController = StreamController();
+  StreamController<int> _cardPairedController = StreamController();
 
   FinderPageView get view => _view;
   set setView(FinderPageView vw){
@@ -25,6 +28,15 @@ class FinderPagePresenter extends BasePagePresenter{
   StreamSink<int> get reduceScoreSink => _reduceScoreController.sink;
   Stream<int> get reduceScoreStream => _reduceScoreController.stream;
 
+  StreamSink<List<int>> get stackedCardSink => _stackedCardController.sink;
+  Stream<List<int>> get stackedCardStream => _stackedCardController.stream;
+
+  StreamSink<int> get cardPairedSink => _cardPairedController.sink;
+  Stream<int> get cardPairedStream => _cardPairedController.stream;
+
+  StreamSink<List<int>> get boardCardSink => _boardCardController.sink;
+  Stream<List<int>> get boardCardStream => _boardCardController.stream; 
+
   @override
   void initiateData() {
     super.initiateData();
@@ -34,5 +46,8 @@ class FinderPagePresenter extends BasePagePresenter{
     _pauseController.close();
     _increaseScoreController.close();
     _reduceScoreController.close();
+    _stackedCardController.close();
+    _cardPairedController.close();
+    _boardCardController.close();
   }
 }

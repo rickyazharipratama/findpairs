@@ -1,16 +1,35 @@
+import 'dart:async';
+
 import 'package:findpairs/PresenterViews/Components/Cards/StackedCardsView.dart';
+import 'package:findpairs/Presenters/Components/Cards/StackedCardsPresenter.dart';
+import 'package:findpairs/Widgets/Components/Cards/Items/StackedCardItem.dart';
 import 'package:flutter/material.dart';
 
 class StackedCards extends StatefulWidget {
+  final StreamSink<List<int>> stackedSink;
+  final Stream<List<int>> boardCardStream;
+  final Stream<int> cardPaired;
+
+  StackedCards({@required this.stackedSink, @required this.cardPaired, @required this.boardCardStream});
+
   @override
   _StackedCardsState createState() => new _StackedCardsState();
 }
 
 class _StackedCardsState extends State<StackedCards> with StackedCardsView{
 
+  StackedCardsPresenter presenter;
+
   @override
   void initState() {
     super.initState();
+    presenter = StackedCardsPresenter(
+      stackedSinker: widget.stackedSink,
+      cardPaired: widget.cardPaired,
+      boardCardStream: widget.boardCardStream
+    )
+    ..setView = this
+    ..initiateData();
   }
   
 
@@ -20,28 +39,23 @@ class _StackedCardsState extends State<StackedCards> with StackedCardsView{
       width: cardWidth,
       height: cardHeight,
       child: Stack(
-        children: List.generate(5, (idx){
-          double top = (2 * idx).toDouble();
-          double side = 8 - (2 * idx).toDouble();
+        children: presenter.stackedCards.map((val){
+          int index = presenter.stackedCards.indexOf(val);
+          double top = (2 * index).toDouble();
+          double side = 8 - (2 * index).toDouble();
           return Positioned(
             top: top,
             left: side,
             right: side,
-            child: Container(
+            child: StackedCardItem(
               width: cardWidth - top,
               height: cardHeight - top,
-              decoration: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5,
-                  )
-                ]
-              ),  
+              destroyStream: presenter.destroyCardStream,
+              refillSink: presenter.refillCardSink,
+              value: val,
             ),
           );
-        }).toList(),
+        }).toList()
       ),
     );
   }
@@ -49,5 +63,21 @@ class _StackedCardsState extends State<StackedCards> with StackedCardsView{
   @override
   BuildContext currentContext() {
     return context;
+  }
+
+  @override
+  void notifyState() {
+    super.notifyState();
+    if(mounted){
+      setState(() {
+        
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    presenter.dispose();
+    super.dispose();
   }
 }
