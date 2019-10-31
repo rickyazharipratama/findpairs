@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:findpairs/Models/FinderCardFormation.dart';
+import 'package:findpairs/Models/FinderSumaryScore.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/StackedCardsView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
+import 'package:flutter/services.dart';
 
 class StackedCardsPresenter extends BaseComponentPresenter{
 
@@ -14,7 +19,6 @@ class StackedCardsPresenter extends BaseComponentPresenter{
   StackedCardsView _view;
   List<int> _stackedCards;
   List<int> _boardCards;
-
   StackedCardsPresenter({this. stackedSinker, this.cardPaired, this.boardCardStream}){
     cardPaired.listen(onListenCardPaired);
     refillCardStream.listen(onListenRefillCard);
@@ -65,15 +69,43 @@ class StackedCardsPresenter extends BaseComponentPresenter{
     destroyCardSink.add(true);
   }
 
-  onListenRefillCard(bool isval){
+  onListenRefillCard(bool isval) async{
     if(isval){
       Random rand = Random();
-      int nxt = rand.nextInt(32);
-      while(stackedCards.contains(nxt)){
-        nxt = rand.nextInt(32);
+      if(stackedCards.length > boardCards.length){
+        int nxt = rand.nextInt(32);
+        while(stackedCards.contains(nxt)){
+          nxt = rand.nextInt(32);
+        }
+        stackedCards.insert(0, nxt);
+      }else{
+        //it's must be reference by board card and ratio
+        FinderSumaryScore score = FinderSumaryScore();
+        await score.getScoreFromStore();
+        FinderCardFormation formation = FinderCardFormation.fromJsonAndScore(jsonDecode(await rootBundle.loadString("assets/json/Finder.json")),score.score);
+        double currentRatio = CommonUtil.instance.getRatio(boardCards, stackedCards);
+  
+        if(currentRatio >= formation.currentCardFormation.ratio){
+          int nxt = rand.nextInt(32);
+          while(stackedCards.contains(nxt)){
+            nxt = rand.nextInt(32);
+          }
+          stackedCards.insert(0, nxt);
+        }else{
+          List<int> tmpVal = List();
+          boardCards.forEach((val){
+            if(!stackedCards.contains(val)){
+              tmpVal.add(val);
+            }
+          });
+          if(tmpVal.length > 0){
+            stackedCards.insert(0, tmpVal[rand.nextInt(tmpVal.length)]);
+          }else{
+            stackedCards.insert(0, rand.nextInt(32));
+          }
+        }
       }
-       stackedCards.insert(0, nxt);
-       stackedSinker.add(stackedCards);
+      stackedSinker.add(stackedCards);     
     }
   }
 

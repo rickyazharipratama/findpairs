@@ -6,6 +6,7 @@ import 'package:findpairs/Models/FinderCardFormation.dart';
 import 'package:findpairs/Models/FinderSumaryScore.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/FinderCardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:flutter/services.dart';
 
 class FinderCardPresenter extends BaseComponentPresenter{
@@ -78,6 +79,12 @@ class FinderCardPresenter extends BaseComponentPresenter{
       }
     }else{
       _boardCards.addAll(_stackedCards);
+      double currentRatio = 1;
+      while(currentRatio > _finderAssets.currentCardFormation.ratio){
+        _boardCards.removeAt(rand.nextInt(_boardCards.length - 1));
+        currentRatio = CommonUtil.instance.getRatio(_boardCards, _stackedCards);
+      }
+
       for(int i= _boardCards.length - 1 ; i < _finderAssets.currentCardFormation.total; i++){
         int val = rand.nextInt(32);
         while(_boardCards.contains(val)){
@@ -87,5 +94,38 @@ class FinderCardPresenter extends BaseComponentPresenter{
       }
     }
     _boardCards.shuffle();
+  }
+
+  reconfigAfterPaired(int pairedVal){
+    // _summary.getScoreFromStore();
+    // _finderAssets.setCurrentFormationByScore(_summary.score);
+    // if(_finderAssets.currentCardFormation.total > _boardCards)
+    int index = _boardCards.firstWhere((val) => val == pairedVal);
+    if(_stackedCards.length >= _boardCards.length){
+      // ratio must 1
+      if(_boardCards.contains(_stackedCards[_stackedCards.length - 1])){
+        //execution when boardcard have value same as last stacked
+        Random rand = Random();
+        if(index >= 0 ){
+          _boardCards[index] = _stackedCards[rand.nextInt(_stackedCards.length - 1)];
+        }
+      }else{
+        //execute when boardCard have no same value with last stacked card
+        if(index >= 0){
+          _boardCards[index] = _stackedCards.last;
+        }else{
+          //probabably not gonna happen
+          Random rand = Random();
+          _boardCards[rand.nextInt(_boardCards.length)] = _stackedCards.last;
+        }
+      }
+    }else{
+      //boardcard greater than stacked
+      Random rand = Random();
+      if(index >= 0){
+        _boardCards[index] = rand.nextInt(32);
+      }
+    }
+    boardCardSink.add(_boardCards);
   }
 }

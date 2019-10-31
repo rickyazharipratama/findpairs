@@ -155,7 +155,7 @@
         "horizontal":4,
         "vertical":4,
         "total":10,
-        "ratio":0.8,
+        "ratio":0.6,
         "formations":[
             {
                 "rows":3
@@ -191,7 +191,7 @@
         "horizontal":4,
         "vertical":3,
         "total":12,
-        "ratio":0.6,
+        "ratio":0.4,
         "formations":[
             {
                 "rows":4
