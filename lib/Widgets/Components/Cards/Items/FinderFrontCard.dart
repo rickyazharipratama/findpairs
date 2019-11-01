@@ -19,6 +19,18 @@ class FinderFrontCard extends StatefulWidget {
 }
 
 class _FinderFrontCardState extends State<FinderFrontCard> {
+
+  @override
+  void didUpdateWidget(FinderFrontCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(oldWidget.val != this.widget.val){
+      if(mounted){
+        setState(() { 
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

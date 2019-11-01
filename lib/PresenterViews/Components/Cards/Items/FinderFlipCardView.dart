@@ -33,6 +33,8 @@ class FinderFlipCardView{
     );
   }
 
+  void notifyState(){}
+
   Vector3 shakingCard(double progress){
     Random rand = Random();
     double offset = rand.nextInt(4) * sin(progress * pi * 2);

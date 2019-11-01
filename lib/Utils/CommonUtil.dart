@@ -13,4 +13,8 @@ class CommonUtil{
     return countPaired / reference.length;
   }
 
+  String fixedNumberFormat(double val){
+    List<String> strForm = val.toString().split(".");
+    return strForm[0];
+  }
 }

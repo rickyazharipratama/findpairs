@@ -21,12 +21,17 @@ class FinderSumaryScore{
 
   int get score => _score;
   set setScore(int val){
-    _score = score;
+    _score = val;
   }
 
   double get ratio => _ratio;
   set setRatio(double val){
     _ratio = val;
+  }
+
+  void updateRatio() async{
+    setRatio = totalCorrect / totalMove;
+    await setRatioToStore();
   }
 
   int get life => _life;

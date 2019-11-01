@@ -33,13 +33,16 @@ class FinderScoreTextPresenter extends BaseComponentPresenter{
     _summaryScore.setScore = val;
   }
 
-  onListenStreamScore(int val){
+  onListenStreamScore(int val) async{
     _summaryScore.setScore = _summaryScore.score + val;
-    _summaryScore.setScoreToStore();
+    await _summaryScore.setScoreToStore();
+    print("increasing score to :" + totalScore.toString()+"from incoming val : "+val.toString());
+    view.notifyState();
   }
 
-  onListenStreamReduce(int val){
+  onListenStreamReduce(int val) async{
     _summaryScore.setScore = _summaryScore.score - val;
-    _summaryScore.setScoreToStore();
+    await _summaryScore.setScoreToStore();
+    view.notifyState();
   }
 }

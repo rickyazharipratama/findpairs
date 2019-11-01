@@ -9,8 +9,12 @@ class FinderCards extends StatefulWidget {
 
   final Stream<List<int>> stackedStream;
   final StreamSink<List<int>> boardCardSink;
+  final StreamSink<int> cardPairedSink;
+  final StreamSink<int> increaseScore;
+  final StreamSink<int> reduceScore;
+  final StreamSink<double> ratioUpdateSink;
 
-  FinderCards({@required this.stackedStream, @required this.boardCardSink});
+  FinderCards({@required this.stackedStream, @required this.boardCardSink, @required this.cardPairedSink, @required this.increaseScore, @required this.reduceScore, @required this.ratioUpdateSink});
 
   @override
   _FinderCardsState createState() => new _FinderCardsState();
@@ -25,9 +29,12 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
     super.initState();
     presenter = FinderCardPresenter(
       stackedCardStream: widget.stackedStream,
-      boardCardSink: widget.boardCardSink
-    )
-    ..setView = this;
+      boardCardSink: widget.boardCardSink,
+      cardPairedSink: widget.cardPairedSink,
+      increaseScore: widget.increaseScore,
+      reduceScore: widget.reduceScore,
+      updateRatioSink: widget.ratioUpdateSink
+    )..setView = this;
   }
 
   @override
@@ -48,12 +55,12 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
                     skiprow+= presenter.finderAssets.currentCardFormation.formations[i];
                   }
                 }
-                print("skipRows : "+skiprow.toString());
-                print("index : "+(skiprow + index).toString());
                 return FinderFlipCard(
                   width: cardSize.width,
                   height: cardSize.height,
                   value: presenter.boardCards[skiprow+index],
+                  cardPaired: presenter.cardValueSink,
+                  valChangeStream: presenter.cardChangeValueStream,
                 );
               }),
             );
@@ -75,4 +82,11 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
       });
     }
   }
+
+  @override
+  void dispose() {
+    presenter.dispose();
+    super.dispose();
+  }
+
 }

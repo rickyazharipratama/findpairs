@@ -14,7 +14,7 @@ class StackedCardsPresenter extends BaseComponentPresenter{
   final StreamSink<List<int>> stackedSinker;
   final Stream<List<int>> boardCardStream;
   final Stream<int> cardPaired;
-  StreamController<bool> _destroyCardController = StreamController<bool>.broadcast();
+  StreamController<int> _destroyCardController = StreamController<int>.broadcast();
   StreamController<bool> _refillCardController = StreamController<bool>();
   StackedCardsView _view;
   List<int> _stackedCards;
@@ -33,8 +33,8 @@ class StackedCardsPresenter extends BaseComponentPresenter{
   List<int> get stackedCards => _stackedCards;
   List<int> get boardCards => _boardCards;
 
-  StreamSink<bool> get destroyCardSink => _destroyCardController.sink;
-  Stream<bool> get destroyCardStream => _destroyCardController.stream;
+  StreamSink<int> get destroyCardSink => _destroyCardController.sink;
+  Stream<int> get destroyCardStream => _destroyCardController.stream;
 
   StreamSink<bool> get refillCardSink => _refillCardController.sink;
   Stream<bool> get refillCardStream => _refillCardController.stream;
@@ -65,14 +65,27 @@ class StackedCardsPresenter extends BaseComponentPresenter{
 
   onListenCardPaired(int val){
     //must remove last stacked card and insert into first stacked card
+    print("listinening val card paired : "+val.toString());
+    print("stacked Card Length : "+stackedCards.length.toString());
+    String stval = "";
+    for(int i=0; i < stackedCards.length;i ++){
+      stval+= stackedCards[i].toString()+",";
+    }
+    print("val stack : "+stval);
     stackedCards.removeLast();
-    destroyCardSink.add(true);
+    stval = "";
+    for(int i=0; i < stackedCards.length;i ++){
+      stval+= stackedCards[i].toString()+",";
+    }
+    print("after remove stack : "+stval);
+    destroyCardSink.add(val);
   }
 
   onListenRefillCard(bool isval) async{
     if(isval){
       Random rand = Random();
-      if(stackedCards.length > boardCards.length){
+      print("card length : "+boardCards.length.toString());
+      if(stackedCards.length - 1 > boardCards.length){
         int nxt = rand.nextInt(32);
         while(stackedCards.contains(nxt)){
           nxt = rand.nextInt(32);
@@ -105,7 +118,8 @@ class StackedCardsPresenter extends BaseComponentPresenter{
           }
         }
       }
-      stackedSinker.add(stackedCards);     
+      stackedSinker.add(stackedCards);
+      view.notifyState();     
     }
   }
 

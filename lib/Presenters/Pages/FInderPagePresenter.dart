@@ -13,6 +13,7 @@ class FinderPagePresenter extends BasePagePresenter{
   StreamController<List<int>> _stackedCardController = StreamController();
   StreamController<List<int>> _boardCardController = StreamController();
   StreamController<int> _cardPairedController = StreamController();
+  StreamController<double> _ratioUpdatingController = StreamController();
 
   FinderPageView get view => _view;
   set setView(FinderPageView vw){
@@ -37,6 +38,9 @@ class FinderPagePresenter extends BasePagePresenter{
   StreamSink<List<int>> get boardCardSink => _boardCardController.sink;
   Stream<List<int>> get boardCardStream => _boardCardController.stream; 
 
+  StreamSink<double> get ratioUpdateSink => _ratioUpdatingController.sink;
+  Stream<double> get ratioUpdateStream => _ratioUpdatingController.stream;
+
   @override
   void initiateData() {
     super.initiateData();
@@ -49,5 +53,6 @@ class FinderPagePresenter extends BasePagePresenter{
     _stackedCardController.close();
     _cardPairedController.close();
     _boardCardController.close();
+    _ratioUpdatingController.close();
   }
 }

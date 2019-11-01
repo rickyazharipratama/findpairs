@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 
 class StackedCardItemPresenter extends BaseComponentPresenter{
 
-  final Stream<bool> destroyCardStream;
+  final Stream<int> destroyCardStream;
   final StreamSink<bool> refillCardSink;
   final double cardWidth;
   final double cardHeight;
+  int val;
 
   StackedCardItemView _view;
 
@@ -31,7 +32,8 @@ class StackedCardItemPresenter extends BaseComponentPresenter{
     this.destroyCardStream,
     this.refillCardSink,
     this.cardWidth,
-    this.cardHeight
+    this.cardHeight,
+    this.val
   }){
     destroyCardStream.listen(onListenDestroyCard);
     _particles = Particles.generate(
@@ -55,9 +57,18 @@ class StackedCardItemPresenter extends BaseComponentPresenter{
     view.notifyState();
   }
 
-  onListenDestroyCard(bool isVal){
-    if(isVal){
+  onListenDestroyCard(int val){
+    print("incominge destroy val: "+val.toString());
+    if(this.val == val){
+      print("destroying card val :"+val.toString());
       view.animationController.forward(from: 0);
+    }
+  }
+
+  resetAnimate(){
+    if(view.animationController.value > 0){
+      view.animationController.reset();
+      view.notifyState();
     }
   }
 

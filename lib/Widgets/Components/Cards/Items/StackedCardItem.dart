@@ -10,7 +10,7 @@ class StackedCardItem extends StatefulWidget {
 
   final double width;
   final double height;
-  final Stream<bool> destroyStream;
+  final Stream<int> destroyStream;
   final StreamSink<bool> refillSink;
   final int value;
 
@@ -38,10 +38,20 @@ class _StackedCardItemState extends State<StackedCardItem> with SingleTickerProv
       cardHeight: widget.height,
       cardWidth: widget.width,
       destroyCardStream: widget.destroyStream,
-      refillCardSink: widget.refillSink
+      refillCardSink: widget.refillSink,
+      val: widget.value
     )
     ..setView = this
     ..initiateData();
+  }
+
+  @override
+  void didUpdateWidget(StackedCardItem oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(this.widget.value != oldWidget.value){
+      presenter.val = this.widget.value;
+      presenter.resetAnimate();
+    }
   }
 
   @override

@@ -187,7 +187,7 @@
         ]
     },
     {
-        "minScore":0,
+        "minScore":50001,
         "horizontal":4,
         "vertical":3,
         "total":12,

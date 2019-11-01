@@ -1,14 +1,19 @@
-import 'package:findpairs/Models/FinderSumaryScore.dart';
 import 'package:findpairs/PresenterViews/Components/Text/FInderCorrectRatioTextView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 
 class FinderCorrectRatioTextPresenter extends BaseComponentPresenter{
 
   FinderCorrectRatioTextView _view;
-  FinderSumaryScore _summary;
+  final Stream<double> updateRatio;
+  double _ratio = 1.0;
 
-  FinderCorrectRatioTextPresenter(){
-    _summary = FinderSumaryScore();
+  FinderCorrectRatioTextPresenter({this.updateRatio}){
+   updateRatio.listen(listenUpdateRatio);
+  }
+
+  double get ratio => _ratio;
+  set setRatio(double val){
+    _ratio = val;
   }
 
   FinderCorrectRatioTextView get view => _view;
@@ -16,14 +21,9 @@ class FinderCorrectRatioTextPresenter extends BaseComponentPresenter{
     _view = vw;
   }
 
-  double get ratio => _summary.ratio;
-  set setRatio(double val){
-    _summary.setRatio = val;
-  }
-
-  @override
-  void initiateData() {
-    super.initiateData();
-    _summary.getRatioFromStore();
+  listenUpdateRatio(double val){
+    print("incoming ratio : "+val.toString());
+    setRatio = val;
+    view.notifyState();
   }
 }
