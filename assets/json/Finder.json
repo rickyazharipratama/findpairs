@@ -10,7 +10,7 @@
         }]
     },
     {
-        "minScore":31,
+        "minScore":10,
         "horizontal":2,
         "vertical":2,
         "total":3,
@@ -25,25 +25,22 @@
         ]
     },
     {
-        "minScore":91,
+        "minScore":20,
         "horizontal":2,
-        "vertical":3,
+        "vertical":2,
         "total":4,
         "ratio":1,
         "formations":[
             {
-                "rows":1
-            },
-            {
                 "rows":2
             },
             {
-                "rows":1
+                "rows":2
             }
         ]
     },
     {
-        "minScore":271,
+        "minScore":30,
         "horizontal":2,
         "vertical":3,
         "total":5,
@@ -61,7 +58,7 @@
         ]
     },
     {
-        "minScore":541,
+        "minScore":40,
         "horizontal":3,
         "vertical":3,
         "total":6,
@@ -79,7 +76,7 @@
         ]
     },
     {
-        "minScore":811,
+        "minScore":50,
         "horizontal":3,
         "vertical":3,
         "total":7,
@@ -97,7 +94,7 @@
         ]
     },
     {
-        "minScore":1601,
+        "minScore":60,
         "horizontal":3,
         "vertical":3,
         "total":8,
@@ -115,7 +112,7 @@
         ]
     },
     {
-        "minScore":3201,
+        "minScore":70,
         "horizontal":3,
         "vertical":3,
         "total":9,
@@ -133,7 +130,7 @@
         ]
     },
     {
-        "minScore":5601,
+        "minScore":80,
         "horizontal":3,
         "vertical":3,
         "total":9,
@@ -151,7 +148,7 @@
         ]
     },
     {
-        "minScore":10001,
+        "minScore":90,
         "horizontal":4,
         "vertical":4,
         "total":10,
@@ -169,7 +166,7 @@
         ]
     },
     {
-        "minScore":25001,
+        "minScore":100,
         "horizontal":3,
         "vertical":5,
         "total":11,
@@ -187,7 +184,7 @@
         ]
     },
     {
-        "minScore":50001,
+        "minScore":110,
         "horizontal":4,
         "vertical":3,
         "total":12,

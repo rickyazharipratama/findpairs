@@ -48,7 +48,7 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
           return Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(presenter.finderAssets.currentCardFormation.horizontal, (index){
+              children: List.generate(presenter.finderAssets.currentCardFormation.formations[idx], (index){
                 int skiprow = 0;
                 if(idx > 0){
                   for(int i=0; i < idx;i++){

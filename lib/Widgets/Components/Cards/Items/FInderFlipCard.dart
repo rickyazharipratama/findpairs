@@ -45,6 +45,15 @@ class _FinderFlipCardState extends State<FinderFlipCard> with TickerProviderStat
   }
 
   @override
+  void didUpdateWidget(FinderFlipCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(this.widget.value != oldWidget.value){
+      presenter.val = this.widget.value;
+      notifyState();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Transform(
       transform: Matrix4.translation(shakingCard(shakingAnimationController.value)),

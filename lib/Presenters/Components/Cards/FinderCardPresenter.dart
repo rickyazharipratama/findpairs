@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:findpairs/Models/DetailFinderCardFormation.dart';
 import 'package:findpairs/Models/FinderCardFormation.dart';
 import 'package:findpairs/Models/FinderSumaryScore.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/FinderCardView.dart';
@@ -104,18 +105,14 @@ class FinderCardPresenter extends BaseComponentPresenter{
       }
 
       for(int i= _boardCards.length - 1 ; i < _finderAssets.currentCardFormation.total; i++){
-        int val = rand.nextInt(32);
-        while(_boardCards.contains(val)){
-          val = rand.nextInt(32);
-        }
-        _boardCards.add(val);
+        _boardCards.add(getUniqueRandom());
       }
     }
     _boardCards.shuffle();
     boardCardSink.add(_boardCards);
   }
 
-  reconfigAfterPaired(int pairedVal){
+  reconfigAfterPaired(int pairedVal) async{
     // _summary.getScoreFromStore();
     // _finderAssets.setCurrentFormationByScore(_summary.score);
     // if(_finderAssets.currentCardFormation.total > _boardCards)
@@ -152,14 +149,13 @@ class FinderCardPresenter extends BaseComponentPresenter{
       }
     }else{
       //boardcard greater than stacked
-      Random rand = Random();
       if(index >= 0){
         dataChange['old'] = _boardCards[index];
-        _boardCards[index] = rand.nextInt(32);
+        _boardCards[index] = getUniqueRandom();
         dataChange['new'] = _boardCards[index];
       }
     }
-    cardChangeValueSink.add(dataChange);
+    await expandingBoardCard(dataChange);
     boardCardSink.add(_boardCards);
   }
 
@@ -177,8 +173,8 @@ class FinderCardPresenter extends BaseComponentPresenter{
       //paired
       score.setTotalCorrect = score.totalCorrect + 1;
       score.setCorrectMoveToStore();
-      reconfigAfterPaired(val);
       increaseScore.add(3);
+      reconfigAfterPaired(val);
       cardPairedSink.add(val);
       // view.notifyState();
     }else{
@@ -190,6 +186,51 @@ class FinderCardPresenter extends BaseComponentPresenter{
     await score.setTotalMoveToStore();
     score.updateRatio();
     updateRatioSink.add(score.ratio);
+  }
+
+  expandingBoardCard(Map<String,int> dataChange) async{
+    FinderSumaryScore score = FinderSumaryScore();
+    await score.getScoreFromStore();
+    DetailFinderCardFormation form = _finderAssets.getDetailFormationByScore(score.score);
+    print("total board : "+form.total.toString()+" with min score =" + form.minScore.toString()+" & reference score = "+score.score.toString());
+    if(boardCards.length  < form.total){
+       Random rand = Random();
+      for(int i = boardCards.length - 1; i < form.total; i ++){
+        if(_stackedCards.length - 1 > _boardCards.length){
+          if(!boardCards.contains(_stackedCards[_stackedCards.length - 1])){
+            boardCards.add(_stackedCards.length - 1);
+          }
+          int index = 0;
+          int nxt = rand.nextInt(_stackedCards.length - 1);
+          while(boardCards.contains(_stackedCards[nxt]) && (index < _stackedCards.length - 1)){
+            nxt = rand.nextInt(_stackedCards.length - 1);
+            index++;
+          }
+
+          if(boardCards.contains(_stackedCards[nxt])){
+            boardCards.add(getUniqueRandom());
+          }else{
+            boardCards.add(_stackedCards[nxt]);
+          }
+        }else{
+          boardCards.add(getUniqueRandom());
+        }
+      }
+      print("expanding board");
+      _finderAssets.setCurrentFormationByScore(score.score);
+      view.notifyState();
+    }else{
+      cardChangeValueSink.add(dataChange);
+    }
+  }
+
+  int getUniqueRandom(){
+    Random random = Random();
+    int rand = random.nextInt(32);
+    while(boardCards.contains(rand)){
+      rand = random.nextInt(32);
+    }
+    return rand;
   }
 
   void dispose(){
