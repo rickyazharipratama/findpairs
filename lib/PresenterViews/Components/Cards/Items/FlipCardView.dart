@@ -9,7 +9,7 @@ class FlipCardView{
   Animation<double> _animation;
 
   AnimationController _vibrateController;
-  Animation<double> _vibrateAnimation;
+  Animation<double> _vibrateAnimation;  
 
   bool _isOpen = false;
   bool _isStartShaking = false;
@@ -19,6 +19,7 @@ class FlipCardView{
 
   AnimationController get vibrateController => _vibrateController;
   Animation<double> get vibrateAnimation => _vibrateAnimation;
+
 
   set setVibrateController(Duration dur){
     _vibrateController = AnimationController(

@@ -20,6 +20,7 @@ class FinderCardPresenter extends BaseComponentPresenter{
   final StreamSink<double> updateRatioSink;
   StreamController<int> _cardValueController = StreamController();
   StreamController<Map<String,int>> _cardChangeValueController = StreamController.broadcast();
+  StreamController<Map<String,int>> _scoreAnimationController = StreamController.broadcast();
 
   FinderCardView _view;
   FinderCardFormation _finderAssets;
@@ -51,6 +52,9 @@ class FinderCardPresenter extends BaseComponentPresenter{
 
   Stream<Map<String,int>> get cardChangeValueStream => _cardChangeValueController.stream;
   StreamSink<Map<String,int>> get cardChangeValueSink => _cardChangeValueController.sink;
+
+  StreamSink<Map<String,int>> get scoreAnimationSink => _scoreAnimationController.sink;
+  Stream<Map<String,int>> get scoreAnimationStream => _scoreAnimationController.stream;
 
   @override
   void initiateData()async{
@@ -189,18 +193,27 @@ class FinderCardPresenter extends BaseComponentPresenter{
       score.setTotalCorrect = score.totalCorrect + 1;
       score.setCorrectMoveToStore();
       increaseScore.add(3);
+      animationDamage(3, val);
       reconfigAfterPaired(val);
       cardPairedSink.add(val);
       // view.notifyState();
     }else{
       //notPaired
-      
+      animationDamage(-1, val);
     }
     await score.getTotalMoveFromStore();
     score.setTotalMove = score.totalMove + 1;
     await score.setTotalMoveToStore();
     score.updateRatio();
     updateRatioSink.add(score.ratio);
+  }
+
+  animationDamage(int score, int val){
+    Map<String,int> data = {
+      "score" : score,
+      "val" : val
+    };
+    scoreAnimationSink.add(data);
   }
 
   expandingBoardCard(Map<String,int> dataChange) async{
@@ -251,5 +264,6 @@ class FinderCardPresenter extends BaseComponentPresenter{
   void dispose(){
     _cardValueController.close();
     _cardChangeValueController.close();
+    _scoreAnimationController.close();
   }
 }

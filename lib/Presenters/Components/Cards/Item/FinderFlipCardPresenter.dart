@@ -7,12 +7,17 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
 
   final StreamSink<int> cardPairedSink;
   final Stream<Map<String,int>> valueChangeStream;
+  final Stream<Map<String,int>> scoreAnimationStream;
   FinderFlipCardView _view;
   int val;
+  int _scoreAnimation = 0;
 
-  FinderFlipCardPresenter({this.cardPairedSink, this.val, this.valueChangeStream}){
+  FinderFlipCardPresenter({this.cardPairedSink, this.val, this.valueChangeStream, this.scoreAnimationStream}){
     valueChangeStream.listen(onListenValueChange);
+    scoreAnimationStream.listen(onListenScoreAnimation);
   }
+
+  int get scoreAnimation => _scoreAnimation;
 
   @override
   initiateData(){
@@ -21,6 +26,13 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
 
   ontapCard(){
     cardPairedSink.add(val);
+  }
+
+  onListenScoreAnimation(Map<String,int> data){
+    if(data['val'] == this.val){
+      _scoreAnimation = data['score'];
+      view.scoreAnimationController.forward();
+    }
   }
 
   onListenValueChange(Map<String,int> data){
@@ -39,5 +51,6 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
   void dispose(){
     view.animationController.dispose();
     view.shakingAnimationController.dispose();
+    view.scoreAnimationController.dispose();
   }
 }

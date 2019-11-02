@@ -61,6 +61,7 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
                   value: presenter.boardCards[skiprow+index],
                   cardPaired: presenter.cardValueSink,
                   valChangeStream: presenter.cardChangeValueStream,
+                  scoreAnimationStream: presenter.scoreAnimationStream,
                 );
               }),
             );
