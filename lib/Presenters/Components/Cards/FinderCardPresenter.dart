@@ -186,6 +186,7 @@ class FinderCardPresenter extends BaseComponentPresenter{
     for(int i= 0; i < boardCards.length; i++){
       bc+=_boardCards[i].toString()+", ";
     }
+    await score.getScoreFromStore();
     print("boardCard value : "+bc);
     await score.getCorrectMoveFromStore();
     if(_stackedCards.last == val){
@@ -199,7 +200,15 @@ class FinderCardPresenter extends BaseComponentPresenter{
       // view.notifyState();
     }else{
       //notPaired
-      animationDamage(-1, val);
+      await score.getLifeFromStore();
+      score.setLife = score.life - 1;
+      if(score.life == 0){
+        score.reconfigureLife();
+        animationDamage(-1, val);
+        reduceScore.add(-1);
+      }else{
+        score.setLifeToStore();
+      }
     }
     await score.getTotalMoveFromStore();
     score.setTotalMove = score.totalMove + 1;

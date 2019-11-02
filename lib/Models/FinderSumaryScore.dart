@@ -104,13 +104,8 @@ class FinderSumaryScore{
     pref.setInt(ConstantCollections.PREF_FINDER_CORRECT_MOVE, totalCorrect);
   }
 
-  reconfigureLife() async{
-    //checkpoint for playing before
-    await getLifeFromStore();
-    if(life == 0){
-       await getScoreFromStore();
-      //must have some logic to set life based on score
-      setLife = 3;
-    }
+  reconfigureLife() {
+    setLife = 3;
+    setLifeToStore();
   }
 }
