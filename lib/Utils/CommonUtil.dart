@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class CommonUtil{
 
   static CommonUtil instance =  CommonUtil();
@@ -16,5 +18,14 @@ class CommonUtil{
   String fixedNumberFormat(double val){
     List<String> strForm = val.toString().split(".");
     return strForm[0];
+  }
+
+  int getUniqueRandom({int max,List<int> reference}){
+    Random random = Random();
+    int rand = random.nextInt(max);
+    while(reference.contains(rand)){
+      rand = random.nextInt(max);
+    }
+    return rand;
   }
 }

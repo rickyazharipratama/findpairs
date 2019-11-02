@@ -150,7 +150,7 @@
     {
         "minScore":90,
         "horizontal":4,
-        "vertical":4,
+        "vertical":3,
         "total":10,
         "ratio":0.6,
         "formations":[
@@ -168,7 +168,7 @@
     {
         "minScore":100,
         "horizontal":3,
-        "vertical":5,
+        "vertical":3,
         "total":11,
         "ratio":0.6,
         "formations":[

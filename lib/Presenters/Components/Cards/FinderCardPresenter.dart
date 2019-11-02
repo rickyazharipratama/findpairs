@@ -100,12 +100,18 @@ class FinderCardPresenter extends BaseComponentPresenter{
       _boardCards.addAll(_stackedCards);
       double currentRatio = 1;
       while(currentRatio > _finderAssets.currentCardFormation.ratio){
-        _boardCards.removeAt(rand.nextInt(_boardCards.length - 1));
+        int idx = rand.nextInt(_boardCards.length - 1);
+        if(_stackedCards.last != boardCards[idx]){
+          _boardCards.removeAt(idx);
+        }
         currentRatio = CommonUtil.instance.getRatio(_boardCards, _stackedCards);
       }
 
-      for(int i= _boardCards.length - 1 ; i < _finderAssets.currentCardFormation.total; i++){
-        _boardCards.add(getUniqueRandom());
+      for(int i= _boardCards.length; i < _finderAssets.currentCardFormation.total; i++){
+        _boardCards.add(CommonUtil.instance.getUniqueRandom(
+          max: 32,
+          reference: boardCards
+        ));
       }
     }
     _boardCards.shuffle();
@@ -148,10 +154,19 @@ class FinderCardPresenter extends BaseComponentPresenter{
         }
       }
     }else{
-      //boardcard greater than stacked
+      //boardcard greater than stacked 
       if(index >= 0){
         dataChange['old'] = _boardCards[index];
-        _boardCards[index] = getUniqueRandom();
+        if(_boardCards.contains(_stackedCards[_stackedCards.length - 2])){
+          print("boardCard contains next last stack");
+          _boardCards[index] = CommonUtil.instance.getUniqueRandom(
+            max : 32,
+            reference: boardCards
+          );
+        }else{
+          print("boardCard not contains next last stack");
+          _boardCards[index] = _stackedCards[_stackedCards.length - 2];
+        }
         dataChange['new'] = _boardCards[index];
       }
     }
@@ -195,25 +210,32 @@ class FinderCardPresenter extends BaseComponentPresenter{
     print("total board : "+form.total.toString()+" with min score =" + form.minScore.toString()+" & reference score = "+score.score.toString());
     if(boardCards.length  < form.total){
        Random rand = Random();
-      for(int i = boardCards.length - 1; i < form.total; i ++){
+      for(int i = boardCards.length; i < form.total; i++){
         if(_stackedCards.length - 1 > _boardCards.length){
           if(!boardCards.contains(_stackedCards[_stackedCards.length - 1])){
-            boardCards.add(_stackedCards.length - 1);
-          }
-          int index = 0;
-          int nxt = rand.nextInt(_stackedCards.length - 1);
-          while(boardCards.contains(_stackedCards[nxt]) && (index < _stackedCards.length - 1)){
-            nxt = rand.nextInt(_stackedCards.length - 1);
-            index++;
-          }
-
-          if(boardCards.contains(_stackedCards[nxt])){
-            boardCards.add(getUniqueRandom());
+            boardCards.add(_stackedCards[_stackedCards.length - 1]);
           }else{
-            boardCards.add(_stackedCards[nxt]);
+            int index = 0;
+            int nxt = rand.nextInt(_stackedCards.length - 1);
+            while(boardCards.contains(_stackedCards[nxt])  && (index < _stackedCards.length - 1)){
+              nxt = rand.nextInt(_stackedCards.length - 1);
+              index++;
+            }
+
+            if(boardCards.contains(_stackedCards[nxt])){
+              boardCards.add(CommonUtil.instance.getUniqueRandom(
+                max: 32,
+                reference: boardCards
+              ));
+            }else{
+              boardCards.add(_stackedCards[nxt]);
+            }
           }
         }else{
-          boardCards.add(getUniqueRandom());
+          boardCards.add(CommonUtil.instance.getUniqueRandom(
+            max: 32,
+            reference: boardCards
+          ));
         }
       }
       print("expanding board");
@@ -224,14 +246,7 @@ class FinderCardPresenter extends BaseComponentPresenter{
     }
   }
 
-  int getUniqueRandom(){
-    Random random = Random();
-    int rand = random.nextInt(32);
-    while(boardCards.contains(rand)){
-      rand = random.nextInt(32);
-    }
-    return rand;
-  }
+  
 
   void dispose(){
     _cardValueController.close();

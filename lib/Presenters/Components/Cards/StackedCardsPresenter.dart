@@ -52,13 +52,11 @@ class StackedCardsPresenter extends BaseComponentPresenter{
     }else{
       _stackedCards.clear();
     }
-    Random rand = Random();
     for(int i=0; i < 5; i++){
-      int val = rand.nextInt(32);
-      while(_stackedCards.contains(val)){
-        val = rand.nextInt(32);
-      }
-      _stackedCards.add(val);
+      _stackedCards.add(CommonUtil.instance.getUniqueRandom(
+        max: 32,
+        reference: _stackedCards
+      ));
     }
     stackedSinker.add(_stackedCards);
   }
@@ -86,11 +84,10 @@ class StackedCardsPresenter extends BaseComponentPresenter{
       Random rand = Random();
       print("card length : "+boardCards.length.toString());
       if(stackedCards.length - 1 > boardCards.length){
-        int nxt = rand.nextInt(32);
-        while(stackedCards.contains(nxt)){
-          nxt = rand.nextInt(32);
-        }
-        stackedCards.insert(0, nxt);
+        stackedCards.insert(0, CommonUtil.instance.getUniqueRandom(
+          max: 32,
+          reference: stackedCards
+        ));
       }else{
         //it's must be reference by board card and ratio
         FinderSumaryScore score = FinderSumaryScore();
@@ -99,11 +96,10 @@ class StackedCardsPresenter extends BaseComponentPresenter{
         double currentRatio = CommonUtil.instance.getRatio(boardCards, stackedCards);
   
         if(currentRatio >= formation.currentCardFormation.ratio){
-          int nxt = rand.nextInt(32);
-          while(stackedCards.contains(nxt)){
-            nxt = rand.nextInt(32);
-          }
-          stackedCards.insert(0, nxt);
+          stackedCards.insert(0, CommonUtil.instance.getUniqueRandom(
+            max: 32,
+            reference: stackedCards
+          ));
         }else{
           List<int> tmpVal = List();
           boardCards.forEach((val){
