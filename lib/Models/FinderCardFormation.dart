@@ -26,7 +26,11 @@ class FinderCardFormation{
   DetailFinderCardFormation get currentCardFormation => _currentCardFormation;
   
   setCurrentFormationByScore(int score){
-    _currentCardFormation = finderCardFormations.lastWhere((formation)=> formation.minScore <= score);
+    try{
+      _currentCardFormation = finderCardFormations.lastWhere((formation)=> formation.minScore <= score);
+    }catch (Exception){
+      _currentCardFormation = finderCardFormations[0];
+    }
   }
 
   DetailFinderCardFormation getDetailFormationByScore(int score){

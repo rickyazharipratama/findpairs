@@ -13,8 +13,9 @@ class FinderCards extends StatefulWidget {
   final StreamSink<int> increaseScore;
   final StreamSink<int> reduceScore;
   final StreamSink<double> ratioUpdateSink;
+  final StreamSink<int> lifeConfigurationSink;
 
-  FinderCards({@required this.stackedStream, @required this.boardCardSink, @required this.cardPairedSink, @required this.increaseScore, @required this.reduceScore, @required this.ratioUpdateSink});
+  FinderCards({@required this.stackedStream, @required this.boardCardSink, @required this.cardPairedSink, @required this.increaseScore, @required this.reduceScore, @required this.ratioUpdateSink, @required this.lifeConfigurationSink});
 
   @override
   _FinderCardsState createState() => new _FinderCardsState();
@@ -33,7 +34,8 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
       cardPairedSink: widget.cardPairedSink,
       increaseScore: widget.increaseScore,
       reduceScore: widget.reduceScore,
-      updateRatioSink: widget.ratioUpdateSink
+      updateRatioSink: widget.ratioUpdateSink,
+      lifeConfigurationSink: widget.lifeConfigurationSink
     )..setView = this;
   }
 
@@ -62,6 +64,8 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
                   cardPaired: presenter.cardValueSink,
                   valChangeStream: presenter.cardChangeValueStream,
                   scoreAnimationStream: presenter.scoreAnimationStream,
+                  restrictionCardStream: presenter.restrictionCardStream,
+                  forceRestrictCard: presenter.forceRestrictionTapAllCard,
                 );
               }),
             );
@@ -89,5 +93,4 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
     presenter.dispose();
     super.dispose();
   }
-
 }

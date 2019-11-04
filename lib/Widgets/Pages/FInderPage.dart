@@ -87,7 +87,9 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
 
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 0),
-                          child: FinderLifes()
+                          child: FinderLifes(
+                            lifeConfigurationStream: presenter.lifeConfigurationStream,
+                          )
                         )
                       ],
                     ),
@@ -106,6 +108,7 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
                   increaseScore: presenter.increaseScoreSink,
                   reduceScore: presenter.reduceScoreSink,
                   ratioUpdateSink: presenter.ratioUpdateSink,
+                  lifeConfigurationSink: presenter.lifeConfigurationSink,
                 ),
               ),
             ),
@@ -123,5 +126,4 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
   BuildContext currentContext() {
     return context;
   }
-
 }

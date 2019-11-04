@@ -14,6 +14,7 @@ class FinderPagePresenter extends BasePagePresenter{
   StreamController<List<int>> _boardCardController = StreamController();
   StreamController<int> _cardPairedController = StreamController();
   StreamController<double> _ratioUpdatingController = StreamController();
+  StreamController<int> _lifeConfigurationController = StreamController();
 
   FinderPageView get view => _view;
   set setView(FinderPageView vw){
@@ -41,9 +42,19 @@ class FinderPagePresenter extends BasePagePresenter{
   StreamSink<double> get ratioUpdateSink => _ratioUpdatingController.sink;
   Stream<double> get ratioUpdateStream => _ratioUpdatingController.stream;
 
+  StreamSink<int> get lifeConfigurationSink => _lifeConfigurationController.sink;
+  Stream<int> get lifeConfigurationStream => _lifeConfigurationController.stream;
+
   @override
   void initiateData() {
     super.initiateData();
+    pauseStream.listen(pauseStreamListen);
+  }
+
+  void pauseStreamListen(GamePauseType type){
+    if(type == GamePauseType.onGameExit){
+      view.closePage();
+    }
   }
 
   void dispose(){
@@ -54,5 +65,6 @@ class FinderPagePresenter extends BasePagePresenter{
     _cardPairedController.close();
     _boardCardController.close();
     _ratioUpdatingController.close();
+    _lifeConfigurationController.close();
   }
 }

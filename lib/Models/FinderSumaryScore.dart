@@ -56,7 +56,13 @@ class FinderSumaryScore{
     SharedPreferences pref = await SharedPreferences.getInstance();
     int tmp = pref.getInt(ConstantCollections.PREF_FINDER_LIFE);
     if(tmp  != null){
-      setLife = tmp;
+      if(tmp == 0){
+        await reconfigureLife();
+      }else{
+        setLife = tmp;
+      }
+    }else{
+      await reconfigureLife();
     }
   }
 

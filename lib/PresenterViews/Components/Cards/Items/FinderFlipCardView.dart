@@ -69,6 +69,8 @@ class FinderFlipCardView{
     ));
   }
 
+  BuildContext currentContext() => null;
+
   void notifyState(){}
 
   Vector3 shakingCard(double progress){

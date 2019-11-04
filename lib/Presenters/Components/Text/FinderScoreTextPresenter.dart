@@ -18,8 +18,8 @@ class FinderScoreTextPresenter extends BaseComponentPresenter{
   }
 
   @override
-  initiateData(){
-    _summaryScore.getScoreFromStore();
+  initiateData() async{
+    await _summaryScore.getScoreFromStore();
     view.notifyState();
   }
   

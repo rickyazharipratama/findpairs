@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/Models/DetailFinderCardFormation.dart';
 import 'package:findpairs/Models/FinderCardFormation.dart';
 import 'package:findpairs/Models/FinderSumaryScore.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/FinderCardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/CommonUtil.dart';
+import 'package:findpairs/Utils/SoundManager.dart';
 import 'package:flutter/services.dart';
 
 class FinderCardPresenter extends BaseComponentPresenter{
@@ -18,9 +20,11 @@ class FinderCardPresenter extends BaseComponentPresenter{
   final StreamSink<int> increaseScore;
   final StreamSink<int> reduceScore;
   final StreamSink<double> updateRatioSink;
+  final StreamSink<int> lifeConfigurationSink;
   StreamController<int> _cardValueController = StreamController();
   StreamController<Map<String,int>> _cardChangeValueController = StreamController.broadcast();
   StreamController<Map<String,int>> _scoreAnimationController = StreamController.broadcast();
+  StreamController<bool> _restrictionController = StreamController.broadcast();
 
   FinderCardView _view;
   FinderCardFormation _finderAssets;
@@ -29,7 +33,7 @@ class FinderCardPresenter extends BaseComponentPresenter{
   List<int> _stackedCards;
   bool _isNeedInitiate = true;
 
-  FinderCardPresenter({this.stackedCardStream, this.boardCardSink, this.cardPairedSink, this.increaseScore, this.reduceScore, this.updateRatioSink}){
+  FinderCardPresenter({this.stackedCardStream, this.boardCardSink, this.cardPairedSink, this.increaseScore, this.reduceScore, this.updateRatioSink, this.lifeConfigurationSink}){
     _summary = FinderSumaryScore();
     stackedCardStream.listen(onListenStackedStreamCard);
     cardValueStream.listen(onListenCardValue);
@@ -55,6 +59,9 @@ class FinderCardPresenter extends BaseComponentPresenter{
 
   StreamSink<Map<String,int>> get scoreAnimationSink => _scoreAnimationController.sink;
   Stream<Map<String,int>> get scoreAnimationStream => _scoreAnimationController.stream;
+
+  StreamSink<bool> get restrictionCardSink => _restrictionController.sink;
+  Stream<bool> get restrictionCardStream => _restrictionController.stream;
 
   @override
   void initiateData()async{
@@ -193,6 +200,10 @@ class FinderCardPresenter extends BaseComponentPresenter{
       //paired
       score.setTotalCorrect = score.totalCorrect + 1;
       score.setCorrectMoveToStore();
+      SoundManager.manager.play(
+        filename: "cheers.mp3",
+        player: FindPairsApp.of(view.currentContext()).presenter.particleSound
+      );
       increaseScore.add(3);
       animationDamage(3, val);
       reconfigAfterPaired(val);
@@ -203,13 +214,16 @@ class FinderCardPresenter extends BaseComponentPresenter{
       await score.getLifeFromStore();
       score.setLife = score.life - 1;
       if(score.life == 0){
-        score.reconfigureLife();
+        await score.reconfigureLife();
         animationDamage(-1, val);
-        reduceScore.add(-1);
+        reduceScore.add(1);
+        lifeConfigurationSink.add(score.life);
       }else{
-        score.setLifeToStore();
+        lifeConfigurationSink.add(-1);
+        await score.setLifeToStore();
       }
     }
+    restrictionCardSink.add(false);
     await score.getTotalMoveFromStore();
     score.setTotalMove = score.totalMove + 1;
     await score.setTotalMoveToStore();
@@ -267,12 +281,15 @@ class FinderCardPresenter extends BaseComponentPresenter{
       cardChangeValueSink.add(dataChange);
     }
   }
-
   
+  forceRestrictionTapAllCard(){
+    restrictionCardSink.add(true); 
+  }
 
   void dispose(){
     _cardValueController.close();
     _cardChangeValueController.close();
     _scoreAnimationController.close();
+    _restrictionController.close();
   }
 }

@@ -15,6 +15,8 @@ class FinderFlipCard extends StatefulWidget {
   final StreamSink<int> cardPaired;
   final Stream<Map<String,int>> valChangeStream;
   final Stream<Map<String,int>> scoreAnimationStream;
+  final Stream<bool> restrictionCardStream;
+  final VoidCallback forceRestrictCard;
   
 
   FinderFlipCard({
@@ -23,7 +25,9 @@ class FinderFlipCard extends StatefulWidget {
     @required this.value,
     @required this.cardPaired,
     @required this.valChangeStream,
-    @required this.scoreAnimationStream
+    @required this.scoreAnimationStream,
+    @required this.restrictionCardStream,
+    @required this.forceRestrictCard
   });
 
   @override
@@ -44,9 +48,12 @@ class _FinderFlipCardState extends State<FinderFlipCard> with TickerProviderStat
       cardPairedSink: widget.cardPaired,
       valueChangeStream: widget.valChangeStream,
       val: widget.value,
-      scoreAnimationStream: widget.scoreAnimationStream
+      scoreAnimationStream: widget.scoreAnimationStream,
+      restrictingCardStream: widget.restrictionCardStream,
+      forceRestrictCard: widget.forceRestrictCard
     )
-    ..setView = this;
+    ..setView = this
+    ..initiateData();
   }
 
   @override
@@ -62,60 +69,57 @@ class _FinderFlipCardState extends State<FinderFlipCard> with TickerProviderStat
   Widget build(BuildContext context) {
     return Transform(
       transform: Matrix4.translation(shakingCard(shakingAnimationController.value)),
-      child: GestureDetector(
-        onTap: presenter.ontapCard,
-        child: FlipView(
-          animationController: animationController,
-          back: BackCard(
-            episode: "Episode-01",
-            height: widget.height,
-            width: widget.width,
-            onTap: presenter.ontapCard,
-          ),
-          
-          front: Container(
-            width: widget.width,
-            height: widget.height,
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: FinderFrontCard(
-                    height: widget.height,
-                    width: widget.width,
-                    val: presenter.val,
+      child: FlipView(
+        animationController: animationController,
+        front: BackCard(
+          episode: "Episode-01",
+          height: widget.height,
+          width: widget.width,
+          onTap: presenter.ontapCard,
+        ),
+        
+        back: Container(
+          width: widget.width,
+          height: widget.height,
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: FinderFrontCard(
+                  height: widget.height,
+                  width: widget.width,
+                  val: presenter.val,
+                ),
+              ),
+              
+              Positioned(
+                top: scoreTranslateAnimation.value,
+                left: 0,
+                right: 0,
+                child: Opacity(
+                  opacity: scoreOpacityAnimation.value,
+                  child: Text(
+                    presenter.scoreAnimation > 0 ? "+"+presenter.scoreAnimation.toString() : presenter.scoreAnimation.toString(),
+                  
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: presenter.scoreAnimation > 0 ? Colors.green : Colors.red,
+                      fontFamily: Theme.of(context).textTheme.display1.fontFamily,
+                      fontSize: Theme.of(context).textTheme.display1.fontSize,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(0,5),
+                          color: Color(0xff000000),
+                          blurRadius: 8
+                        )
+                      ]
+                    )
                   ),
                 ),
-                
-                Positioned(
-                  top: scoreTranslateAnimation.value,
-                  left: 0,
-                  right: 0,
-                  child: Opacity(
-                    opacity: scoreOpacityAnimation.value,
-                    child: Text(
-                      presenter.scoreAnimation > 0 ? "+"+presenter.scoreAnimation.toString() : presenter.scoreAnimation.toString(),
-                    
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: presenter.scoreAnimation > 0 ? Colors.green : Colors.red,
-                        fontFamily: Theme.of(context).textTheme.display1.fontFamily,
-                        fontSize: Theme.of(context).textTheme.display1.fontSize,
-                        shadows: [
-                          Shadow(
-                            offset: Offset(0,5),
-                            color: Color(0xff000000),
-                            blurRadius: 8
-                          )
-                        ]
-                      )
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
+              ),
+            ],
+          ),
         )
-      ),
+      )
     );
   }
 
@@ -134,6 +138,9 @@ class _FinderFlipCardState extends State<FinderFlipCard> with TickerProviderStat
     return widget.height;
   }
   
+  @override
+  BuildContext currentContext() => context;
+
   @override
   void dispose() {
     super.dispose();

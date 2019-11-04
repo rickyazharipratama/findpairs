@@ -4,6 +4,11 @@ import 'package:findpairs/Widgets/Components/Lists/ArcadeLifes.dart';
 import 'package:flutter/material.dart';
 
 class FinderLifes extends StatefulWidget {
+
+  final Stream<int> lifeConfigurationStream;
+
+  FinderLifes({@required this.lifeConfigurationStream});
+
   @override
   _FinderLifesState createState() => new _FinderLifesState();
 }
@@ -15,7 +20,9 @@ class _FinderLifesState extends State<FinderLifes> with FinderLifesView{
   @override
   void initState() {
     super.initState();
-    presenter = FinderLifePresenter()
+    presenter = FinderLifePresenter(
+      lifeConfigurationStream: widget.lifeConfigurationStream
+    )
     ..setView = this
     ..initiateData();
   }
