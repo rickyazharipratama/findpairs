@@ -67,6 +67,7 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
                   scoreAnimationStream: presenter.scoreAnimationStream,
                   restrictionCardStream: presenter.restrictionCardStream,
                   forceRestrictCard: presenter.forceRestrictionTapAllCard,
+                  forceOpenCard: presenter.forceOpeningTapAllCard,
                 );
               }),
             );

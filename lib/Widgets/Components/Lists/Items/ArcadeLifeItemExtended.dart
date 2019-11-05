@@ -24,8 +24,21 @@ class _ArcadeLifeItemExtendedState extends State<ArcadeLifeItemExtended> with Ti
   void initState() {
     super.initState();
     setAnimationController = this;
-    presenter = ArcadeLifeItemExtendedPresenter(widget.lifeExtended, widget.disposeWidget, widget.lifeExtendedStream)..setView = this;
-    presenter.initiateData();
+    presenter = ArcadeLifeItemExtendedPresenter(
+      widget.lifeExtended,
+      widget.disposeWidget, 
+      widget.lifeExtendedStream)
+    ..setView = this
+    ..initiateData();
+  }
+
+  @override
+  void didUpdateWidget(ArcadeLifeItemExtended oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(this.widget.lifeExtended != presenter.lifeExtended){
+      presenter.setLifeExtended = this.widget.lifeExtended;
+      notifyState();
+    }
   }
 
   @override

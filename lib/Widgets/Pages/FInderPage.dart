@@ -112,10 +112,6 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
                 ),
               ),
             ),
-
-            Container(
-              height: 80,
-            )
           ],
         ),
       ),

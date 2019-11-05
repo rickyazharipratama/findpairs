@@ -13,13 +13,14 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
   final Stream<Map<String,int>> scoreAnimationStream;
   final Stream<bool> restrictingCardStream;
   final VoidCallback forceRestrictCard;
+  final VoidCallback forceOpenCard;
   FinderFlipCardView _view;
   int val;
   int updatedVal;
   int _scoreAnimation = 0;
   bool _isRestrictCard = false;
 
-  FinderFlipCardPresenter({this.cardPairedSink, this.val, this.valueChangeStream, this.scoreAnimationStream, this.restrictingCardStream, this.forceRestrictCard}){
+  FinderFlipCardPresenter({this.cardPairedSink, this.val, this.valueChangeStream, this.scoreAnimationStream, this.restrictingCardStream, this.forceRestrictCard, this.forceOpenCard}){
     valueChangeStream.listen(onListenValueChange);
     scoreAnimationStream.listen(onListenScoreAnimation);
     restrictingCardStream.listen(onListenRestrictionCard);
@@ -53,10 +54,17 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
   onListeningAnimationControllerStatus(AnimationStatus status){
     if(status == AnimationStatus.completed){
       cardPairedSink.add(val);
+      Future.delayed(
+        const Duration(milliseconds: 600),
+        (){
+          view.animationController.reverse();
+        }
+      );
     }else if(status == AnimationStatus.dismissed){
       if(updatedVal != val){
         val = updatedVal;
       }
+      forceOpenCard();
       view.notifyState();
     }
   }
@@ -68,20 +76,9 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
     }
   }
 
-
   onListenRestrictionCard(bool isVal){
     setRestrictCard = isVal;
     print("restricted tap card val :"+this.val.toString());
-    if(!isVal){
-      if(view.animationController.status == AnimationStatus.completed){
-        Future.delayed(
-          const Duration(milliseconds: 600),
-          (){
-            view.animationController.reverse();
-          }
-        );
-      }
-    }
   }
 
   onListenValueChange(Map<String,int> data){

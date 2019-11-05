@@ -17,6 +17,7 @@ class FinderFlipCard extends StatefulWidget {
   final Stream<Map<String,int>> scoreAnimationStream;
   final Stream<bool> restrictionCardStream;
   final VoidCallback forceRestrictCard;
+  final VoidCallback forceOpenCard;
   
 
   FinderFlipCard({
@@ -27,7 +28,8 @@ class FinderFlipCard extends StatefulWidget {
     @required this.valChangeStream,
     @required this.scoreAnimationStream,
     @required this.restrictionCardStream,
-    @required this.forceRestrictCard
+    @required this.forceRestrictCard,
+    @required this.forceOpenCard
   });
 
   @override
@@ -50,7 +52,8 @@ class _FinderFlipCardState extends State<FinderFlipCard> with TickerProviderStat
       val: widget.value,
       scoreAnimationStream: widget.scoreAnimationStream,
       restrictingCardStream: widget.restrictionCardStream,
-      forceRestrictCard: widget.forceRestrictCard
+      forceRestrictCard: widget.forceRestrictCard,
+      forceOpenCard: widget.forceOpenCard
     )
     ..setView = this
     ..initiateData();
@@ -61,6 +64,7 @@ class _FinderFlipCardState extends State<FinderFlipCard> with TickerProviderStat
     super.didUpdateWidget(oldWidget);
     if(this.widget.value != oldWidget.value){
       presenter.val = this.widget.value;
+      presenter.updatedVal = presenter.val;
       notifyState();
     }
   }
@@ -143,7 +147,7 @@ class _FinderFlipCardState extends State<FinderFlipCard> with TickerProviderStat
 
   @override
   void dispose() {
-    super.dispose();
     presenter.dispose();
+    super.dispose();
   }
 }

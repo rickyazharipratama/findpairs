@@ -12,7 +12,7 @@ class ArcadeLifesPresenter extends BaseComponentPresenter{
   Stream<bool> _lifeLostListener;
 
   StreamController<bool>_extendedControl = StreamController();
-  StreamController<int>_extendedLifeStreamControl = StreamController();
+  StreamController<int>_extendedLifeStreamControl;
   StreamController<int> _lifeStreamControl = StreamController.broadcast();
 
   StreamSink<bool> get extendedDispose => _extendedControl.sink;
@@ -41,6 +41,7 @@ class ArcadeLifesPresenter extends BaseComponentPresenter{
     _lifeLostListener = stream;
     _lifeLostListener.listen(onLifeLost);
     _initialCounter = life;
+    _extendedControl.stream.listen(onExtendedDispose);
   }
 
   @override
@@ -59,8 +60,8 @@ class ArcadeLifesPresenter extends BaseComponentPresenter{
       }
       right+=15;
     }
-    if(extendedLifes > 0){
-      _extendedControl.stream.listen(onExtendedDispose);
+    if(_extendedlifes > 0){
+      _extendedLifeStreamControl = StreamController();
     }
     view.notifyState();
   }
@@ -73,6 +74,9 @@ class ArcadeLifesPresenter extends BaseComponentPresenter{
       if(extendedLifes > 0){
         setExtendedLifes = extendedLifes - 1;
         _extendedLifeStreamControl.sink.add(extendedLifes);
+        if(extendedLifes == 0){
+          _extendedLifeStreamControl.close();
+        }
       }else{
         //should dispose heart;
         _lifeStreamControl.sink.add(tg);
@@ -90,7 +94,9 @@ class ArcadeLifesPresenter extends BaseComponentPresenter{
   }
 
   dispose(){
-    _extendedLifeStreamControl.close();
+    if(_extendedLifeStreamControl != null){
+      _extendedLifeStreamControl.close();
+    }
     _extendedControl.close();
     _lifeStreamControl.close();
   }

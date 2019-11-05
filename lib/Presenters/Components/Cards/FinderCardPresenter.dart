@@ -223,7 +223,6 @@ class FinderCardPresenter extends BaseComponentPresenter{
         await score.setLifeToStore();
       }
     }
-    restrictionCardSink.add(false);
     await score.getTotalMoveFromStore();
     score.setTotalMove = score.totalMove + 1;
     await score.setTotalMoveToStore();
@@ -248,8 +247,8 @@ class FinderCardPresenter extends BaseComponentPresenter{
        Random rand = Random();
       for(int i = boardCards.length; i < form.total; i++){
         if(_stackedCards.length - 1 > _boardCards.length){
-          if(!boardCards.contains(_stackedCards[_stackedCards.length - 1])){
-            boardCards.add(_stackedCards[_stackedCards.length - 1]);
+          if(!boardCards.contains(_stackedCards[_stackedCards.length - 2])){
+            boardCards.add(_stackedCards[_stackedCards.length - 2]);
           }else{
             int index = 0;
             int nxt = rand.nextInt(_stackedCards.length - 1);
@@ -287,6 +286,10 @@ class FinderCardPresenter extends BaseComponentPresenter{
   
   forceRestrictionTapAllCard(){
     restrictionCardSink.add(true); 
+  }
+
+  forceOpeningTapAllCard(){
+    restrictionCardSink.add(false);
   }
 
   void dispose(){

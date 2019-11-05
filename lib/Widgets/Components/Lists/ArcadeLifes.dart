@@ -89,11 +89,7 @@ class _ArcadeLifesState extends State<ArcadeLifes> with  ArcadeLifesView{
                       ],
                     ),
                   )
-                : ArcadeLifeItem(
-                  tag: rightVal,
-                  lifeStream: presenter.lifeStream,
-                  sinker: presenter.extendedDispose,
-                )
+                : Container()
           );
         }).toList()
       ),
