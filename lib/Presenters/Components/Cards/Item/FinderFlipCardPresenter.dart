@@ -74,7 +74,12 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
     print("restricted tap card val :"+this.val.toString());
     if(!isVal){
       if(view.animationController.status == AnimationStatus.completed){
-        view.animationController.reverse();
+        Future.delayed(
+          const Duration(milliseconds: 600),
+          (){
+            view.animationController.reverse();
+          }
+        );
       }
     }
   }

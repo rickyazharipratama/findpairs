@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:findpairs/Models/FinderCardFormation.dart';
 import 'package:findpairs/Utils/ConstantCollections.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FinderSumaryScore{
@@ -110,8 +114,11 @@ class FinderSumaryScore{
     pref.setInt(ConstantCollections.PREF_FINDER_CORRECT_MOVE, totalCorrect);
   }
 
-  reconfigureLife() {
-    setLife = 3;
+  reconfigureLife() async{
+    await getScoreFromStore();
+    FinderCardFormation form = FinderCardFormation.fromJsonAndScore(jsonDecode(await rootBundle.loadString("assets/json/Finder.json")), score);
+
+    setLife = form.currentCardFormation.life;
     setLifeToStore();
   }
 }

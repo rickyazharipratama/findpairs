@@ -57,6 +57,7 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
                     skiprow+= presenter.finderAssets.currentCardFormation.formations[i];
                   }
                 }
+                print("index : "+(skiprow+index).toString());
                 return FinderFlipCard(
                   width: cardSize.width,
                   height: cardSize.height,

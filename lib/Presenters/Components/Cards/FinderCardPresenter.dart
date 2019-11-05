@@ -276,7 +276,10 @@ class FinderCardPresenter extends BaseComponentPresenter{
       }
       print("expanding board");
       _finderAssets.setCurrentFormationByScore(score.score);
-      view.notifyState();
+      Future.delayed(
+        const Duration(milliseconds: 700),
+        view.notifyState
+      );
     }else{
       cardChangeValueSink.add(dataChange);
     }

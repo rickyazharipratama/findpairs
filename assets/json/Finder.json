@@ -5,6 +5,7 @@
         "vertical":1,
         "total":2,
         "ratio":1,
+        "life":2,
         "formations":[{
             "rows":2
         }]
@@ -15,6 +16,7 @@
         "vertical":2,
         "total":3,
         "ratio":1,
+        "life":2,
         "formations":[
             {
                 "rows":1
@@ -30,6 +32,7 @@
         "vertical":2,
         "total":4,
         "ratio":1,
+        "life":2,
         "formations":[
             {
                 "rows":2
@@ -45,6 +48,7 @@
         "vertical":3,
         "total":5,
         "ratio":1,
+        "life":3,
         "formations":[
             {
                 "rows":2
@@ -63,6 +67,7 @@
         "vertical":3,
         "total":6,
         "ratio":1,
+        "life":3,
         "formations":[
             {
                 "rows":1
@@ -81,6 +86,7 @@
         "vertical":3,
         "total":7,
         "ratio":1,
+        "life":4,
         "formations":[
             {
                 "rows":2
@@ -99,6 +105,7 @@
         "vertical":3,
         "total":8,
         "ratio":1,
+        "life":4,
         "formations":[
             {
                 "rows":3
@@ -117,6 +124,7 @@
         "vertical":3,
         "total":9,
         "ratio":0.8,
+        "life":5,
         "formations":[
             {
                 "rows":3
@@ -135,6 +143,7 @@
         "vertical":3,
         "total":9,
         "ratio":0.8,
+        "life":5,
         "formations":[
             {
                 "rows":4
@@ -153,6 +162,7 @@
         "vertical":3,
         "total":10,
         "ratio":0.6,
+        "life":5,
         "formations":[
             {
                 "rows":3
@@ -171,6 +181,7 @@
         "vertical":3,
         "total":11,
         "ratio":0.6,
+        "life":6,
         "formations":[
             {
                 "rows":4
@@ -189,6 +200,7 @@
         "vertical":3,
         "total":12,
         "ratio":0.4,
+        "life":6,
         "formations":[
             {
                 "rows":4
