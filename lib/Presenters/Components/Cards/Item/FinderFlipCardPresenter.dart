@@ -17,6 +17,7 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
   FinderFlipCardView _view;
   int val;
   int updatedVal;
+  bool isValueUpdated = false;
   int _scoreAnimation = 0;
   bool _isRestrictCard = false;
 
@@ -61,8 +62,9 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
         }
       );
     }else if(status == AnimationStatus.dismissed){
-      if(updatedVal != val){
+      if(isValueUpdated){
         val = updatedVal;
+        isValueUpdated = false;
       }
       forceOpenCard();
       view.notifyState();
@@ -85,6 +87,7 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
     print("value change : "+ data['old'].toString()+":"+this.val.toString()+" to "+data['new'].toString());
     if(data['old'] == this.val){
       this.updatedVal = data['new'];
+      this.isValueUpdated = true;
     }
   }
 

@@ -63,8 +63,16 @@ class _FinderFlipCardState extends State<FinderFlipCard> with TickerProviderStat
   void didUpdateWidget(FinderFlipCard oldWidget) {
     super.didUpdateWidget(oldWidget);
     if(this.widget.value != oldWidget.value){
-      presenter.val = this.widget.value;
-      presenter.updatedVal = presenter.val;
+      if(presenter.isValueUpdated){
+        presenter.val = presenter.updatedVal;
+        presenter.isValueUpdated = false;
+      }else{
+        presenter.val = this.widget.value;
+        presenter.updatedVal = presenter.val;
+      }
+      if(presenter.isRestrictCard){
+        presenter.setRestrictCard = false;
+      }
       notifyState();
     }
   }
