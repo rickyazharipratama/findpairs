@@ -1,5 +1,6 @@
 import 'package:findpairs/PresenterViews/Components/Lists/Items/LandingPageMenuItemView.dart';
 import 'package:findpairs/Widgets/Pages/FInderPage.dart';
+import 'package:findpairs/Widgets/Pages/SurvivalPage.dart';
 import 'package:flutter/material.dart';
 
 class LandingPageMenuItem extends StatefulWidget {
@@ -32,6 +33,10 @@ class _LandingPageMenuItemState extends State<LandingPageMenuItem> with LandingP
                 if(widget.menu['name'].toString().toLowerCase() == "finder"){
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context)=> FinderPage()
+                  ));
+                }else if(widget.menu['name'].toString().toLowerCase() == "survival"){
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context)=> SurvivalPage()
                   ));
                 }
               },

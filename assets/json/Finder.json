@@ -11,7 +11,7 @@
         }]
     },
     {
-        "minScore":10,
+        "minScore":101,
         "horizontal":2,
         "vertical":2,
         "total":3,
@@ -27,7 +27,7 @@
         ]
     },
     {
-        "minScore":20,
+        "minScore":501,
         "horizontal":2,
         "vertical":2,
         "total":4,
@@ -43,12 +43,12 @@
         ]
     },
     {
-        "minScore":30,
+        "minScore":1001,
         "horizontal":2,
         "vertical":3,
         "total":5,
         "ratio":1,
-        "life":3,
+        "life":2,
         "formations":[
             {
                 "rows":2
@@ -62,12 +62,12 @@
         ]
     },
     {
-        "minScore":40,
+        "minScore":1501,
         "horizontal":3,
         "vertical":3,
         "total":6,
         "ratio":1,
-        "life":3,
+        "life":2,
         "formations":[
             {
                 "rows":1
@@ -81,12 +81,12 @@
         ]
     },
     {
-        "minScore":50,
+        "minScore":3001,
         "horizontal":3,
         "vertical":3,
         "total":7,
         "ratio":1,
-        "life":4,
+        "life":3,
         "formations":[
             {
                 "rows":2
@@ -100,12 +100,12 @@
         ]
     },
     {
-        "minScore":60,
+        "minScore":7501,
         "horizontal":3,
         "vertical":3,
         "total":8,
         "ratio":1,
-        "life":4,
+        "life":3,
         "formations":[
             {
                 "rows":3
@@ -119,12 +119,12 @@
         ]
     },
     {
-        "minScore":70,
+        "minScore":12001,
         "horizontal":3,
         "vertical":3,
         "total":9,
         "ratio":0.8,
-        "life":5,
+        "life":3,
         "formations":[
             {
                 "rows":3
@@ -138,12 +138,12 @@
         ]
     },
     {
-        "minScore":80,
+        "minScore":20001,
         "horizontal":3,
         "vertical":3,
         "total":9,
         "ratio":0.8,
-        "life":5,
+        "life":3,
         "formations":[
             {
                 "rows":4
@@ -157,12 +157,12 @@
         ]
     },
     {
-        "minScore":90,
+        "minScore":50001,
         "horizontal":4,
         "vertical":3,
         "total":10,
         "ratio":0.6,
-        "life":5,
+        "life":4,
         "formations":[
             {
                 "rows":3
@@ -176,12 +176,12 @@
         ]
     },
     {
-        "minScore":100,
+        "minScore":100001,
         "horizontal":3,
         "vertical":3,
         "total":11,
         "ratio":0.6,
-        "life":6,
+        "life":4,
         "formations":[
             {
                 "rows":4
@@ -195,12 +195,12 @@
         ]
     },
     {
-        "minScore":110,
+        "minScore":300001,
         "horizontal":4,
         "vertical":3,
         "total":12,
         "ratio":0.4,
-        "life":6,
+        "life":5,
         "formations":[
             {
                 "rows":4

@@ -7,8 +7,9 @@ class BackCard extends StatelessWidget {
   final double width;
   final String episode;
   final VoidCallback onTap;
+  final EdgeInsets margin;
 
-  BackCard({@required this.height, @required this.width, @required this.onTap, @required this.episode});
+  BackCard({@required this.height, @required this.width, @required this.onTap, @required this.episode, this.margin : const EdgeInsets.all(5)});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class BackCard extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
-        margin: const EdgeInsets.all(5),
+        margin: margin,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular((this.width/100)*10),
           gradient: LinearGradient(

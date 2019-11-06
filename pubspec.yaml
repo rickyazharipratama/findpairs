@@ -28,6 +28,7 @@ dependencies:
   flutter_flip_view: ^1.0.3
   icon_shadow: ^1.0.1
   vector_math: ^2.0.8
+  dotted_border: ^1.0.3
 
 dev_dependencies:
   flutter_test:
