@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:findpairs/PresenterViews/Components/Cards/SurvivalCardsView.dart';
 import 'package:findpairs/Presenters/Components/Cards/SurvivalCardsPresenter.dart';
 import 'package:findpairs/Widgets/Components/Cards/Items/DragableCard.dart';
@@ -8,8 +10,10 @@ class SurvivalCards extends StatefulWidget {
 
   final double cardWidth;
   final double cardHeight;
+  final Stream<int> clearDataTargetStream;
+  final StreamSink<int> finderValueSink;
 
-  SurvivalCards({@required this.cardWidth, @required this.cardHeight});
+  SurvivalCards({@required this.cardWidth, @required this.cardHeight, @required this.clearDataTargetStream, @required this.finderValueSink});
 
   @override
   _SurvivalCardsState createState() => new _SurvivalCardsState();
@@ -22,7 +26,10 @@ class _SurvivalCardsState extends State<SurvivalCards> with SurvivalCardsView{
   @override
   void initState() {
     super.initState();
-    presenter = SurvivalCardsPresenter()
+    presenter = SurvivalCardsPresenter(
+      clearDragCardStream: widget.clearDataTargetStream,
+      finderValueSink: widget.finderValueSink
+    )
     ..setView = this
     ..initiateData();
   }
@@ -49,7 +56,7 @@ class _SurvivalCardsState extends State<SurvivalCards> with SurvivalCardsView{
               DragableCard(
                 cardHeight: widget.cardHeight,
                 cardWidth: widget.cardWidth,
-                draggedCallback: presenter.updatingCard,
+                draggedCallback: (){},
                 val: presenter.queues[idx],
               )
             

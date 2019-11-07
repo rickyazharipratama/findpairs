@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:findpairs/PresenterViews/Components/Cards/DragTargetCardView.dart';
 import 'package:findpairs/Presenters/Components/Cards/DragTargetCardPresenter.dart';
 import 'package:findpairs/Widgets/Components/Cards/Items/DottedCard.dart';
@@ -8,8 +10,11 @@ class DragTargetCard extends StatefulWidget {
 
   final double height;
   final double width;
+  final Stream<bool> dragRestrictStream;
+  final Stream<int> clearDragtargetStream;
+  final StreamSink<bool> fasterRaceSink;
 
-  DragTargetCard({@required this.height, @required this.width});
+  DragTargetCard({@required this.height, @required this.width, @required this.dragRestrictStream, @required this.clearDragtargetStream, @required this.fasterRaceSink});
   @override
   _DragTargetCardState createState() => new _DragTargetCardState();
 }
@@ -21,7 +26,10 @@ class _DragTargetCardState extends State<DragTargetCard> with DragTargetCardView
   @override
   void initState() {
     super.initState();
-    presenter = DragTargetCardPresenter()
+    presenter = DragTargetCardPresenter(
+      dragRestrictedStream: widget.dragRestrictStream,
+      clearDragTargetStream: widget.clearDragtargetStream
+    )
     ..setView = this
     ..initiateData();
   }
@@ -31,11 +39,19 @@ class _DragTargetCardState extends State<DragTargetCard> with DragTargetCardView
     return DragTarget<int>(
       builder: (context,_,__)=>
         presenter.targetVal >= 0 && presenter.targetVal <= 32?
-          FinderFrontCard(
+        GestureDetector(
+          onLongPressStart: (LongPressStartDetails details){
+            widget.fasterRaceSink.add(true);
+          },
+          onLongPressEnd: (LongPressEndDetails details){
+            widget.fasterRaceSink.add(false);
+          },
+          child : FinderFrontCard(
             height: widget.height,
             width: widget.width,
             val: presenter.targetVal,
           )
+        )
         : DottedCard(
           cardHeight: widget.height,
           cardWidth: widget.width,

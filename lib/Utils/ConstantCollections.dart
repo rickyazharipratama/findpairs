@@ -65,6 +65,7 @@ class ConstantCollections{
   static const PREF_FINDER_LIFE = "prefFinderLife";
   static const PREF_FINDER_TOTAL_MOVE = "prefFinderTotalMove";
   static const PREF_FINDER_CORRECT_MOVE = "prefCorrectMove";
+  static const PREF_SURVIVAL_SCORE ="prefSurvivalScore";
 
   static const Map<String, List<String>> cards ={
     "Episode-01" : [

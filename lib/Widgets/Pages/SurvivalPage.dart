@@ -2,6 +2,7 @@ import 'package:findpairs/PresenterViews/Pages/SurvivalPageView.dart';
 import 'package:findpairs/Presenters/Pages/SurvivalPagePresenter.dart';
 import 'package:findpairs/Widgets/Components/Buttons/PauseActionButton.dart';
 import 'package:findpairs/Widgets/Components/Cards/SurvivalBottomPlaced.dart';
+import 'package:findpairs/Widgets/Components/Cards/SurvivalCardRace.dart';
 import 'package:findpairs/Widgets/Components/Cards/SurvivalCards.dart';
 import 'package:findpairs/Widgets/Pages/WrapperPage.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,17 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
             child: Stack(
               children: <Widget>[
 
+                Positioned.fill(
+                  child: SurvivalCardRace(
+                    height: cardSize.height,
+                    width: cardSize.width,
+                    dragRestrictedSink: presenter.dragTargetRestrictedSink,
+                    clearDragTargetSink: presenter.clearDragTargetSink,
+                    finderValueStream: presenter.finderCardValueStream,
+                    fasterRaceStream: presenter.fasterRaceStream,
+                  ),
+                ),
+
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -51,6 +63,9 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
                   child: SurvivalBottomPlaced(
                     cardHeight: cardSize.height,
                     cardWidth: cardSize.width,
+                    dragRestrictStream: presenter.dragTargetRestrictedStream,
+                    clearDragTargetStream: presenter.clearDragTargetStream,
+                    fasterRaceSink: presenter.fasterRaceSink,
                   ),
                 )
               ],
@@ -59,6 +74,8 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
           SurvivalCards(
             cardWidth: cardSize.width,
             cardHeight: cardSize.height,
+            clearDataTargetStream: presenter.clearDragTargetStream,
+            finderValueSink: presenter.finderCardValueSink,
           )
         ],
       )
