@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:findpairs/PresenterViews/Components/Cards/SurvivalCardRaceView.dart';
 import 'package:findpairs/Presenters/Components/Cards/SurvivalCardRacePresenter.dart';
+import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:findpairs/Widgets/Components/Cards/Items/FinderFrontCard.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,11 @@ class SurvivalCardRace extends StatefulWidget {
   final StreamSink<int> clearDragTargetSink;
   final Stream<int> finderValueStream;
   final Stream<bool> fasterRaceStream;
+  final Stream<Map<String,int>> dragTargetStream;
+  final StreamSink<bool> isCardCorrectSink;
+  final Stream<GamePauseType> pauseStream;
 
-  SurvivalCardRace({@required this.width, @required this.height, @required this.dragRestrictedSink, @required this.clearDragTargetSink, @required this.finderValueStream, @required this.fasterRaceStream});
+  SurvivalCardRace({@required this.width, @required this.height, @required this.dragRestrictedSink, @required this.clearDragTargetSink, @required this.finderValueStream, @required this.fasterRaceStream, @required this.dragTargetStream, @required this.isCardCorrectSink, @required this.pauseStream});
 
   @override
   _SurvivalCardRaceState createState() => new _SurvivalCardRaceState();
@@ -32,7 +36,10 @@ class _SurvivalCardRaceState extends State<SurvivalCardRace> with TickerProvider
       restrictDragTargetSink: widget.dragRestrictedSink,
       clearDragTargetSink: widget.clearDragTargetSink,
       finderValueStream: widget.finderValueStream,
-      fasterRaceStream: widget.fasterRaceStream
+      fasterRaceStream: widget.fasterRaceStream,
+      dragTargetStream: widget.dragTargetStream,
+      isCardCorrectSink: widget.isCardCorrectSink,
+      pauseStream: widget.pauseStream
     )
     ..setView = this
     ..initiateData();

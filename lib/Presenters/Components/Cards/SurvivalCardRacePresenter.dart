@@ -5,6 +5,7 @@ import 'package:findpairs/Models/SurvivalScore.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/SurvivalCardRaceView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/CommonUtil.dart';
+import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:flutter/widgets.dart';
 
 class SurvivalCardRacePresenter extends BaseComponentPresenter{
@@ -15,14 +16,22 @@ class SurvivalCardRacePresenter extends BaseComponentPresenter{
   final StreamSink<int> clearDragTargetSink;
   final Stream<int> finderValueStream;
   final Stream<bool> fasterRaceStream;
+  final Stream<Map<String,int>> dragTargetStream;
+  final StreamSink<bool> isCardCorrectSink;
+  final Stream<GamePauseType> pauseStream;
   SurvivalScore _score;
   bool _isRestrictedActivate = false;
+  bool _isCorrectAlreadyBroadcast = false;
   List<int> cardRaces;
+  Map<String,int> _dragTarget;
+  bool _isGamePaused = false;
 
-  SurvivalCardRacePresenter({this.cardHeight, this.restrictDragTargetSink, this.clearDragTargetSink, this.finderValueStream, this.fasterRaceStream}){
+  SurvivalCardRacePresenter({this.cardHeight, this.restrictDragTargetSink, this.clearDragTargetSink, this.finderValueStream, this.fasterRaceStream, this.dragTargetStream, this.isCardCorrectSink, this.pauseStream}){
     _score = SurvivalScore();
     finderValueStream.listen(listenFinderValue);
     fasterRaceStream.listen(fasteningAnimation);
+    dragTargetStream.listen(listenDragTarget);
+    pauseStream.listen(listenGamePause);
   }
 
   set setView(SurvivalCardRaceView vw){
@@ -40,12 +49,32 @@ class SurvivalCardRacePresenter extends BaseComponentPresenter{
     _isRestrictedActivate = val;
   }
 
+
   @override
   void initiateData() async{
     super.initiateData();
-    await _score.getFromStore();
+    _isCorrectAlreadyBroadcast = false;
   }
 
+  
+
+  listenGamePause(GamePauseType type) async{
+    if(type == GamePauseType.onGamePause){
+      view.animationController.stop();
+      _isGamePaused = true;
+    }else if(type == GamePauseType.onGameresume){
+      if(await view.prepareToPlay()){
+        view.animationController.forward();
+        _isGamePaused = false;
+      }
+    }else if(type == GamePauseType.onGameExit){
+      Navigator.of(view.currentContext()).pop();
+    }
+  }
+
+  listenDragTarget(Map<String,int> target){
+    _dragTarget = target;
+  }
 
   void listenFinderValue(int val){
     if(cardRaces == null){
@@ -61,14 +90,41 @@ class SurvivalCardRacePresenter extends BaseComponentPresenter{
         reference: cardRaces
       ));
     }
-    cardRaces.shuffle();
+    _isCorrectAlreadyBroadcast = false;
+    cardRaces.shuffle(); 
     reinitiateAnimation();
   }
 
   void animationListener(){
-    if(view.firstCardAnimation.value >= view.restrictMoveLine
-    || view.secondCardAnimation.value >= view.restrictMoveLine
-    || view.thirdCardAnimation.value >= view.restrictMoveLine){
+    double max = view.firstCardAnimation.value;
+    if(max < view.secondCardAnimation.value){
+      max = view.secondCardAnimation.value;
+    }
+    if(max < view.thirdCardAnimation.value){
+      max = view.thirdCardAnimation.value;
+    }
+    if(max >= view.compareLine){
+      print("comparing area");
+      if(!_isCorrectAlreadyBroadcast){
+        print("comparing prepare broadcast");
+        _isCorrectAlreadyBroadcast = true;
+        if(_dragTarget == null){
+          //should end
+          view.animationController.stop();
+          isCardCorrectSink.add(false);
+        }else{
+          if(cardRaces[_dragTarget['position']] == _dragTarget['value']){
+            // score increase
+            isCardCorrectSink.add(true);
+          }else{
+            view.animationController.stop();
+            // should end
+            isCardCorrectSink.add(false);
+          }
+        }
+      }
+    }else if(max >= view.restrictMoveLine){
+      print("restricting area");
       if(!isRestrictedActivate){
         print("restricted card");
         setRestrictedActivate = true;
@@ -83,46 +139,54 @@ class SurvivalCardRacePresenter extends BaseComponentPresenter{
       setRestrictedActivate = false;
       restrictDragTargetSink.add(isRestrictedActivate);
       clearDragTargetSink.add(-1);
+      _dragTarget = null;
+      _isCorrectAlreadyBroadcast = false;
     }
   }
 
   void reinitiateAnimation(){
-    if(view.animationController != null){
-      view.animationController.dispose();
+    if(!_isGamePaused){
+      if(view.animationController != null){
+        view.animationController.dispose();
+      }
+      view.setAnimationController = Duration(milliseconds: score.getTimebyDistance(view.finishLine) * 1000);
+      view.animationController
+      ..addListener(animationListener)
+      ..addStatusListener(listenAnimationStatus);
+      view.setFirstCardAnimation = getBeginLine();
+      view.setSecondCardAnimation = getBeginLine();
+      view.setThirdCardAnimation = getBeginLine();
+      view.animationController.forward();
     }
-    view.setAnimationController = Duration(milliseconds: score.getTimebyDistance(view.finishLine) * 1000);
-    view.animationController
-    ..addListener(animationListener)
-    ..addStatusListener(listenAnimationStatus);
-    view.setFirstCardAnimation = getBeginLine();
-    view.setSecondCardAnimation = getBeginLine();
-    view.setThirdCardAnimation = getBeginLine();
-    view.animationController.forward();
   }
 
   void fasteningAnimation(bool isFastening){
-    double minDistance = view.firstCardAnimation.value;
-    if(minDistance > view.secondCardAnimation.value){
-      minDistance = view.secondCardAnimation.value;
+    if(!_isGamePaused){
+      double minDistance = view.firstCardAnimation.value;
+      if(minDistance > view.secondCardAnimation.value){
+        minDistance = view.secondCardAnimation.value;
+      }
+      if(minDistance > view.thirdCardAnimation.value){
+        minDistance = view.thirdCardAnimation.value;
+      }
+      if(view.animationController != null){
+        view.animationController.dispose();
+      }
+      double distance = view.finishLine - minDistance;
+
+      if(isFastening){
+        view.setAnimationController = Duration(milliseconds: score.getTimebyDistance(distance) * (1000/5).ceil());
+      }else{
+        view.setAnimationController = Duration(milliseconds: score.getTimebyDistance(distance) * 1000);
+      }
+      view.animationController
+      ..addListener(animationListener)
+      ..addStatusListener(listenAnimationStatus);
+      view.setFirstCardAnimation = view.firstCardAnimation.value;
+      view.setSecondCardAnimation = view.secondCardAnimation.value;
+      view.setThirdCardAnimation =view.thirdCardAnimation.value;
+      view.animationController.forward();
     }
-    if(minDistance > view.thirdCardAnimation.value){
-      minDistance = view.thirdCardAnimation.value;
-    }
-    if(view.animationController != null){
-      view.animationController.dispose();
-    }
-    if(isFastening){
-      view.setAnimationController = Duration(milliseconds: score.getTimebyDistance(minDistance) * 200);
-    }else{
-      view.setAnimationController = Duration(milliseconds: score.getTimebyDistance(minDistance) * 1000);
-    }
-    view.animationController
-    ..addListener(animationListener)
-    ..addStatusListener(listenAnimationStatus);
-    view.setFirstCardAnimation = view.firstCardAnimation.value;
-    view.setSecondCardAnimation = view.secondCardAnimation.value;
-    view.setThirdCardAnimation =view.thirdCardAnimation.value;
-    view.animationController.forward();
   }
 
   double getBeginLine(){

@@ -1,3 +1,6 @@
+import 'package:findpairs/Utils/EnumUtils.dart';
+import 'package:findpairs/Widgets/Modals/CompleteArcadeModal.dart';
+import 'package:findpairs/Widgets/Modals/NegativeArcadeModal.dart';
 import 'package:flutter/material.dart';
 
 class SurvivalPageView{
@@ -11,6 +14,38 @@ class SurvivalPageView{
       width -= 1;
     }
     return Size(width,getCardHeight(width));
+  }
+
+  Future<ArcadeAction> showCompleteDialog({
+    int star,
+    String message,
+    String episode
+  }) async{
+    return await showDialog(
+      context:  currentContext(),
+      barrierDismissible:  false,
+      builder: (context) => CompleteArcadeModal(
+        starScore: star,
+        episode: episode,
+        message: message,
+        negativeText: "EXIT",
+        positiveText: "RETRY",
+      )
+    );
+  }
+
+  Future<ArcadeAction> showNegativeDialog({
+    String title,
+    String episode
+  }) async{
+    return await showDialog(
+      context: currentContext(),
+      barrierDismissible: false,
+      builder: (context) => NegativeArcadeModal(
+        message: title,
+        episode: episode,
+      )
+    );
   }
 
   double getCardHeight(double width) => (width * 13 ) / 9;

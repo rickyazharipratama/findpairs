@@ -12,8 +12,9 @@ class SurvivalCards extends StatefulWidget {
   final double cardHeight;
   final Stream<int> clearDataTargetStream;
   final StreamSink<int> finderValueSink;
+  final Stream<bool> restartStream;
 
-  SurvivalCards({@required this.cardWidth, @required this.cardHeight, @required this.clearDataTargetStream, @required this.finderValueSink});
+  SurvivalCards({@required this.cardWidth, @required this.cardHeight, @required this.clearDataTargetStream, @required this.finderValueSink, @required this.restartStream});
 
   @override
   _SurvivalCardsState createState() => new _SurvivalCardsState();
@@ -28,7 +29,8 @@ class _SurvivalCardsState extends State<SurvivalCards> with SurvivalCardsView{
     super.initState();
     presenter = SurvivalCardsPresenter(
       clearDragCardStream: widget.clearDataTargetStream,
-      finderValueSink: widget.finderValueSink
+      finderValueSink: widget.finderValueSink,
+      restartGameStream: widget.restartStream
     )
     ..setView = this
     ..initiateData();
@@ -46,7 +48,7 @@ class _SurvivalCardsState extends State<SurvivalCards> with SurvivalCardsView{
       width: widget.cardWidth + 20,
       padding: EdgeInsets.fromLTRB(10, 5, 10, 5 + MediaQuery.of(context).padding.bottom),
       child: Stack(
-        children: List.generate(presenter.queues.length, (index){
+        children: List.generate(presenter.queues == null ? 0 : presenter.queues.length, (index){
           double bottom = ((index == 0 ? 5 : 10) + widget.cardHeight) * index;
           int idx = presenter.queues.length - 1 - index;
           return index == 0 ? Positioned(

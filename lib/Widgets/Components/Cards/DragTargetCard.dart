@@ -13,8 +13,11 @@ class DragTargetCard extends StatefulWidget {
   final Stream<bool> dragRestrictStream;
   final Stream<int> clearDragtargetStream;
   final StreamSink<bool> fasterRaceSink;
+  final int position;
+  final StreamSink<Map<String,int>> dragTargetSink;
+  final Stream<bool> restartStream;
 
-  DragTargetCard({@required this.height, @required this.width, @required this.dragRestrictStream, @required this.clearDragtargetStream, @required this.fasterRaceSink});
+  DragTargetCard({@required this.height, @required this.width, @required this.dragRestrictStream, @required this.clearDragtargetStream, @required this.fasterRaceSink, @required this.position, @required this.dragTargetSink, @required this.restartStream});
   @override
   _DragTargetCardState createState() => new _DragTargetCardState();
 }
@@ -28,7 +31,10 @@ class _DragTargetCardState extends State<DragTargetCard> with DragTargetCardView
     super.initState();
     presenter = DragTargetCardPresenter(
       dragRestrictedStream: widget.dragRestrictStream,
-      clearDragTargetStream: widget.clearDragtargetStream
+      clearDragTargetStream: widget.clearDragtargetStream,
+      dragTargetSink: widget.dragTargetSink,
+      position: widget.position,
+      restartStream: widget.restartStream
     )
     ..setView = this
     ..initiateData();

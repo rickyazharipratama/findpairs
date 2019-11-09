@@ -9,6 +9,9 @@ class SurvivalScore{
   double _v = 70;
 
   int get score => _score;
+  set increaseScore(int score){
+    _score+=3;
+  }
   double get v => _v;
 
   int getTimebyDistance(double distance){

@@ -8,11 +8,13 @@ class SurvivalCardsPresenter extends BaseComponentPresenter{
 
   final Stream<int> clearDragCardStream;
   final StreamSink<int> finderValueSink;
+  final Stream<bool> restartGameStream;
   SurvivalCardsView _view;
   List<int> _queues;
 
-  SurvivalCardsPresenter({this.clearDragCardStream, this.finderValueSink}){
+  SurvivalCardsPresenter({this.clearDragCardStream, this.finderValueSink, this.restartGameStream}){
     clearDragCardStream.listen(listenClearDragStream);
+    restartGameStream.listen(restartListener);
   }
 
   List<int> get queues => _queues;
@@ -30,8 +32,21 @@ class SurvivalCardsPresenter extends BaseComponentPresenter{
   @override
   initiateData(){
     super.initiateData();
-    initializingCard();
-    view.notifyState();
+    Future.delayed(
+      const Duration(milliseconds: 300),
+      () async{
+        if(await view.prepareToPlay()){
+          restartListener(true);
+        }
+      }
+    );
+  }
+
+  restartListener(bool isVal){
+    if(isVal){
+      initializingCard();
+      view.notifyState();
+    }
   }
 
   initializingCard(){

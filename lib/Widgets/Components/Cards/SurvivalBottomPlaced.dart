@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:findpairs/PresenterViews/Components/Cards/SurvivalBottomPlacedView.dart';
+import 'package:findpairs/Presenters/Components/Cards/SurvivalBottomPlacedPresenter.dart';
 import 'package:findpairs/Widgets/Components/Cards/DragTargetCard.dart';
 import 'package:flutter/material.dart';
 
@@ -12,16 +13,30 @@ class SurvivalBottomPlaced extends StatefulWidget {
   final Stream<bool> dragRestrictStream;
   final Stream<int> clearDragTargetStream;
   final StreamSink<bool> fasterRaceSink;
+  final StreamSink<Map<String,int>> dragTargetSink;
+  final Stream<bool> isCardCorrectStream;
+  final Stream<bool> restartStream;
 
-  SurvivalBottomPlaced({@required this.cardWidth, @required this.cardHeight, @required this.dragRestrictStream, @required this.clearDragTargetStream, @required this.fasterRaceSink});
+  SurvivalBottomPlaced({@required this.cardWidth, @required this.cardHeight, @required this.dragRestrictStream, @required this.clearDragTargetStream, @required this.fasterRaceSink, @required this.dragTargetSink, @required this.isCardCorrectStream, @required this.restartStream});
 
   @override
   _SurvivalBottomPlacedState createState() => new _SurvivalBottomPlacedState();
 }
 
-class _SurvivalBottomPlacedState extends State<SurvivalBottomPlaced> with SurvivalBottomPlacedView{
+class _SurvivalBottomPlacedState extends State<SurvivalBottomPlaced> with TickerProviderStateMixin,SurvivalBottomPlacedView{
 
+  SurvivalBottomPlacedPresenter presenter;
 
+  @override
+  void initState() {
+    super.initState();
+    setAnimationController = this;
+    presenter = SurvivalBottomPlacedPresenter(
+      isCardCorrectStream: widget.isCardCorrectStream
+    )
+    ..setView = this
+    ..initiateData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +50,7 @@ class _SurvivalBottomPlacedState extends State<SurvivalBottomPlaced> with Surviv
           height: wrapperHeight(widget.cardHeight),
           padding: EdgeInsets.fromLTRB(0, 5, 0, 5 + MediaQuery.of(context).padding.bottom),
           decoration: BoxDecoration(
-            color: Color(0x55333333),
+            color: anim == null ? Color(0x55333333) : anim.value,
           ),
           child: Stack(
             children: <Widget>[
@@ -49,6 +64,9 @@ class _SurvivalBottomPlacedState extends State<SurvivalBottomPlaced> with Surviv
                   width: widget.cardWidth,
                   clearDragtargetStream: widget.clearDragTargetStream,
                   fasterRaceSink: widget.fasterRaceSink,
+                  position: 0,
+                  dragTargetSink: widget.dragTargetSink,
+                  restartStream: widget.restartStream,
                 )
               ),
 
@@ -61,6 +79,9 @@ class _SurvivalBottomPlacedState extends State<SurvivalBottomPlaced> with Surviv
                   width: widget.cardWidth,
                   clearDragtargetStream: widget.clearDragTargetStream,
                   fasterRaceSink: widget.fasterRaceSink,
+                  position: 1,
+                  dragTargetSink: widget.dragTargetSink,
+                  restartStream: widget.restartStream,
                 )
               ),
 
@@ -73,6 +94,9 @@ class _SurvivalBottomPlacedState extends State<SurvivalBottomPlaced> with Surviv
                   width: widget.cardWidth,
                   clearDragtargetStream: widget.clearDragTargetStream,
                   fasterRaceSink: widget.fasterRaceSink,
+                  position: 2,
+                  dragTargetSink: widget.dragTargetSink,
+                  restartStream: widget.restartStream,
                 )
               )
             ],
@@ -88,8 +112,8 @@ class _SurvivalBottomPlacedState extends State<SurvivalBottomPlaced> with Surviv
   }
 
   @override
-  void noitfyState() {
-    super.noitfyState();
+  void notifyState() {
+    super.notifyState();
     if(mounted){
       setState(() {
         
@@ -97,4 +121,9 @@ class _SurvivalBottomPlacedState extends State<SurvivalBottomPlaced> with Surviv
     }
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    presenter.dispose();
+  }
 }

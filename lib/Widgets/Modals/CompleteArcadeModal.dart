@@ -8,8 +8,10 @@ class CompleteArcadeModal extends StatefulWidget {
   final int starScore;
   final String message;
   final String episode;
+  final String negativeText;
+  final String positiveText;
 
-  CompleteArcadeModal({this.starScore, @required this.message, @required this.episode});
+  CompleteArcadeModal({this.starScore, @required this.message, @required this.episode, this.negativeText : "RETRY", this.positiveText : "NEXT"});
   
   @override
   _CompleteArcadeModalState createState() => new _CompleteArcadeModalState();
@@ -109,7 +111,7 @@ class _CompleteArcadeModalState extends State<CompleteArcadeModal> with TickerPr
                                 onTap: (){
                                   Navigator.of(context).pop(ArcadeAction.retryGame);
                                 },
-                                title: "RETRY",
+                                title: widget.negativeText,
                               ),
                             ),
                           ),
@@ -128,7 +130,7 @@ class _CompleteArcadeModalState extends State<CompleteArcadeModal> with TickerPr
                                 onTap: (){
                                   Navigator.of(context).pop(ArcadeAction.nextStage);
                                 },
-                                title: "NEXT",
+                                title: widget.positiveText
                               ),
                             ),
                           ),

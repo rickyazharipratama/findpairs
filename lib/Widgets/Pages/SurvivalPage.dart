@@ -4,6 +4,7 @@ import 'package:findpairs/Widgets/Components/Buttons/PauseActionButton.dart';
 import 'package:findpairs/Widgets/Components/Cards/SurvivalBottomPlaced.dart';
 import 'package:findpairs/Widgets/Components/Cards/SurvivalCardRace.dart';
 import 'package:findpairs/Widgets/Components/Cards/SurvivalCards.dart';
+import 'package:findpairs/Widgets/Components/misc/SurvivalScoreWrapper.dart';
 import 'package:findpairs/Widgets/Pages/WrapperPage.dart';
 import 'package:flutter/material.dart';
 
@@ -23,13 +24,14 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
     ..setView = this
     ..initiateData();
   }
-
   @override
   Widget build(BuildContext context) {
     return WrapperPage(
       leftHeader: Text(
         "Survival",
-        style: Theme.of(context).textTheme.display1,
+        style: Theme.of(context).textTheme.display1.apply(
+          color: Colors.white
+        ),
       ),
       actions: <Widget>[
         PauseActionButton(
@@ -53,6 +55,9 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
                     clearDragTargetSink: presenter.clearDragTargetSink,
                     finderValueStream: presenter.finderCardValueStream,
                     fasterRaceStream: presenter.fasterRaceStream,
+                    dragTargetStream: presenter.dragTargetStream,
+                    isCardCorrectSink: presenter.isCardCorrectSink,
+                    pauseStream: presenter.pauseStream,
                   ),
                 ),
 
@@ -66,16 +71,35 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
                     dragRestrictStream: presenter.dragTargetRestrictedStream,
                     clearDragTargetStream: presenter.clearDragTargetStream,
                     fasterRaceSink: presenter.fasterRaceSink,
+                    dragTargetSink: presenter.dragTargetSink,
+                    isCardCorrectStream: presenter.isCardCorrectStream,
+                    restartStream: presenter.restartGameStream,
                   ),
                 )
               ],
             )
           ),
-          SurvivalCards(
-            cardWidth: cardSize.width,
-            cardHeight: cardSize.height,
-            clearDataTargetStream: presenter.clearDragTargetStream,
-            finderValueSink: presenter.finderCardValueSink,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              
+              SurvivalScoreWrapper(
+                cardPairedStream: presenter.isCardCorrectStream,
+                reportScoreSink: presenter.reportScoreSink,
+                restartGameStream: presenter.restartGameStream,
+              ),
+
+              Expanded(
+                child: SurvivalCards(
+                  cardWidth: cardSize.width,
+                  cardHeight: cardSize.height,
+                  clearDataTargetStream: presenter.clearDragTargetStream,
+                  finderValueSink: presenter.finderCardValueSink,
+                  restartStream: presenter.restartGameStream,
+                )
+              )
+            ],
           )
         ],
       )
