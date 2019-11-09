@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:findpairs/PresenterViews/Components/Cards/Items/SurvivalFrontCardView.dart';
 import 'package:findpairs/Presenters/Components/Cards/Item/SurvivalFrontCardPresenter.dart';
 import 'package:findpairs/Utils/ConstantCollections.dart';
@@ -10,8 +12,9 @@ class SurvivalFrontCard extends StatefulWidget {
   final double bottom;
   final int val;
   final Stream<bool> shouldAnimateStream;
+  final StreamSink<bool> finishAnimateSink;
 
-  SurvivalFrontCard({@required this.cardWidth, @required this.cardHeight, @required this.bottom, @required this.val, @required this.shouldAnimateStream});
+  SurvivalFrontCard({@required this.cardWidth, @required this.cardHeight, @required this.bottom, @required this.val, @required this.shouldAnimateStream, @required this.finishAnimateSink});
 
   @override
   _SurvivalFrontCardState createState() => new _SurvivalFrontCardState();
@@ -27,7 +30,8 @@ class _SurvivalFrontCardState extends State<SurvivalFrontCard> with SingleTicker
     setAnimationController = this;
     presenter = SurvivalFrontCardPresenter(
       value: widget.val,
-      shouldAnimatedStream: widget.shouldAnimateStream
+      shouldAnimatedStream: widget.shouldAnimateStream,
+      finishAnimSink: widget.finishAnimateSink
     )
     ..setView = this
     ..initiateData();

@@ -13,18 +13,11 @@ class SurvivalFrontCardView{
       vsync: tick,
       duration: const Duration(milliseconds: 300)
     )
-    ..addListener(notifyState)
-    ..addStatusListener(onListenAnimationStatus);
+    ..addListener(notifyState);
     _anim = Tween<double>(begin: getBottom() , end: (getBottom() - (getCardHeight() + 10))).animate(CurvedAnimation(
       curve: Curves.ease,
       parent: animationController
     ));
-  }
-
-  onListenAnimationStatus(AnimationStatus status){
-    if(status == AnimationStatus.completed){
-      animationController.reset();
-    }
   }
 
   double getBottom() => null;

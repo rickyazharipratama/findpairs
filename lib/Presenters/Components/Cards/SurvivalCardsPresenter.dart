@@ -13,10 +13,12 @@ class SurvivalCardsPresenter extends BaseComponentPresenter{
   final Stream<bool> restartGameStream;
   SurvivalCardsView _view;
   List<int> _queues;
+  StreamController<bool> _finishingAnimController = StreamController();
 
   SurvivalCardsPresenter({this.clearDragCardStream, this.finderValueSink, this.restartGameStream}){
     clearDragCardStream.listen(listenClearDragStream);
     restartGameStream.listen(restartListener);
+    finishingAnimStream.listen(listenfinishingAnimation);
   }
 
   List<int> get queues => _queues;
@@ -30,6 +32,9 @@ class SurvivalCardsPresenter extends BaseComponentPresenter{
 
   StreamSink<bool> get shouldAnimatedSink => _shouldAnimatedController.sink;
   Stream<bool> get shouldAnimatedStream => _shouldAnimatedController.stream;
+
+  StreamSink<bool> get finishingAnimSink => _finishingAnimController.sink;
+  Stream<bool> get finishingAnimStream => _finishingAnimController.stream;
 
   @override
   initiateData(){
@@ -72,6 +77,11 @@ class SurvivalCardsPresenter extends BaseComponentPresenter{
     updatingCard();
   }
 
+  void listenfinishingAnimation(bool isVal){
+    print("finishing animation");
+    view.notifyState();
+  }
+
   updatingCard(){
     print("updating card list");
     shouldAnimatedSink.add(true);
@@ -79,20 +89,17 @@ class SurvivalCardsPresenter extends BaseComponentPresenter{
       player: FindPairsApp.of(view.currentContext()).presenter.particleSound,
       filename: "card_flip.mp3"
     );
-    queues.removeLast();
     int unique = CommonUtil.instance.getUniqueRandom(
       max: 32,
       reference: queues
     );
     queues.insert(0, unique);
+    queues.removeLast();
     finderValueSink.add(queues.last);
-    Future.delayed(
-      const Duration(milliseconds: 250),
-      view.notifyState
-    );
   }
 
   dispose(){
     _shouldAnimatedController.close();
+    _finishingAnimController.close();
   }
 }

@@ -68,6 +68,7 @@ class _SurvivalCardsState extends State<SurvivalCards> with SurvivalCardsView{
                 val: presenter.queues[idx],
                 shouldAnimateStream: presenter.shouldAnimatedStream,
                 bottom: bottom,
+                finishAnimateSink: presenter.finishingAnimSink,
             );
         }).toList()
       )
@@ -86,4 +87,11 @@ class _SurvivalCardsState extends State<SurvivalCards> with SurvivalCardsView{
       });
     }
   }
+
+  @override
+  void dispose() {
+    presenter.dispose();
+    super.dispose();
+  }
+
 }
