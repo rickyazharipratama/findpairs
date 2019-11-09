@@ -11,6 +11,9 @@ class SurvivalScore{
   int get score => _score;
   set increaseScore(int score){
     _score+=3;
+    if(_score % 60 == 0){
+      _v+=10;
+    }
   }
   double get v => _v;
 

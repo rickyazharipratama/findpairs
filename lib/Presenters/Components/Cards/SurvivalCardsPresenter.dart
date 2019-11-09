@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/SurvivalCardsView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/CommonUtil.dart';
+import 'package:findpairs/Utils/SoundManager.dart';
 
 class SurvivalCardsPresenter extends BaseComponentPresenter{
 
@@ -73,6 +75,10 @@ class SurvivalCardsPresenter extends BaseComponentPresenter{
   updatingCard(){
     print("updating card list");
     shouldAnimatedSink.add(true);
+    SoundManager.manager.play(
+      player: FindPairsApp.of(view.currentContext()).presenter.particleSound,
+      filename: "card_flip.mp3"
+    );
     queues.removeLast();
     int unique = CommonUtil.instance.getUniqueRandom(
       max: 32,

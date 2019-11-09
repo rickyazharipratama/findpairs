@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/Models/SurvivalScore.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/SurvivalCardRaceView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
+import 'package:findpairs/Utils/SoundManager.dart';
 import 'package:flutter/widgets.dart';
 
 class SurvivalCardRacePresenter extends BaseComponentPresenter{
@@ -111,14 +113,26 @@ class SurvivalCardRacePresenter extends BaseComponentPresenter{
         if(_dragTarget == null){
           //should end
           view.animationController.stop();
+          SoundManager.manager.play(
+            player: FindPairsApp.of(view.currentContext()).presenter.particleSound,
+            filename: "awww.mp3"
+          );
           isCardCorrectSink.add(false);
         }else{
           if(cardRaces[_dragTarget['position']] == _dragTarget['value']){
             // score increase
+            SoundManager.manager.play(
+              player: FindPairsApp.of(view.currentContext()).presenter.particleSound,
+              filename: "cheers.mp3"
+            );
             isCardCorrectSink.add(true);
           }else{
             view.animationController.stop();
             // should end
+            SoundManager.manager.play(
+              player: FindPairsApp.of(view.currentContext()).presenter.particleSound,
+              filename: "awww.mp3"
+            );
             isCardCorrectSink.add(false);
           }
         }
