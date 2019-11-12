@@ -37,6 +37,13 @@ class FindPairsTheme{
         color: Color(0xff777777),
         fontSize: 20
       ),
+    ),
+    primaryTextTheme: TextTheme(
+      display1: TextStyle(
+        fontFamily: "star",
+        color: Color(0xff777777),
+        fontSize: 45
+      ),
     )
   );
 

@@ -71,7 +71,11 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
                       ],
 
                     ),
-                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                      color: widget.menu['borderColor'],
+                      width: widget.width / 8
+                    ),
+                    borderRadius: BorderRadius.circular((widget.width / 2) + (widget.height / 2) / 2),
                     boxShadow: [
                       BoxShadow(
                         blurRadius: widget.isActive ? 10 : 0,
@@ -124,7 +128,7 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
                         child: ArcadeItemMenuButton(
                           onTap: presenter.continueArcade,
                           title: "Continue",
-                          color: widget.menu['gradientColor'],
+                          color: widget.menu['iconColor'],
                         ),
                       ),
 
@@ -133,7 +137,7 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
                         child: ArcadeItemMenuButton(
                           onTap: presenter.initiateArcade,
                           title: "New Game",
-                          color: widget.menu['gradientColor'],
+                          color: widget.menu['iconColor'],
                         ),
                       )
                   ],

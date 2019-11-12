@@ -57,7 +57,11 @@ class _LandingPageMenuItemState extends State<LandingPageMenuItem> with LandingP
                       0,0.8
                     ]
                   ),
-                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    color: widget.menu['borderColor'],
+                    width: widget.width / 8
+                  ),
+                  borderRadius: BorderRadius.circular((widget.width / 2) + (widget.height / 2) / 2),
                   boxShadow: [
                     BoxShadow(
                       blurRadius: widget.isActive ? 10 : 0,

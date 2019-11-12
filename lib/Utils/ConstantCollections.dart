@@ -18,9 +18,10 @@ class ConstantCollections{
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Color(0xffcc3b34),
-      "gradientColor":Color(0xfffb5b54),
-      "iconColor":Color(0xff9d2a25)
+      "color":Color(0x99cc3b34),
+      "borderColor":Color(0x44ff635b),
+      "gradientColor":Color(0x99fb5b54),
+      "iconColor":Color(0xffd9140c)
     },
     {
       "name":"Finder",
@@ -28,30 +29,32 @@ class ConstantCollections{
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Color(0xfff3b560),
-      "gradientColor":Color(0xfff2ce9c),
-      "iconColor":Color(0xffc8944b)
+      "color":Color(0x99f3b560),
+      "borderColor":Color(0x44fdd399),
+      "gradientColor":Color(0x99f2ce9c),
+      "iconColor":Color(0xffe1a045)
     },
     {
-      "name":"Survival",
+      "name":"Matcher",
       "icon":"assets/images/survival.png",
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Color(0xff6772c6),
-      "gradientColor":Color(0xff9aa3ea),
-      "iconColor":Color(0xff515a99)
-    },
-    {
-      "name":"Collection",
-      "icon":"assets/images/collections.png",
-      "version":1,
-      "isAvailable": true,
-      "isMaintenance": false,
-      "color":Color(0xfff77d00),
-      "gradientColor":Color(0xfff99229),
-      "iconColor":Color(0xffca5d00)
+      "color":Color(0x996772c6),
+      "borderColor":Color(0x448c96e3),
+      "gradientColor":Color(0x999aa3ea),
+      "iconColor":Color(0xff4352bf)
     }
+    // {
+    //   "name":"Collection",
+    //   "icon":"assets/images/collections.png",
+    //   "version":1,
+    //   "isAvailable": true,
+    //   "isMaintenance": false,
+    //   "color":Color(0xfff77d00),
+    //   "gradientColor":Color(0xfff99229),
+    //   "iconColor":Color(0xffca5d00)
+    // }
   ];
 
 

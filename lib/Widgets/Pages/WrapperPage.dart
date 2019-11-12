@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 
 class WrapperPage extends StatelessWidget {
@@ -18,13 +19,12 @@ class WrapperPage extends StatelessWidget {
           child: Stack(
             children: <Widget>[
 
-
               Positioned.fill(
-                child: Image.asset(
-                  "assets/images/bg.png",
-                  fit: BoxFit.cover,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                child: FlareActor(
+                  "assets/images/galaxy.flr",
+                  alignment: Alignment.topLeft,
+                  fit: BoxFit.fill,
+                  animation: "Untitled",
                 ),
               ),
 

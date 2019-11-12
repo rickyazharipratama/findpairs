@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:ui';
 
+import 'package:dotted_border/dotted_border.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/SurvivalCardsView.dart';
 import 'package:findpairs/Presenters/Components/Cards/SurvivalCardsPresenter.dart';
 import 'package:findpairs/Widgets/Components/Cards/Items/DragableCard.dart';
@@ -38,40 +40,96 @@ class _SurvivalCardsState extends State<SurvivalCards> with SurvivalCardsView{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade500,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10)
-        )
-      ),
-      width: widget.cardWidth + 20,
-      padding: EdgeInsets.fromLTRB(10, 5, 10, 5 + MediaQuery.of(context).padding.bottom),
-      child: Stack(
-        children: List.generate(presenter.queues == null ? 0 : presenter.queues.length, (index){
-          double bottom = ((index == 0 ? 5 : 10) + widget.cardHeight) * index;
-          int idx = presenter.queues.length - 1 - index;
-          return index == 0 ? Positioned(
-            bottom: bottom,
-            left: 0,
-            child: 
-              DragableCard(
-                cardHeight: widget.cardHeight,
-                cardWidth: widget.cardWidth,
-                draggedCallback: (){},
-                val: presenter.queues[idx],
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 8,
+          sigmaY: 8
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xaa333333),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+            )
+          ),
+          width: widget.cardWidth + 20,
+          padding: EdgeInsets.fromLTRB(0, 5, 0, 5 + MediaQuery.of(context).padding.bottom),
+          child: Stack(
+            children:[
+
+              Positioned(
+                left: 5,
+                right: 5,
+                bottom: 0,
+                child: DottedBorder(
+                  borderType: BorderType.RRect,
+                  color: Colors.white,
+                  radius: Radius.circular(10),
+                  strokeWidth: 2,
+                  child: Center(
+                    child: presenter.queues != null ? DragableCard(
+                      cardHeight: widget.cardHeight,
+                      cardWidth: widget.cardWidth,
+                      draggedCallback: (){},
+                      val: presenter.queues[presenter.queues.length -1],
+                    ) : Container(
+                      width: widget.cardWidth,
+                      height: widget.cardHeight,
+                    ),
+                  )
+                ),
+              ),  
+
+              Positioned.fill(
+                left: 10,
+                right: 5,
+                top: 0,
+                bottom: 0,
+                child: Stack(
+                  children: List.generate(presenter.queues != null ? presenter.queues.length - 1 : 0, (idx){
+                    int index = (presenter.queues.length - 2) - idx;
+                    double bottom = (widget.cardHeight * idx ) + (10 * idx) + (widget.cardHeight + 10);
+                    return SurvivalFrontCard(
+                        cardHeight: widget.cardHeight,
+                        cardWidth: widget.cardWidth,
+                        val: presenter.queues[index],
+                        shouldAnimateStream: presenter.shouldAnimatedStream,
+                        bottom: bottom,
+                        finishAnimateSink: presenter.finishingAnimSink,
+                    );
+                  }).toList(),
+                ),
+              ),
+
+              Positioned.fill(
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: (widget.cardHeight+10),
+                child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 8,
+                      sigmaY: 8
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xaa333333),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        )
+                      ),
+                    ),
+                  ),
+                )
               )
-            
-          ) : SurvivalFrontCard(
-                cardHeight: widget.cardHeight,
-                cardWidth: widget.cardWidth,
-                val: presenter.queues[idx],
-                shouldAnimateStream: presenter.shouldAnimatedStream,
-                bottom: bottom,
-                finishAnimateSink: presenter.finishingAnimSink,
-            );
-        }).toList()
-      )
+            ]
+          )
+        ),
+      ),
     );
   }
 

@@ -45,10 +45,10 @@ class LandingPageTitlePresenter extends BaseComponentPresenter{
     Color oldColor  = Colors.red;
     if(title != null){
       oldTitle = title['name'];
-      oldColor = title['color'];
+      oldColor = title['iconColor'];
     }
     String newTitle = data['name'];
-    Color newColor = data['color'];
+    Color newColor = data['iconColor'];
     setTitle = data;
     view.notifyState();
     clearAnimationController();

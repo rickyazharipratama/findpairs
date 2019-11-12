@@ -35,14 +35,14 @@ class _LandingPageTitleState extends State<LandingPageTitle> with TickerProvider
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               text: TextSpan(
-                style: Theme.of(context).textTheme.subtitle,
+                style: Theme.of(context).primaryTextTheme.display1,
                 children: presenter.animatedChars.map((char){
                   int i = char['tween'].animate(char['animationController']).value;
-                  Color c = char['color'].animate(char['animationController']).value;
+                  // Color c = char['color'].animate(char['animationController']).value;
                   return TextSpan(
                     text: presenter.texts[i],
                     style: TextStyle(
-                      color: c
+                      color: Color(0xfffafafa)
                     )
                   );
                 }).toList()
