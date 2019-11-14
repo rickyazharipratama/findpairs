@@ -29,8 +29,9 @@ class FinderFlipCard extends StatefulWidget {
     @required this.scoreAnimationStream,
     @required this.restrictionCardStream,
     @required this.forceRestrictCard,
-    @required this.forceOpenCard
-  });
+    @required this.forceOpenCard,
+    Key key
+  }) : super(key : key) ;
 
   @override
   _FinderFlipCardState createState() => new _FinderFlipCardState();

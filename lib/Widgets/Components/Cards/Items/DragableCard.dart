@@ -11,13 +11,13 @@ class DragableCard extends StatefulWidget {
   final int val;
   final VoidCallback draggedCallback;
   
-  DragableCard({@required this.cardHeight, @required  this.cardWidth, @required this.val, @required this.draggedCallback});
+  DragableCard({@required this.cardHeight, @required  this.cardWidth, @required this.val, @required this.draggedCallback, Key key}) : super(key : key);
 
   @override
-  _DragableCardState createState() => new _DragableCardState();
+  DragableCardState createState() => DragableCardState();
 }
 
-class _DragableCardState extends State<DragableCard> with DragableCardView{
+class DragableCardState extends State<DragableCard> with DragableCardView{
   
   DragableCardPresenter presenter;
 

@@ -17,12 +17,12 @@ class DragTargetCard extends StatefulWidget {
   final StreamSink<Map<String,int>> dragTargetSink;
   final Stream<bool> restartStream;
 
-  DragTargetCard({@required this.height, @required this.width, @required this.dragRestrictStream, @required this.clearDragtargetStream, @required this.fasterRaceSink, @required this.position, @required this.dragTargetSink, @required this.restartStream});
+  DragTargetCard({@required this.height, @required this.width, @required this.dragRestrictStream, @required this.clearDragtargetStream, @required this.fasterRaceSink, @required this.position, @required this.dragTargetSink, @required this.restartStream, Key key}) : super(key : key);
   @override
-  _DragTargetCardState createState() => new _DragTargetCardState();
+  DragTargetCardState createState() => DragTargetCardState();
 }
 
-class _DragTargetCardState extends State<DragTargetCard> with DragTargetCardView{
+class DragTargetCardState extends State<DragTargetCard> with DragTargetCardView{
   
   DragTargetCardPresenter presenter;
 

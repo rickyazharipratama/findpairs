@@ -40,10 +40,10 @@ class ConstantCollections{
       "version":1,
       "isAvailable": true,
       "isMaintenance": false,
-      "color":Color(0x996772c6),
-      "borderColor":Color(0x448c96e3),
-      "gradientColor":Color(0x999aa3ea),
-      "iconColor":Color(0xff4352bf)
+      "color":Color(0x99f77d00),
+      "borderColor":Color(0x44ff8e1b),
+      "gradientColor":Color(0x99f99229),
+      "iconColor":Color(0xffd26e18)
     }
     // {
     //   "name":"Collection",
@@ -69,6 +69,9 @@ class ConstantCollections{
   static const PREF_FINDER_TOTAL_MOVE = "prefFinderTotalMove";
   static const PREF_FINDER_CORRECT_MOVE = "prefCorrectMove";
   static const PREF_SURVIVAL_SCORE ="prefSurvivalScore";
+  //preferenceTutorial
+  static const PREF_MATCHER_TUTORIAL = "prefMatcherTutorial";
+  static const PREF_FINDER_TUTORIAL = "prefFinderTutorial";
 
   static const Map<String, List<String>> cards ={
     "Episode-01" : [

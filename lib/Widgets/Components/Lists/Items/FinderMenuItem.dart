@@ -1,33 +1,35 @@
-import 'package:findpairs/PresenterViews/Components/Lists/Items/ArcadeMenuItemView.dart';
-import 'package:findpairs/Presenters/Components/Lists/Items/ArcadeMenuItemPresenter.dart';
+import 'package:findpairs/PresenterViews/Components/Lists/Items/FinderMenuItemView.dart';
+import 'package:findpairs/Presenters/Components/Lists/Items/FinderMenuItemPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Widgets/Components/Buttons/ArcadeItemMenuButton.dart';
 import 'package:flutter/material.dart';
 
-class ArcadeMenuItem extends StatefulWidget {
-
+class FinderMenuItem extends StatefulWidget {
   final bool isActive;
   final Map<String,dynamic> menu;
   final double width;
   final double height;
-  ArcadeMenuItem({this.isActive, this.menu, @required this.width, @required this.height});
+
+  FinderMenuItem({this.isActive, this.menu, this.width, this.height});
 
   @override
-  _ArcadeMenuItemState createState() => new _ArcadeMenuItemState();
+  _FinderMenuItemState createState() => new _FinderMenuItemState();
 }
 
-class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProviderStateMixin,ArcadeMenuItemView{
-
-  ArcadeMenuItemPeresenter presenter;
-
+class _FinderMenuItemState extends State<FinderMenuItem> with SingleTickerProviderStateMixin,FinderMenuItemView{
+  
+    FinderMenuItemPresenter presenter;
   @override
   void initState() {
     super.initState();
     setAnimationController(this, widget.height / 6);
-    presenter = ArcadeMenuItemPeresenter()..setView = this..initiateData();
+    presenter = FinderMenuItemPresenter()
+    ..setView = this
+    ..initiateData();
   }
 
   @override
-  void didUpdateWidget(ArcadeMenuItem oldWidget) {
+  didUpdateWidget(FinderMenuItem oldWidget){
     super.didUpdateWidget(oldWidget);
     if(oldWidget.isActive != this.widget.isActive){
       if(!this.widget.isActive){
@@ -39,10 +41,8 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 80),
       child: Stack(
@@ -52,7 +52,7 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
               right: 0,
               bottom: 0,
               child: GestureDetector(
-                onTap: widget.isActive? presenter.isNeedAdvancedMenu ? (){} : presenter.checkingStages : (){},
+                onTap: widget.isActive? presenter.isNeedAdvancedMenu ? (){} : presenter.checkingFinder : (){},
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   width: widget.width,
@@ -94,14 +94,14 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
               left: 0,
               right: 0,
               child: GestureDetector(
-                onTap: widget.isActive? presenter.isNeedAdvancedMenu ? (){} : presenter.checkingStages : (){},
+                onTap: widget.isActive? presenter.isNeedAdvancedMenu ? (){} : presenter.checkingFinder : (){},
                 child: Container(
                   width: widget.width,
                   height: widget.height,
                   margin: const EdgeInsets.only(bottom: 17),
                   child: Center(
                     child: Image.asset(
-                      "assets/images/arcade-menu.png",
+                      "assets/images/classic.png",
                       width: widget.width / 2,
                       fit: BoxFit.fitWidth,
                       color: widget.menu['iconColor'],
@@ -113,6 +113,58 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
               ),
             ),
             
+
+            Positioned(
+              bottom: 165,
+              left: 30,
+              right: 30,
+              child: presenter.isNeedAdvancedMenu ?
+                Transform.scale(
+                  scale: textAnim.value,
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Last Score",
+                          maxLines: 1,
+                          style: Theme.of(context).textTheme.display3.apply(
+                            color: Colors.white
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: Theme.of(context).textTheme.display1.apply(
+                                color: Colors.white
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: CommonUtil.instance.formatScore(presenter.score.score),
+                                ),
+                                TextSpan(
+                                  text: " ("+CommonUtil.instance.decimalFormat(presenter.score.ratio * 100)+"%)",
+                                  style: Theme.of(context).textTheme.display3.apply(
+                                    color: Colors.white,
+                                    fontSizeDelta: 0.65,
+                                    fontSizeFactor: 0.65
+                                  )
+                                )
+                              ]
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                )
+              : Container(),
+            ),
+
             Positioned(
               bottom: 0,
               left: 30,
@@ -127,7 +179,7 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
                       Transform.scale(
                         scale: presenter.isNeedAdvancedMenu ? animationContinue.value:0,
                         child: ArcadeItemMenuButton(
-                          onTap: presenter.continueArcade,
+                          onTap: openFinderStage,
                           title: "Continue",
                           color: widget.menu['iconColor'],
                         ),
@@ -136,7 +188,7 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
                       Transform.scale(
                         scale: presenter.isNeedAdvancedMenu? animationNewGame.value : 0,
                         child: ArcadeItemMenuButton(
-                          onTap: presenter.initiateArcade,
+                          onTap: presenter.resetAllScore,
                           title: "New Game",
                           color: widget.menu['iconColor'],
                         ),
@@ -154,7 +206,7 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
   BuildContext currentContext() => context;
 
   @override
-  void notifyState() {
+  void notifyState(){
     super.notifyState();
     if(mounted){
       setState(() {
@@ -163,4 +215,9 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
     }
   }
 
+  @override
+  void dispose() {
+    presenter.dispose();
+    super.dispose();
+  }
 }

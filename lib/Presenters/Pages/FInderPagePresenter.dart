@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:findpairs/PresenterViews/Pages/FInderPageView.dart';
 import 'package:findpairs/Presenters/Pages/BasePagePresenter.dart';
+import 'package:findpairs/Utils/ConstantCollections.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FinderPagePresenter extends BasePagePresenter{
 
@@ -15,6 +17,7 @@ class FinderPagePresenter extends BasePagePresenter{
   StreamController<int> _cardPairedController = StreamController();
   StreamController<double> _ratioUpdatingController = StreamController();
   StreamController<int> _lifeConfigurationController = StreamController();
+  GamePauseType pauseType = GamePauseType.onGameresume;
 
   FinderPageView get view => _view;
   set setView(FinderPageView vw){
@@ -49,11 +52,38 @@ class FinderPagePresenter extends BasePagePresenter{
   void initiateData() {
     super.initiateData();
     pauseStream.listen(pauseStreamListen);
+    showTutorial();
   }
 
   void pauseStreamListen(GamePauseType type){
+    pauseType = type;
     if(type == GamePauseType.onGameExit){
       view.closePage();
+    }
+  }
+
+  showTutorial() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    bool isALreadyShowTutorial = pref.getBool(ConstantCollections.PREF_FINDER_TUTORIAL);
+    if(isALreadyShowTutorial == null || !isALreadyShowTutorial){
+      Future.delayed(
+        const Duration(milliseconds: 700),
+        (){
+          if(pauseType != GamePauseType.onGamePause){
+            //show Tutorial
+            pauseSink.add(GamePauseType.onGamePause);
+            view.showTutorial(finishTutorial);
+          }
+        }
+      );
+    }
+  }
+
+  finishTutorial() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool(ConstantCollections.PREF_FINDER_TUTORIAL, true);
+    if(pauseType == GamePauseType.onGamePause){
+      pauseSink.add(GamePauseType.onGameresume);
     }
   }
 

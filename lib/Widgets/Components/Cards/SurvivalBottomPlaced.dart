@@ -16,8 +16,9 @@ class SurvivalBottomPlaced extends StatefulWidget {
   final StreamSink<Map<String,int>> dragTargetSink;
   final Stream<bool> isCardCorrectStream;
   final Stream<bool> restartStream;
+  final Key dragTargetCardKey;
 
-  SurvivalBottomPlaced({@required this.cardWidth, @required this.cardHeight, @required this.dragRestrictStream, @required this.clearDragTargetStream, @required this.fasterRaceSink, @required this.dragTargetSink, @required this.isCardCorrectStream, @required this.restartStream});
+  SurvivalBottomPlaced({@required this.cardWidth, @required this.cardHeight, @required this.dragRestrictStream, @required this.clearDragTargetStream, @required this.fasterRaceSink, @required this.dragTargetSink, @required this.isCardCorrectStream, @required this.restartStream, @required this.dragTargetCardKey});
 
   @override
   _SurvivalBottomPlacedState createState() => new _SurvivalBottomPlacedState();
@@ -74,6 +75,7 @@ class _SurvivalBottomPlacedState extends State<SurvivalBottomPlaced> with Ticker
                 top: 0,
                 left: (widget.cardWidth + 20),
                 child: DragTargetCard(
+                  key: widget.dragTargetCardKey,
                   dragRestrictStream: widget.dragRestrictStream,
                   height: widget.cardHeight,
                   width: widget.cardWidth,

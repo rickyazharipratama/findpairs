@@ -33,6 +33,10 @@ class SelectArcadeStageView{
   }
 
 
+  closePage(){
+    Navigator.of(currentContext()).pop();
+  }
+
   BuildContext currentContext() => null;
 
   notifyState(){}

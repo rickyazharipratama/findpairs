@@ -61,6 +61,7 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
                         stackedSink: presenter.stackedCardSink,
                         cardPaired: presenter.cardPairedStream,
                         boardCardStream: presenter.boardCardStream,
+                        stackedItemKey: stackedCardItemKey,
                       ),
                     ),
                     
@@ -109,6 +110,7 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
                   reduceScore: presenter.reduceScoreSink,
                   ratioUpdateSink: presenter.ratioUpdateSink,
                   lifeConfigurationSink: presenter.lifeConfigurationSink,
+                  flipCardKey: flipCardKey,
                 ),
               ),
             ),

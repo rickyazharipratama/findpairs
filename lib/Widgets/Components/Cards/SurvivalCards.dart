@@ -15,8 +15,9 @@ class SurvivalCards extends StatefulWidget {
   final Stream<int> clearDataTargetStream;
   final StreamSink<int> finderValueSink;
   final Stream<bool> restartStream;
+  final Key daragableCardKey;
 
-  SurvivalCards({@required this.cardWidth, @required this.cardHeight, @required this.clearDataTargetStream, @required this.finderValueSink, @required this.restartStream});
+  SurvivalCards({@required this.cardWidth, @required this.cardHeight, @required this.clearDataTargetStream, @required this.finderValueSink, @required this.restartStream, @required this.daragableCardKey});
 
   @override
   _SurvivalCardsState createState() => new _SurvivalCardsState();
@@ -25,6 +26,8 @@ class SurvivalCards extends StatefulWidget {
 class _SurvivalCardsState extends State<SurvivalCards> with SurvivalCardsView{
 
   SurvivalCardsPresenter presenter;
+  
+
 
   @override
   void initState() {
@@ -70,6 +73,7 @@ class _SurvivalCardsState extends State<SurvivalCards> with SurvivalCardsView{
                   strokeWidth: 2,
                   child: Center(
                     child: presenter.queues != null ? DragableCard(
+                      key: widget.daragableCardKey,
                       cardHeight: widget.cardHeight,
                       cardWidth: widget.cardWidth,
                       draggedCallback: (){},

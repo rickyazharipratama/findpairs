@@ -30,6 +30,7 @@ dependencies:
   vector_math: ^2.0.8
   dotted_border: ^1.0.3
   flare_flutter: ^1.7.1
+  tutorial_coach_mark: ^0.3.0
 
 dev_dependencies:
   flutter_test:

@@ -19,8 +19,9 @@ class StackedCardItem extends StatefulWidget {
     @required this.height,
     @required this.destroyStream,
     @required this.refillSink,
-    @required this.value
-  });
+    @required this.value,
+    Key key
+  }) : super(key : key);
 
   @override
   _StackedCardItemState createState() => new _StackedCardItemState();

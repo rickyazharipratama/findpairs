@@ -17,8 +17,9 @@ class SurvivalCardRace extends StatefulWidget {
   final Stream<Map<String,int>> dragTargetStream;
   final StreamSink<bool> isCardCorrectSink;
   final Stream<GamePauseType> pauseStream;
+  final Key finderFrontCardKey;
 
-  SurvivalCardRace({@required this.width, @required this.height, @required this.dragRestrictedSink, @required this.clearDragTargetSink, @required this.finderValueStream, @required this.fasterRaceStream, @required this.dragTargetStream, @required this.isCardCorrectSink, @required this.pauseStream});
+  SurvivalCardRace({@required this.width, @required this.height, @required this.dragRestrictedSink, @required this.clearDragTargetSink, @required this.finderValueStream, @required this.fasterRaceStream, @required this.dragTargetStream, @required this.isCardCorrectSink, @required this.pauseStream, @required this.finderFrontCardKey});
 
   @override
   _SurvivalCardRaceState createState() => new _SurvivalCardRaceState();
@@ -63,6 +64,7 @@ class _SurvivalCardRaceState extends State<SurvivalCardRace> with TickerProvider
           top: secondCardAnimation == null ? -widget.height : secondCardAnimation.value,
           left: (widget.width + 20),
           child: FinderFrontCard(
+            key: widget.finderFrontCardKey,
             height: widget.height,
             width: widget.width,
             val: presenter.cardRaces == null ? 0 : presenter.cardRaces[1],

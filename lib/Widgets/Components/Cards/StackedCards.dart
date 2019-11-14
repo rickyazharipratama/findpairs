@@ -9,8 +9,9 @@ class StackedCards extends StatefulWidget {
   final StreamSink<List<int>> stackedSink;
   final Stream<List<int>> boardCardStream;
   final Stream<int> cardPaired;
+  final Key stackedItemKey;
 
-  StackedCards({@required this.stackedSink, @required this.cardPaired, @required this.boardCardStream});
+  StackedCards({@required this.stackedSink, @required this.cardPaired, @required this.boardCardStream, @required this.stackedItemKey});
 
   @override
   _StackedCardsState createState() => new _StackedCardsState();
@@ -43,6 +44,7 @@ class _StackedCardsState extends State<StackedCards> with StackedCardsView{
           int index = presenter.stackedCards.indexOf(val);
           double top = (2 * index).toDouble();
           double side = 8 - (2 * index).toDouble();
+          GlobalKey key = GlobalKey();
           return Positioned(
             top: top,
             left: side,
@@ -53,6 +55,7 @@ class _StackedCardsState extends State<StackedCards> with StackedCardsView{
               destroyStream: presenter.destroyCardStream,
               refillSink: presenter.refillCardSink,
               value: val,
+              key: index != presenter.stackedCards.length - 1 ? key : widget.stackedItemKey,
             ),
           );
         }).toList()

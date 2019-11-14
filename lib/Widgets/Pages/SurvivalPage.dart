@@ -9,6 +9,11 @@ import 'package:findpairs/Widgets/Pages/WrapperPage.dart';
 import 'package:flutter/material.dart';
 
 class SurvivalPage extends StatefulWidget {
+
+  final bool isFirstPlay;
+
+  SurvivalPage({this.isFirstPlay : false});
+
   @override
   _SurvivalPageState createState() => new _SurvivalPageState();
 }
@@ -28,7 +33,7 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
   Widget build(BuildContext context) {
     return WrapperPage(
       leftHeader: Text(
-        "Survival",
+        "Matcher",
         style: Theme.of(context).textTheme.display1.apply(
           color: Colors.white
         ),
@@ -49,6 +54,7 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
 
                 Positioned.fill(
                   child: SurvivalCardRace(
+                    finderFrontCardKey: finderFrontCardKey,
                     height: cardSize.height,
                     width: cardSize.width,
                     dragRestrictedSink: presenter.dragTargetRestrictedSink,
@@ -66,6 +72,7 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
                   left: 0,
                   right: 0,
                   child: SurvivalBottomPlaced(
+                    dragTargetCardKey: dragTargetCardKey,
                     cardHeight: cardSize.height,
                     cardWidth: cardSize.width,
                     dragRestrictStream: presenter.dragTargetRestrictedStream,
@@ -85,6 +92,7 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
             children: <Widget>[
               
               SurvivalScoreWrapper(
+                key: survivalScoreWrapperKey,
                 cardPairedStream: presenter.isCardCorrectStream,
                 reportScoreSink: presenter.reportScoreSink,
                 restartGameStream: presenter.restartGameStream,
@@ -92,6 +100,7 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
 
               Expanded(
                 child: SurvivalCards(
+                  daragableCardKey: dragableCardKey,
                   cardWidth: cardSize.width,
                   cardHeight: cardSize.height,
                   clearDataTargetStream: presenter.clearDragTargetStream,

@@ -11,14 +11,15 @@ class FinderFrontCard extends StatefulWidget {
   FinderFrontCard({
     @required this.width,
     @required this.height,
-    @required this.val
-  });
+    @required this.val,
+    Key key
+  }) : super(key : key);
 
   @override
-  _FinderFrontCardState createState() => new _FinderFrontCardState();
+  FinderFrontCardState createState() => FinderFrontCardState();
 }
 
-class _FinderFrontCardState extends State<FinderFrontCard> {
+class FinderFrontCardState extends State<FinderFrontCard> {
 
   @override
   void didUpdateWidget(FinderFrontCard oldWidget) {

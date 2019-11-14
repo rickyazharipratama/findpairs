@@ -1,6 +1,6 @@
 import 'package:findpairs/PresenterViews/Pages/SelectArcadeStageView.dart';
 import 'package:findpairs/Presenters/Pages/SelectArcadeStagePresenter.dart';
-import 'package:findpairs/Widgets/Components/Buttons/SettingActionButton.dart';
+import 'package:findpairs/Widgets/Components/Buttons/PauseActionButton.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/ArcadeSelections/FinishedStageSelection.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/ArcadeSelections/LockStageSelection.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/ArcadeSelections/OpenStageSelection.dart';
@@ -28,7 +28,9 @@ class _SelectArcadeStageState extends State<SelectArcadeStage> with SelectArcade
   Widget build(BuildContext context) {
     return WrapperPage(
       actions: <Widget>[
-          SettingActionButton()
+          PauseActionButton(
+            sinker: presenter.pauseSink,
+          )
       ],
       leftHeader: Container(),
       child: PageView(
@@ -119,5 +121,11 @@ class _SelectArcadeStageState extends State<SelectArcadeStage> with SelectArcade
   @override
   BuildContext currentContext() {
     return context;
+  }
+
+  @override
+  void dispose() {
+    presenter.dispose();
+    super.dispose();
   }
 }

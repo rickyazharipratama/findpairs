@@ -3,13 +3,15 @@ import 'dart:async';
 import 'package:findpairs/Models/SurvivalScore.dart';
 import 'package:findpairs/PresenterViews/Pages/SurvivalPageView.dart';
 import 'package:findpairs/Presenters/Pages/BasePagePresenter.dart';
+import 'package:findpairs/Utils/ConstantCollections.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SurvivalPagePresenter extends BasePagePresenter{
 
   SurvivalPageView _view;
-  StreamController<GamePauseType> pauseController = StreamController();
+  StreamController<GamePauseType> pauseController = StreamController.broadcast();
   StreamController<bool> _dragTargetRestrictedController = StreamController.broadcast();
   StreamController<int> _clearDragtargetController = StreamController.broadcast();
   StreamController<int> _finderCardValueController = StreamController();
@@ -20,11 +22,17 @@ class SurvivalPagePresenter extends BasePagePresenter{
   StreamController<bool> _restartGameController = StreamController.broadcast();
 
   SurvivalScore score;
+  GamePauseType pauseType;
 
   SurvivalPagePresenter(){
     reportScoreStream.listen(rekapScore);
+    pauseStream.listen(onPauseType);
   }
 
+
+  onPauseType(GamePauseType type){
+    pauseType = type;
+  }
 
   rekapScore(SurvivalScore sc) async{
     score = SurvivalScore();
@@ -95,6 +103,34 @@ class SurvivalPagePresenter extends BasePagePresenter{
   @override
   void initiateData() async{
     super.initiateData();
+    showTutorial();
+  }
+
+
+  showTutorial() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    bool isAlreadyPlayTutorial = pref.getBool(ConstantCollections.PREF_MATCHER_TUTORIAL);
+    if(isAlreadyPlayTutorial == null || !isAlreadyPlayTutorial){
+      Future.delayed(
+        const Duration(milliseconds: 4000),
+        (){
+          if(pauseType != GamePauseType.onGamePause){
+            pauseSink.add(GamePauseType.onGamePause);
+            view.showTutorial(
+              onFinish: finishTutorial
+            );
+          }
+        }
+      );
+    }
+  }
+
+  finishTutorial() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool(ConstantCollections.PREF_MATCHER_TUTORIAL, true);
+    if(pauseType == GamePauseType.onGamePause){
+      pauseSink.add(GamePauseType.onGameresume);
+    }
   }
 
   void dispose(){

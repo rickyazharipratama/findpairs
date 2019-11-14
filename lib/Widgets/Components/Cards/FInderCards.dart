@@ -14,8 +14,9 @@ class FinderCards extends StatefulWidget {
   final StreamSink<int> reduceScore;
   final StreamSink<double> ratioUpdateSink;
   final StreamSink<int> lifeConfigurationSink;
+  final Key flipCardKey;
 
-  FinderCards({@required this.stackedStream, @required this.boardCardSink, @required this.cardPairedSink, @required this.increaseScore, @required this.reduceScore, @required this.ratioUpdateSink, @required this.lifeConfigurationSink});
+  FinderCards({@required this.stackedStream, @required this.boardCardSink, @required this.cardPairedSink, @required this.increaseScore, @required this.reduceScore, @required this.ratioUpdateSink, @required this.lifeConfigurationSink, @required this.flipCardKey});
 
   @override
   _FinderCardsState createState() => new _FinderCardsState();
@@ -58,7 +59,9 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
                   }
                 }
                 print("index : "+(skiprow+index).toString());
+                GlobalKey key = GlobalKey();
                 return FinderFlipCard(
+                  key: (skiprow+index) != presenter.boardCards.length -1 ? key : widget.flipCardKey,
                   width: cardSize.width,
                   height: cardSize.height,
                   value: presenter.boardCards[skiprow+index],

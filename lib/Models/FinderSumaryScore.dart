@@ -56,6 +56,11 @@ class FinderSumaryScore{
     pref.setInt(ConstantCollections.PREF_FINDER_SCORE, score);
   }
 
+  removeScoreFromStore() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.remove(ConstantCollections.PREF_FINDER_SCORE);
+  }
+
   getLifeFromStore() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     int tmp = pref.getInt(ConstantCollections.PREF_FINDER_LIFE);
@@ -75,6 +80,11 @@ class FinderSumaryScore{
     pref.setInt(ConstantCollections.PREF_FINDER_LIFE, life);
   }
 
+  removeLifeFromStore() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.remove(ConstantCollections.PREF_FINDER_LIFE);
+  }
+
   getRatioFromStore() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     double tmp = pref.getDouble(ConstantCollections.PREF_FINDER_RATIO);
@@ -86,6 +96,11 @@ class FinderSumaryScore{
   setRatioToStore() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setDouble(ConstantCollections.PREF_FINDER_RATIO, ratio);
+  }
+
+  removeRatioFromStore() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.remove(ConstantCollections.PREF_FINDER_RATIO);
   }
 
   getTotalMoveFromStore() async{
@@ -101,6 +116,11 @@ class FinderSumaryScore{
     pref.setInt(ConstantCollections.PREF_FINDER_TOTAL_MOVE, totalMove);
   }
 
+  removeTotalMoveFromStore() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.remove(ConstantCollections.PREF_FINDER_TOTAL_MOVE);
+  }
+
   getCorrectMoveFromStore() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     int tmp = pref.getInt(ConstantCollections.PREF_FINDER_CORRECT_MOVE);
@@ -112,6 +132,11 @@ class FinderSumaryScore{
   setCorrectMoveToStore() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setInt(ConstantCollections.PREF_FINDER_CORRECT_MOVE, totalCorrect);
+  }
+
+  removeCorrectMoveFromStore() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.remove(ConstantCollections.PREF_FINDER_CORRECT_MOVE);
   }
 
   reconfigureLife() async{

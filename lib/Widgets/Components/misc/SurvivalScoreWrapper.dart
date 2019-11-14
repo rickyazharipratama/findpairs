@@ -13,13 +13,13 @@ class SurvivalScoreWrapper extends StatefulWidget {
   final StreamSink<SurvivalScore> reportScoreSink;
   final Stream<bool> restartGameStream;
 
-  SurvivalScoreWrapper({@required this.cardPairedStream, @required this.reportScoreSink, @required this.restartGameStream});
+  SurvivalScoreWrapper({@required this.cardPairedStream, @required this.reportScoreSink, @required this.restartGameStream, Key key}):super(key : key);
 
   @override
-  _SurvivalScoreWrapperState createState() => new _SurvivalScoreWrapperState();
+  SurvivalScoreWrapperState createState() => SurvivalScoreWrapperState();
 }
 
-class _SurvivalScoreWrapperState extends State<SurvivalScoreWrapper> with SurvivalScoreWrapperView{
+class SurvivalScoreWrapperState extends State<SurvivalScoreWrapper> with SurvivalScoreWrapperView{
 
   SurvivalScoreWrapperPresenter presenter;
 

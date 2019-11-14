@@ -15,7 +15,7 @@ class WrapperPage extends StatelessWidget {
       body: Builder(
         builder: (context) => Material(
           clipBehavior: Clip.hardEdge,
-          color: Theme.of(context).backgroundColor,
+          color: Colors.black,
           child: Stack(
             children: <Widget>[
 

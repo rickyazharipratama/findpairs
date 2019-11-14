@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:findpairs/PresenterViews/Components/Lists/LandingPageMenuView.dart';
 import 'package:findpairs/Presenters/Components/Lists/LandingPageMenuPresenter.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/ArcadeMenuItem.dart';
-import 'package:findpairs/Widgets/Components/Lists/Items/LandingPageMenuItem.dart';
+import 'package:findpairs/Widgets/Components/Lists/Items/FinderMenuItem.dart';
+import 'package:findpairs/Widgets/Components/Lists/Items/MatcherMenuItem.dart';
 import 'package:flutter/material.dart';
 
 class LandingPageMenu extends StatefulWidget {
@@ -41,13 +42,21 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
             height: getCardHeight(),
             width: getCardWidth(),
           );
+        }else if(item['name'].toString().toLowerCase() == "finder"){
+          return FinderMenuItem(
+            isActive: presenter.menus.indexOf(item) == activePage,
+            menu: item,
+            height: getCardHeight(),
+            width: getCardWidth(),
+          );
+        }else{
+          return MatcherMenuItem(
+            isActive: presenter.menus.indexOf(item) == activePage, 
+            menu: item,
+            height: getCardHeight(),
+            width: getCardWidth(),
+          );
         }
-        return LandingPageMenuItem(
-          isActive: presenter.menus.indexOf(item) == activePage, 
-          menu: item,
-          height: getCardHeight(),
-          width: getCardWidth(),
-        );
       }).toList()
     );
   }
