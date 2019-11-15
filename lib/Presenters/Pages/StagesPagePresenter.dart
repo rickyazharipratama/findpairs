@@ -25,6 +25,7 @@ class StagesPagePresenter extends BasePagePresenter{
     episodeStream.listen(onRetrieveEpisode);
   }
 
+  
   int _stage;
   String _episode;
 

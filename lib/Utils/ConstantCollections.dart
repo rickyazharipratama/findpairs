@@ -72,6 +72,7 @@ class ConstantCollections{
   //preferenceTutorial
   static const PREF_MATCHER_TUTORIAL = "prefMatcherTutorial";
   static const PREF_FINDER_TUTORIAL = "prefFinderTutorial";
+  static const PREF_ARCADE_TUTORIAL = "prefArcadeTutorial";
 
   static const Map<String, List<String>> cards ={
     "Episode-01" : [

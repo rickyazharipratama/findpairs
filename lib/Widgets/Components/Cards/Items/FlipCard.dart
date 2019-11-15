@@ -21,7 +21,7 @@ class FlipCard extends StatefulWidget{
   final StreamSink streamCard;
   final ArcadeCardValue value;
 
-  FlipCard({@required this.width, @required this.height, @required this.flipBack, @required this.streamCard, @required this.restrictFlip,@required this.value, @required this.paired, @required this.arcadeTime, @required this.episode});
+  FlipCard({@required this.width, @required this.height, @required this.flipBack, @required this.streamCard, @required this.restrictFlip,@required this.value, @required this.paired, @required this.arcadeTime, @required this.episode, Key key}):super(key:key);
 
   @override
   _FLipCardState createState() => new _FLipCardState();

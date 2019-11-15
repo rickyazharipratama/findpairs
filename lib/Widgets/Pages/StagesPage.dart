@@ -46,6 +46,7 @@ class _StagesPageState extends State<StagesPage> with StagesPageView{
         )
       ],
       child: ArcadeCard(
+        pauseSink: presenter.pauseSink,
         episode: widget.episode,
         stage: widget.stage,
         episodeSinker: presenter.episodeSink,

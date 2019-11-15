@@ -21,8 +21,7 @@ class LandingPagePresenter extends BasePagePresenter{
     _view = vw;
   }
 
-  LandingPagePresenter(){
-  }
+  LandingPagePresenter();
 
   void dispose(){
     disposeBackgroundMusic();

@@ -74,6 +74,7 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
                         Padding(
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: FinderScoreText(
+                            key: scoreKey,
                             increaseScore: presenter.increaseScoreStream,
                             reduceScore: presenter.reduceScoreStream,
                           ),
@@ -82,6 +83,7 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
                         Padding(
                           padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                           child: FinderCorrectRatioText(
+                            key: ratioKey,
                             updateRatio: presenter.ratioUpdateStream,
                           ),
                         ),
@@ -89,6 +91,7 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 0),
                           child: FinderLifes(
+                            key: lifeKey,
                             lifeConfigurationStream: presenter.lifeConfigurationStream,
                           )
                         )

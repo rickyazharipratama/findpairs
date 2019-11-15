@@ -7,7 +7,7 @@ class FinderLifes extends StatefulWidget {
 
   final Stream<int> lifeConfigurationStream;
 
-  FinderLifes({@required this.lifeConfigurationStream});
+  FinderLifes({@required this.lifeConfigurationStream, @required Key key}):super(key: key);
 
   @override
   _FinderLifesState createState() => new _FinderLifesState();

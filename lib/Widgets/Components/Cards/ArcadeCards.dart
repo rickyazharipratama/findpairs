@@ -14,8 +14,9 @@ class ArcadeCard extends StatefulWidget {
   final StreamSink<int> stageSinker;
   final StreamSink<String> episodeSinker;
   final Stream<GamePauseType> pauseStream;
+  final StreamSink<GamePauseType> pauseSink;
 
-  ArcadeCard({this.stage, this.episode, @required this.stageSinker, @required this.episodeSinker, @required this.pauseStream});
+  ArcadeCard({this.stage, this.episode, @required this.stageSinker, @required this.episodeSinker, @required this.pauseStream, @required this.pauseSink});
   
   @override
   _ArcadeCardState createState() => new _ArcadeCardState();
@@ -28,8 +29,10 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
   @override
   void initState() {
     super.initState();
-    presenter = ArcadeCardPresenter(widget.stage, widget.episode,widget.stageSinker, widget.episodeSinker, widget.pauseStream)..setView = this;
-    presenter.initiateData();
+    presenter = ArcadeCardPresenter(widget.stage, widget.episode,widget.stageSinker, widget.episodeSinker, widget.pauseStream,
+      pauseSink: widget.pauseSink
+    )..setView = this
+    ..initiateData();
   }
 
   @override
@@ -48,9 +51,18 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: presenter.setting.formations.map((formations){
-                  List<int> rows = List();
+                  List<GlobalKey> rows = List();
                   for(int i = 0; i  < formations.row; i++){
-                    rows.add(i);
+                    GlobalKey kk = GlobalKey();
+                    if(presenter.setting.formations.last == formations){
+                      if(i == formations.row -1){
+                        rows.add(cardKey);
+                      }else{
+                        rows.add(kk);
+                      }
+                    }else{
+                      rows.add(kk);
+                    }
                   }
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,6 +71,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
                       print("screen width : "+MediaQuery.of(context).size.width.toString());
                       print("card width : "+getCardWidth(presenter.setting.horizontal, presenter.setting.vertical).toString());
                       return FlipCard(
+                        key: row,
                         width: getCardWidth(presenter.setting.horizontal, presenter.setting.vertical),
                         height: getCardHeight(getCardWidth(presenter.setting.horizontal, presenter.setting.vertical)),
                         restrictFlip: presenter.restrictFlip,
@@ -83,6 +96,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
           width: 130,
           height: 50,
           child: presenter.setting != null ? ArcadeLifes(
+            key: lifeKey,
             lifes: presenter.currentLife,
             stream: presenter.lifeStream,
           ) : Container(),
@@ -92,6 +106,7 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
         Positioned(
           top: 10,
           child: presenter.setting != null ? ClockTimer(
+            key: timeKey,
             counter: presenter.setting.time,
             critTime: presenter.setting.critTime,
             sinker: presenter.arcadeTimerSinker,

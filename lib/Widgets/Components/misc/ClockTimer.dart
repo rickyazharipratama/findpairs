@@ -12,7 +12,13 @@ class ClockTimer extends StatefulWidget {
   final Stream<ArcadeTimer> stream;
   final StreamSink<int> timerSink;
 
-  ClockTimer({@required this.counter, @required this.sinker, @required this.critTime, @required this.stream, @required this.timerSink});
+  ClockTimer({
+    @required this.counter,
+    @required this.sinker,
+    @required this.critTime,
+    @required this.stream,
+    @required this.timerSink,
+    Key key}):super(key:key);
 
   @override
   _ClockTimerState createState() => new _ClockTimerState();

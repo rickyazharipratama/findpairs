@@ -8,9 +8,11 @@ import 'package:findpairs/Models/ArcadeSetting.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/CardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/ArcadeUtils.dart';
+import 'package:findpairs/Utils/ConstantCollections.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:findpairs/Utils/SoundManager.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ArcadeCardPresenter extends BaseComponentPresenter{
   
@@ -24,6 +26,10 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   StreamController<int> _pairedController = StreamController.broadcast();
 
   Stream<GamePauseType> pauseStream;
+  final StreamSink<GamePauseType> pauseSink;
+  
+  GamePauseType pauseType = GamePauseType.onGameresume;
+
 
   StreamSink<int> stageSink;
   StreamSink<String> episodeSink;
@@ -93,7 +99,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     _currentLife = val;
   }
 
-  ArcadeCardPresenter(int stg, String ep, StreamSink<int> stgSink, StreamSink<String>epSink, Stream<GamePauseType> stream){
+  ArcadeCardPresenter(int stg, String ep, StreamSink<int> stgSink, StreamSink<String>epSink, Stream<GamePauseType> stream,{this.pauseSink}){
     _stages = stg;
     _episode = ep;
     stageSink = stgSink;
@@ -121,10 +127,37 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
     view.notifyState();
     if(await view.prepareToPlay()){
        arcadeTimerSinker.add(ArcadeTimer.onTimeStarted);
+       showTutorial();
     }
   }
   
+  showTutorial() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    bool isAlready = pref.getBool(ConstantCollections.PREF_ARCADE_TUTORIAL);
+    print("show tutorial");
+    if(isAlready == null || !isAlready){
+      Future.delayed(
+      const Duration(milliseconds: 1500),
+      (){
+        print("prepare to show");
+        print(pauseType.toString());
+        if(pauseType != GamePauseType.onGamePause){
+          print("show tutorial");
+          pauseSink.add(GamePauseType.onGamePause);
+          view.showTutorial(
+            onFinished: onFinishedTutorial
+          );
+        }
+      }
+    );
+    }
+  }
 
+  onFinishedTutorial() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool(ConstantCollections.PREF_ARCADE_TUTORIAL, true);
+    pauseSink.add(GamePauseType.onGameresume);
+  }
 
   List<int> generateRandomNumber(int length){
     Random rand = Random();
@@ -378,6 +411,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   }
 
   onListeningPause(GamePauseType type) async{
+    pauseType = type;
     if(type == GamePauseType.onGameresume){
       if(await view.prepareToPlay()){
         arcadeTimerSinker.add(ArcadeTimer.onTimeStarted);

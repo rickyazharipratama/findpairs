@@ -7,7 +7,7 @@ class FinderScoreText extends StatefulWidget {
   final Stream<int> increaseScore;
   final Stream<int> reduceScore;
 
-  FinderScoreText({@required this.increaseScore, @required this.reduceScore});
+  FinderScoreText({@required this.increaseScore, @required this.reduceScore, @required Key key}): super(key : key);
 
   @override
   _FinderScoreTextState createState() => new _FinderScoreTextState();

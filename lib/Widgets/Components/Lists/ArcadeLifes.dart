@@ -9,7 +9,7 @@ class ArcadeLifes extends StatefulWidget {
   final int lifes;
   final Stream<bool> stream;
 
-  ArcadeLifes({@required this.lifes, @required this.stream});
+  ArcadeLifes({@required this.lifes, @required this.stream, Key key}) : super(key : key);
 
   @override
   _ArcadeLifesState createState() => new _ArcadeLifesState();
