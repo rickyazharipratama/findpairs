@@ -110,7 +110,7 @@ class _ArcadeLifesState extends State<ArcadeLifes> with  ArcadeLifesView{
 
   @override
   void dispose() {
-    super.dispose();
     presenter.dispose();
+    super.dispose();
   }
 }

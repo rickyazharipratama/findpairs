@@ -6,7 +6,7 @@ import 'package:findpairs/Presenters/Pages/BasePagePresenter.dart';
 class LandingPagePresenter extends BasePagePresenter{
 
   LandingPageView _view;
-  StreamController<Map<String,dynamic>> _streamController;
+  StreamController<Map<String,dynamic>> _streamController = StreamController();
   StreamController<bool> _notifyReactiveController = StreamController.broadcast();
 
   StreamController get streamController => _streamController;
@@ -22,7 +22,6 @@ class LandingPagePresenter extends BasePagePresenter{
   }
 
   LandingPagePresenter(){
-    _streamController = StreamController();
   }
 
   void dispose(){

@@ -83,4 +83,11 @@ class _SoundActionButtonState extends State<SoundActionButton> with SingleTicker
       });
     }
   }
+
+  @override
+  dispose(){
+    presenter.dispose();
+    super.dispose();
+  }
+
 }

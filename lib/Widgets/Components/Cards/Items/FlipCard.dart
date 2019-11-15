@@ -90,9 +90,7 @@ class _FLipCardState extends State<FlipCard> with TickerProviderStateMixin,FlipC
 
   @override
   void dispose() {
-    vibrateController?.stop();
-    vibrateController.dispose();
-    animationController.dispose();
+    presenter.dispose();
     super.dispose();
   }
 }

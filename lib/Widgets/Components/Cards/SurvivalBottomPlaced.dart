@@ -125,7 +125,7 @@ class _SurvivalBottomPlacedState extends State<SurvivalBottomPlaced> with Ticker
 
   @override
   void dispose() {
-    super.dispose();
     presenter.dispose();
+    super.dispose();
   }
 }

@@ -57,4 +57,8 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
       view.notifyState();
     }
   }
+
+  void dispose(){
+    view.controller.dispose();
+  }
 }

@@ -62,7 +62,7 @@ class _PauseActionButtonState extends State<PauseActionButton> with SingleTicker
 
   @override
   void dispose() {
-    animationController.dispose();
+    presenter.dispose();
     super.dispose();
   }
 }

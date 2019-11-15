@@ -95,6 +95,7 @@ class _SurvivalCardRaceState extends State<SurvivalCardRace> with TickerProvider
   
   @override
   BuildContext currentContext() => context;
+  
   @override
   void notifyState() {
     super.notifyState();
@@ -104,4 +105,11 @@ class _SurvivalCardRaceState extends State<SurvivalCardRace> with TickerProvider
       });
     }
   }
+
+  @override
+  dispose(){
+    presenter.dispose();
+    super.dispose();
+  }
+
 }

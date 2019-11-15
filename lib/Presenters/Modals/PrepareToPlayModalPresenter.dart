@@ -25,6 +25,6 @@ class PrepareToPlayModalPresenter extends BasePresenter{
   }
 
   void dispose(){
-    view.animationController?.dispose();
+    view.animationController.dispose();
   }
 }

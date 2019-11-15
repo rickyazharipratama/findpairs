@@ -31,5 +31,4 @@ class ArcadeResultButtonPresenter extends BaseComponentPresenter{
   void dispose(){
     view.animationController.dispose();
   }
-
 }

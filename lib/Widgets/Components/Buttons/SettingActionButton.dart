@@ -57,7 +57,7 @@ class _SettingActionButtonState extends State<SettingActionButton> with SingleTi
 
   @override
   void dispose() {
-    animController.dispose();
+    presenter.dispose();
     super.dispose();
   }
 }

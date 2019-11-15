@@ -213,4 +213,8 @@ class SurvivalCardRacePresenter extends BaseComponentPresenter{
     }
     return -cardHeight;
   }
+
+  void dispose(){
+    view.animationController.dispose();
+  }
 }

@@ -106,4 +106,11 @@ class FlipCardPresenter extends BaseComponentPresenter{
     _isRestrictFLipCard = val;
     view.notifyState();
   }
+
+  dispose(){
+    view.vibrateController?.stop();
+    view.animationController.dispose();
+    view.vibrateController.dispose();
+  }
+
 }

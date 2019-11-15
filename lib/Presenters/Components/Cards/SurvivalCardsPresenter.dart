@@ -14,16 +14,14 @@ class SurvivalCardsPresenter extends BaseComponentPresenter{
   SurvivalCardsView _view;
   List<int> _queues;
   StreamController<bool> _finishingAnimController = StreamController();
+  StreamController<bool> _shouldAnimatedController = StreamController.broadcast();
+  List<int> get queues => _queues;
 
   SurvivalCardsPresenter({this.clearDragCardStream, this.finderValueSink, this.restartGameStream}){
     clearDragCardStream.listen(listenClearDragStream);
     restartGameStream.listen(restartListener);
     finishingAnimStream.listen(listenfinishingAnimation);
   }
-
-  List<int> get queues => _queues;
-
-  StreamController<bool> _shouldAnimatedController = StreamController.broadcast();
 
   SurvivalCardsView get view => _view;
   set setView(SurvivalCardsView vw){

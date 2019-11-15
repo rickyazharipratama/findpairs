@@ -31,4 +31,8 @@ class PauseActionButtonPresenter extends BaseComponentPresenter{
     GamePauseType type = await view.openPauseMenu();
     pauseSinker.add(type);
   }
+
+  dispose(){
+    view.animationController.dispose();
+  }
 }

@@ -124,4 +124,10 @@ class _FinderPageState extends State<FinderPage> with FinderPageView{
   BuildContext currentContext() {
     return context;
   }
+
+  @override
+  void dispose() {
+    presenter.dispose();
+    super.dispose();
+  }
 }

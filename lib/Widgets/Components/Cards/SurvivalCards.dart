@@ -155,5 +155,4 @@ class _SurvivalCardsState extends State<SurvivalCards> with SurvivalCardsView{
     presenter.dispose();
     super.dispose();
   }
-
 }

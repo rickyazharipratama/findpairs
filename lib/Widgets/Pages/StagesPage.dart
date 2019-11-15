@@ -65,4 +65,9 @@ class _StagesPageState extends State<StagesPage> with StagesPageView{
     }
   }
 
+  @override
+  dispose(){
+    presenter.dispose();
+    super.dispose();
+  }
 }

@@ -169,4 +169,10 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
     }
   }
 
+  @override
+  void dispose() {
+    presenter.dispose();
+    super.dispose();
+  }
+
 }

@@ -90,5 +90,4 @@ class _ArcadeLifeItemExtendedState extends State<ArcadeLifeItemExtended> with Ti
     presenter.dispose();
     super.dispose();
   }
-
 }

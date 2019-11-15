@@ -31,4 +31,9 @@ class SettingActionButtonPresenter extends BaseComponentPresenter{
       filename: "button_tap.mp3",
     );
   }
+
+  dispose(){
+    view.animController.dispose();
+  }
+
 }
