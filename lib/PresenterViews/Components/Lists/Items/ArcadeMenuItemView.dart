@@ -50,14 +50,14 @@ class ArcadeMenuItemView{
     );
   }
 
-  void gotoStage(String episode, int stage){
-    Navigator.of(currentContext()).push(MaterialPageRoute(
+  Future<void> gotoStage(String episode, int stage) async{
+    return await Navigator.of(currentContext()).push(MaterialPageRoute(
       builder: (context) => StagesPage(stage: stage, episode: episode)
     ));
   }
 
-  void goToSelectionStage(){
-    Navigator.of(currentContext()).push(MaterialPageRoute(
+  Future<void> goToSelectionStage() async{
+    return await Navigator.of(currentContext()).push(MaterialPageRoute(
       builder: (context) => SelectArcadeStage()
     ));
   }

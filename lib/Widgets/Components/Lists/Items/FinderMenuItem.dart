@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:findpairs/PresenterViews/Components/Lists/Items/FinderMenuItemView.dart';
 import 'package:findpairs/Presenters/Components/Lists/Items/FinderMenuItemPresenter.dart';
 import 'package:findpairs/Utils/CommonUtil.dart';
@@ -9,8 +11,9 @@ class FinderMenuItem extends StatefulWidget {
   final Map<String,dynamic> menu;
   final double width;
   final double height;
+  final StreamSink<bool> notifyReactiveSink;
 
-  FinderMenuItem({this.isActive, this.menu, this.width, this.height});
+  FinderMenuItem({this.isActive, this.menu, this.width, this.height, @required this.notifyReactiveSink});
 
   @override
   _FinderMenuItemState createState() => new _FinderMenuItemState();
@@ -23,7 +26,9 @@ class _FinderMenuItemState extends State<FinderMenuItem> with SingleTickerProvid
   void initState() {
     super.initState();
     setAnimationController(this, widget.height / 6);
-    presenter = FinderMenuItemPresenter()
+    presenter = FinderMenuItemPresenter(
+      notifyReactiveSink: widget.notifyReactiveSink
+    )
     ..setView = this
     ..initiateData();
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:findpairs/PresenterViews/Components/Lists/Items/ArcadeMenuItemView.dart';
 import 'package:findpairs/Presenters/Components/Lists/Items/ArcadeMenuItemPresenter.dart';
 import 'package:findpairs/Widgets/Components/Buttons/ArcadeItemMenuButton.dart';
@@ -9,7 +11,8 @@ class ArcadeMenuItem extends StatefulWidget {
   final Map<String,dynamic> menu;
   final double width;
   final double height;
-  ArcadeMenuItem({this.isActive, this.menu, @required this.width, @required this.height});
+  final StreamSink<bool> notifyReactiveSink;
+  ArcadeMenuItem({this.isActive, this.menu, @required this.width, @required this.height, @required this.notifyReactiveSink});
 
   @override
   _ArcadeMenuItemState createState() => new _ArcadeMenuItemState();
@@ -23,7 +26,10 @@ class _ArcadeMenuItemState extends State<ArcadeMenuItem> with SingleTickerProvid
   void initState() {
     super.initState();
     setAnimationController(this, widget.height / 6);
-    presenter = ArcadeMenuItemPeresenter()..setView = this..initiateData();
+    presenter = ArcadeMenuItemPeresenter(
+      notifyReactiveSink: widget.notifyReactiveSink
+    )..setView = this
+    ..initiateData();
   }
 
   @override

@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 class LandingPageMenu extends StatefulWidget {
 
   final StreamController streamController;
-  LandingPageMenu({@required this.streamController});
-
+  final StreamSink notifyReactiveSink;
+  LandingPageMenu({@required this.streamController, @required this.notifyReactiveSink});
 
   @override
   _LandingPageMenuState createState() => new _LandingPageMenuState();
@@ -37,6 +37,7 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
       children: presenter.menus.map((item){
         if(item['name'].toString().toLowerCase() == "arcade"){
           return ArcadeMenuItem(
+            notifyReactiveSink: widget.notifyReactiveSink,
             isActive: presenter.menus.indexOf(item) == activePage,
             menu: item,
             height: getCardHeight(),
@@ -44,6 +45,7 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
           );
         }else if(item['name'].toString().toLowerCase() == "finder"){
           return FinderMenuItem(
+            notifyReactiveSink: widget.notifyReactiveSink,
             isActive: presenter.menus.indexOf(item) == activePage,
             menu: item,
             height: getCardHeight(),
@@ -51,6 +53,7 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
           );
         }else{
           return MatcherMenuItem(
+            notifyReactiveSink: widget.notifyReactiveSink,
             isActive: presenter.menus.indexOf(item) == activePage, 
             menu: item,
             height: getCardHeight(),

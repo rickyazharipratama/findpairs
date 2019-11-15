@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:findpairs/Models/FinderSumaryScore.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/FinderMenuItemView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
@@ -7,8 +9,9 @@ class FinderMenuItemPresenter extends BaseComponentPresenter{
   bool _isNeedAdvancedMenu = false;
   FinderMenuItemView _view;
   FinderSumaryScore score;
+  final StreamSink<bool> notifyReactiveSink;
 
-  FinderMenuItemPresenter(){
+  FinderMenuItemPresenter({this.notifyReactiveSink}){
     score = FinderSumaryScore();
   }
 
@@ -35,7 +38,8 @@ class FinderMenuItemPresenter extends BaseComponentPresenter{
       setNeedAdvancedMenu = true;
       view.controller.forward(from: 0);
     }else{
-      view.openFinderStage();
+      await view.openFinderStage();
+      notifyReactiveSink.add(true);
     }
   }
 
@@ -45,7 +49,8 @@ class FinderMenuItemPresenter extends BaseComponentPresenter{
     await score.removeCorrectMoveFromStore();
     await score.removeRatioFromStore();
     await score.removeTotalMoveFromStore();
-    view.openFinderStage();
+    await view.openFinderStage();
+    notifyReactiveSink.add(true);
   }
 
   void dispose(){

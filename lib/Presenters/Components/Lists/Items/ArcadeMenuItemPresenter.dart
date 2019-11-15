@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:findpairs/Models/ArcadeLogPlayer.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/ArcadeMenuItemView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
@@ -7,7 +9,9 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
 
   ArcadeMenuItemView _view;
   bool _isNeedAdvancedMenu = false;
+  final StreamSink<bool> notifyReactiveSink;
 
+  ArcadeMenuItemPeresenter({this.notifyReactiveSink});
 
   set setNeedAdvancedMenu(bool val){
     _isNeedAdvancedMenu = val;
@@ -22,8 +26,9 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
 
   void continueArcade() async{
     //should spawning   stage selection
-    view.goToSelectionStage();
     setNeedAdvancedMenu = false;
+    await view.goToSelectionStage();
+    notifyReactiveSink.add(true);
     view.notifyState();
   }
 
@@ -40,13 +45,13 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
     }
   }
 
-  initiateArcade(){
+  initiateArcade() async{
     print("initiate Stage");
     ArcadeLogPlayer log = ArcadeLogPlayer.initialize();
     log.episodes[0].logs[0].setLocked = false;
     log.savingToPreference();
-    view.gotoStage(log.episodes[0].episode, log.episodes[0].logs[0].stage);
-    //view.gotoStage(log.episodes[0].episode, 11);
+    await view.gotoStage(log.episodes[0].episode, log.episodes[0].logs[0].stage);
+    notifyReactiveSink.add(true);
     if(isNeedAdvancedMenu){
       setNeedAdvancedMenu = false;
       view.notifyState();

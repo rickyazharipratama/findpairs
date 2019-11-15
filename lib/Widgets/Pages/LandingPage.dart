@@ -1,6 +1,6 @@
 import 'package:findpairs/PresenterViews/Pages/LandingPageView.dart';
 import 'package:findpairs/Presenters/Pages/LandingPagePresenter.dart';
-import 'package:findpairs/Widgets/Components/Buttons/SettingActionButton.dart';
+import 'package:findpairs/Widgets/Components/Buttons/SoundActionButton.dart';
 import 'package:findpairs/Widgets/Components/Lists/LandingPageMenu.dart';
 import 'package:findpairs/Widgets/Components/Text/LandingPageTitle.dart';
 import 'package:findpairs/Widgets/Pages/WrapperPage.dart';
@@ -38,13 +38,15 @@ class _LandingPageState extends State<LandingPage> with WidgetsBindingObserver,L
     return WrapperPage(
       leftHeader: Container(),
       actions: <Widget>[
-        SettingActionButton()
+        SoundActionButton(
+          notifyReactiveStream: presenter.notifyReactiveStream,
+        )
       ],
       child: Stack(
         children: <Widget>[
-
           Positioned.fill(
             child: LandingPageMenu(
+              notifyReactiveSink: presenter.notifyReactiveSink,
               streamController: presenter.streamController,
             ),
           ),

@@ -7,10 +7,14 @@ class LandingPagePresenter extends BasePagePresenter{
 
   LandingPageView _view;
   StreamController<Map<String,dynamic>> _streamController;
+  StreamController<bool> _notifyReactiveController = StreamController.broadcast();
 
   StreamController get streamController => _streamController;
 
   Stream<Map<String,dynamic>> get stream => _streamController.stream;
+
+  Stream<bool> get notifyReactiveStream => _notifyReactiveController.stream;
+  StreamSink<bool> get notifyReactiveSink => _notifyReactiveController.sink;
 
   LandingPageView get view => _view;
   set setView(LandingPageView vw){
@@ -24,6 +28,7 @@ class LandingPagePresenter extends BasePagePresenter{
   void dispose(){
     disposeBackgroundMusic();
     _streamController.close();
+    _notifyReactiveController.close();
   }
 
   @override

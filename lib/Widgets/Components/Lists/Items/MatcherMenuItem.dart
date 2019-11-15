@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:findpairs/PresenterViews/Components/Lists/Items/MatcherMenuItemView.dart';
 import 'package:findpairs/Presenters/Components/Lists/Items/MatcherMenuItemPresenter.dart';
 import 'package:findpairs/Utils/CommonUtil.dart';
@@ -9,7 +11,8 @@ class MatcherMenuItem extends StatefulWidget {
   final Map<String,dynamic> menu;
   final double width;
   final double height;
-  MatcherMenuItem({this.isActive, this.menu, this.height, this.width});
+  final StreamSink<bool> notifyReactiveSink;
+  MatcherMenuItem({this.isActive, this.menu, this.height, this.width, @required this.notifyReactiveSink});
 
   @override
   _MatcherMenuItemState createState() => new _MatcherMenuItemState();
@@ -23,7 +26,9 @@ class _MatcherMenuItemState extends State<MatcherMenuItem> with MatcherMenuItemV
   @override
   void initState() {
     super.initState();
-    presenter = MatcherMenuItemPresenter()
+    presenter = MatcherMenuItemPresenter(
+      notifyReactiveSink: widget.notifyReactiveSink
+    )
     ..setView = this
     ..initiateData();
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:findpairs/Models/SurvivalScore.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/MatcherMenuItemView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
@@ -9,6 +11,7 @@ class MatcherMenuItemPresenter extends BaseComponentPresenter{
   MatcherMenuItemView _view;
   SurvivalScore score;
   bool _isNeedShowScore = false;
+  final StreamSink<bool> notifyReactiveSink;
 
   MatcherMenuItemView get view => _view;
   set setView(MatcherMenuItemView vw){
@@ -20,7 +23,7 @@ class MatcherMenuItemPresenter extends BaseComponentPresenter{
     _isNeedShowScore = isVal;
   }
 
-  MatcherMenuItemPresenter(){
+  MatcherMenuItemPresenter({this.notifyReactiveSink}){
     score = SurvivalScore();
   }
 
@@ -36,6 +39,7 @@ class MatcherMenuItemPresenter extends BaseComponentPresenter{
   openingMatcherPage() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     bool fls = pref.getBool(ConstantCollections.PREF_MATCHER_TUTORIAL);
-    view.openMatcherPage(fls);
+    await view.openMatcherPage(fls);
+    notifyReactiveSink.add(true);
   }
 }

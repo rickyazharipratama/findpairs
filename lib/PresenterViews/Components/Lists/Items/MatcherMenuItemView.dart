@@ -11,8 +11,8 @@ class MatcherMenuItemView{
     return null;
   }
 
-  void openMatcherPage(bool isFirstPlay){
-    Navigator.of(currentContext()).push(MaterialPageRoute(
+  Future<void> openMatcherPage(bool isFirstPlay) async{
+    return await Navigator.of(currentContext()).push(MaterialPageRoute(
       builder: (context)=> SurvivalPage(
         isFirstPlay: isFirstPlay,
       )

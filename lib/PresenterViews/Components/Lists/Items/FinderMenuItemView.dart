@@ -61,8 +61,8 @@ class FinderMenuItemView{
     );
   }
 
-  void openFinderStage(){
-    Navigator.of(currentContext()).push(MaterialPageRoute(
+  Future<void> openFinderStage() async{
+    return await Navigator.of(currentContext()).push(MaterialPageRoute(
       builder: (context)=> FinderPage()
     ));
   }
