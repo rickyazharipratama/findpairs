@@ -29,11 +29,7 @@ class MatcherMenuItemPresenter extends BaseComponentPresenter{
 
   @override
   void initiateData() async{
-    await score.getFromStore();
-    if(score.score > 0){
-      setNeedShowScore = true;
-      view.notifyState();
-    }
+    await configureShowingScore();
   }
 
   openingMatcherPage() async{
@@ -41,7 +37,14 @@ class MatcherMenuItemPresenter extends BaseComponentPresenter{
     bool fls = pref.getBool(ConstantCollections.PREF_MATCHER_TUTORIAL);
     await view.openMatcherPage(fls);
     notifyReactiveSink.add(true);
-    score.getFromStore();
-    view.notifyState();
+    configureShowingScore();
+  }
+
+  configureShowingScore() async{
+    await score.getFromStore();
+    if(score.score > 0){
+      setNeedShowScore = true;
+      view.notifyState();
+    }
   }
 }
