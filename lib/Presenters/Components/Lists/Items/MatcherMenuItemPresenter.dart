@@ -41,5 +41,7 @@ class MatcherMenuItemPresenter extends BaseComponentPresenter{
     bool fls = pref.getBool(ConstantCollections.PREF_MATCHER_TUTORIAL);
     await view.openMatcherPage(fls);
     notifyReactiveSink.add(true);
+    score.getFromStore();
+    view.notifyState();
   }
 }
