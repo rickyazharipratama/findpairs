@@ -62,8 +62,8 @@ class FinderMenuItemView{
     );
   }
 
-  Future<void> openFinderStage() async{
-    return await Navigatorium.instance.push(
+  Future<dynamic> openFinderStage() async{
+    return Navigatorium.instance.push (
       currentContext(),
       child: FinderPage()
     );

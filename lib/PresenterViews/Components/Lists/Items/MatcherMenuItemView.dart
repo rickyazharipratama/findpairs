@@ -13,7 +13,7 @@ class MatcherMenuItemView{
   }
 
   Future<void> openMatcherPage(bool isFirstPlay) async{
-    return await Navigatorium.instance.push(
+    return Navigatorium.instance.push(
       currentContext(),
       child: SurvivalPage(
         isFirstPlay: isFirstPlay,

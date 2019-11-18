@@ -184,7 +184,7 @@ class _FinderMenuItemState extends State<FinderMenuItem> with SingleTickerProvid
                       Transform.scale(
                         scale: presenter.isNeedAdvancedMenu ? animationContinue.value:0,
                         child: ArcadeItemMenuButton(
-                          onTap: openFinderStage,
+                          onTap: presenter.openingFinderPage,
                           title: "Continue",
                           color: widget.menu['iconColor'],
                         ),

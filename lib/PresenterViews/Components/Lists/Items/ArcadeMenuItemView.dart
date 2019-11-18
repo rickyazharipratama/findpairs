@@ -52,7 +52,7 @@ class ArcadeMenuItemView{
   }
 
   Future<void> gotoStage(String episode, int stage) async{
-    return await Navigatorium.instance.push(currentContext(),
+    return Navigatorium.instance.push(currentContext(),
       child: StagesPage(
         stage: stage,
         episode: episode,
@@ -61,7 +61,7 @@ class ArcadeMenuItemView{
   }
 
   Future<void> goToSelectionStage() async{
-    return await Navigatorium.instance.push(currentContext(),
+    return Navigatorium.instance.push(currentContext(),
       child: SelectArcadeStage()
     );
   }

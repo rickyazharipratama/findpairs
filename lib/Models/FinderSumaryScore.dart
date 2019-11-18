@@ -48,6 +48,8 @@ class FinderSumaryScore{
     int tmp = pref.getInt(ConstantCollections.PREF_FINDER_SCORE);
     if(tmp != null){
       setScore = tmp;
+    }else{
+      setScore = 0;
     }
   }
 
@@ -59,6 +61,7 @@ class FinderSumaryScore{
   removeScoreFromStore() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove(ConstantCollections.PREF_FINDER_SCORE);
+    setScore = 0;
   }
 
   getLifeFromStore() async{
@@ -83,6 +86,7 @@ class FinderSumaryScore{
   removeLifeFromStore() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove(ConstantCollections.PREF_FINDER_LIFE);
+    setLife = 0;
   }
 
   getRatioFromStore() async{
@@ -90,6 +94,8 @@ class FinderSumaryScore{
     double tmp = pref.getDouble(ConstantCollections.PREF_FINDER_RATIO);
     if(tmp != null){
       setRatio = tmp;
+    }else{
+      setRatio = 0;
     }
   }
 
@@ -101,6 +107,7 @@ class FinderSumaryScore{
   removeRatioFromStore() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove(ConstantCollections.PREF_FINDER_RATIO);
+    setRatio = 0;
   }
 
   getTotalMoveFromStore() async{
@@ -108,6 +115,8 @@ class FinderSumaryScore{
     int tmp = pref.getInt(ConstantCollections.PREF_FINDER_TOTAL_MOVE);
     if(tmp != null){
       setTotalMove = tmp;
+    }else{
+      setTotalMove = 0;
     }
   }
 
@@ -119,6 +128,7 @@ class FinderSumaryScore{
   removeTotalMoveFromStore() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove(ConstantCollections.PREF_FINDER_TOTAL_MOVE);
+    setTotalMove = 0;
   }
 
   getCorrectMoveFromStore() async{
@@ -126,6 +136,8 @@ class FinderSumaryScore{
     int tmp = pref.getInt(ConstantCollections.PREF_FINDER_CORRECT_MOVE);
     if(tmp != null){
       setTotalCorrect = tmp;
+    }else{
+      setTotalCorrect = 0;
     }
   }
 
@@ -137,6 +149,7 @@ class FinderSumaryScore{
   removeCorrectMoveFromStore() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove(ConstantCollections.PREF_FINDER_CORRECT_MOVE);
+    setTotalCorrect = 0;
   }
 
   reconfigureLife() async{

@@ -30,17 +30,26 @@ class FinderMenuItemPresenter extends BaseComponentPresenter{
     super.initiateData();
   }
 
-  void checkingFinder() async{
+  void checkingFinder({bool isInfo: false}) async{
     await score.getTotalMoveFromStore();
     await score.getScoreFromStore();
     await score.getRatioFromStore();
+    print("score : "+score.score.toString());
     if(score.totalMove > 0 || score.score > 0){
       setNeedAdvancedMenu = true;
       view.controller.forward(from: 0);
     }else{
-      await view.openFinderStage();
-      notifyReactiveSink.add(true);
+      if(!isInfo){
+        openingFinderPage();
+      }
     }
+  }
+
+  void openingFinderPage() async{
+     await view.openFinderStage();
+      print("manggil ini");
+      notifyReactiveSink.add(true);
+      checkingFinder(isInfo: true);
   }
 
   void resetAllScore()async{
@@ -49,8 +58,8 @@ class FinderMenuItemPresenter extends BaseComponentPresenter{
     await score.removeCorrectMoveFromStore();
     await score.removeRatioFromStore();
     await score.removeTotalMoveFromStore();
-    await view.openFinderStage();
-    notifyReactiveSink.add(true);
+    print("check score : "+score.score.toString());
+    openingFinderPage();
   }
 
   void dispose(){
