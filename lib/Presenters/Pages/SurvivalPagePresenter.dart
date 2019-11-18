@@ -114,11 +114,13 @@ class SurvivalPagePresenter extends BasePagePresenter{
       Future.delayed(
         const Duration(milliseconds: 4000),
         (){
-          if(pauseType != GamePauseType.onGamePause){
-            pauseSink.add(GamePauseType.onGamePause);
-            view.showTutorial(
-              onFinish: finishTutorial
-            );
+          if(view.isMounted()){
+            if(pauseType == GamePauseType.onGameresume){
+              pauseSink.add(GamePauseType.onGamePause);
+              view.showTutorial(
+                onFinish: finishTutorial
+              );
+            }
           }
         }
       );
@@ -129,7 +131,9 @@ class SurvivalPagePresenter extends BasePagePresenter{
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setBool(ConstantCollections.PREF_MATCHER_TUTORIAL, true);
     if(pauseType == GamePauseType.onGamePause){
-      pauseSink.add(GamePauseType.onGameresume);
+      if(view.isMounted()){
+        pauseSink.add(GamePauseType.onGameresume);
+      }
     }
   }
 

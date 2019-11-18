@@ -131,6 +131,9 @@ class _SurvivalPageState extends State<SurvivalPage> with SurvivalPageView{
   }
 
   @override
+  bool isMounted() => mounted;
+
+  @override
   void dispose() {
     presenter.dispose();
     super.dispose();

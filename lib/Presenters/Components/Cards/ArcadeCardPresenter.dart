@@ -141,7 +141,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
       (){
         print("prepare to show");
         print(pauseType.toString());
-        if(pauseType != GamePauseType.onGamePause){
+        if(pauseType == GamePauseType.onGameresume){
           print("show tutorial");
           pauseSink.add(GamePauseType.onGamePause);
           view.showTutorial(

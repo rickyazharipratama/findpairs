@@ -227,5 +227,7 @@ class SurvivalPageView{
 
   BuildContext currentContext() => null;
 
+  bool isMounted() => null;
+
   void notifyState(){}
 }

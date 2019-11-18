@@ -69,7 +69,7 @@ class FinderPagePresenter extends BasePagePresenter{
       Future.delayed(
         const Duration(milliseconds: 700),
         (){
-          if(pauseType != GamePauseType.onGamePause){
+          if(pauseType == GamePauseType.onGameresume){
             //show Tutorial
             pauseSink.add(GamePauseType.onGamePause);
             view.showTutorial(finishTutorial);
