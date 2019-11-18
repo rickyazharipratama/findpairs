@@ -22,7 +22,7 @@ class SurvivalPagePresenter extends BasePagePresenter{
   StreamController<bool> _restartGameController = StreamController.broadcast();
 
   SurvivalScore score;
-  GamePauseType pauseType;
+  GamePauseType pauseType = GamePauseType.onGameresume;
 
   SurvivalPagePresenter(){
     reportScoreStream.listen(rekapScore);
@@ -128,6 +128,7 @@ class SurvivalPagePresenter extends BasePagePresenter{
   }
 
   finishTutorial() async{
+    print("finishing tutorial");
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setBool(ConstantCollections.PREF_MATCHER_TUTORIAL, true);
     if(pauseType == GamePauseType.onGamePause){
