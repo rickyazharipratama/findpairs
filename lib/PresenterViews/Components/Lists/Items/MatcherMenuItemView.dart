@@ -1,5 +1,6 @@
 import 'package:findpairs/Widgets/Pages/SurvivalPage.dart';
 import 'package:flutter/Material.dart';
+import 'package:navigatorium/navigatorium.dart';
 
 class MatcherMenuItemView{
 
@@ -12,11 +13,12 @@ class MatcherMenuItemView{
   }
 
   Future<void> openMatcherPage(bool isFirstPlay) async{
-    return await Navigator.of(currentContext()).push(MaterialPageRoute(
-      builder: (context)=> SurvivalPage(
+    return await Navigatorium.instance.push(
+      currentContext(),
+      child: SurvivalPage(
         isFirstPlay: isFirstPlay,
       )
-    ));
+    );
   }
 
   void notifyState(){}

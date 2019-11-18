@@ -1,5 +1,6 @@
 import 'package:findpairs/Widgets/Pages/FinderPage.dart';
 import 'package:flutter/material.dart';
+import 'package:navigatorium/navigatorium.dart';
 
 class FinderMenuItemView{
 
@@ -62,9 +63,10 @@ class FinderMenuItemView{
   }
 
   Future<void> openFinderStage() async{
-    return await Navigator.of(currentContext()).push(MaterialPageRoute(
-      builder: (context)=> FinderPage()
-    ));
+    return await Navigatorium.instance.push(
+      currentContext(),
+      child: FinderPage()
+    );
   }
 
   BuildContext currentContext() => null;

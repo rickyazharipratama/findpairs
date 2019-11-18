@@ -116,6 +116,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.7"
+  navigatorium:
+    dependency: "direct main"
+    description:
+      path: "/Users/lumos/personal/project/flutter-plugin/navigatorium/"
+      relative: false
+    source: path
+    version: "0.0.1"
   path:
     dependency: transitive
     description:

@@ -4,6 +4,7 @@ import 'package:findpairs/Widgets/Modals/NegativeArcadeModal.dart';
 import 'package:findpairs/Widgets/Modals/PrepareToPlayModal.dart';
 import 'package:findpairs/Widgets/Pages/ArcadeSeeYouNextEpisode.dart';
 import 'package:flutter/material.dart';
+import 'package:navigatorium/navigatorium.dart';
 import 'package:tutorial_coach_mark/content_target.dart';
 import 'package:tutorial_coach_mark/target_focus.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
@@ -197,14 +198,9 @@ class CardView{
   }
 
   void goToClosingArcade(){
-    Navigator.of(currentContext()).pop();
-    Navigator.of(currentContext()).push(
-      MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (context){
-          return ArcadeSeeYouNextEpisode();
-        }
-      )
+    Navigatorium.instance.changeWidget(
+      currentContext(),
+      child: ArcadeSeeYouNextEpisode()
     );
   }
 }

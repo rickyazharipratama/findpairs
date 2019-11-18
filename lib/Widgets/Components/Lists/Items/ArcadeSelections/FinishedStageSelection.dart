@@ -1,5 +1,6 @@
 import 'package:findpairs/Widgets/Pages/StagesPage.dart';
 import 'package:flutter/material.dart';
+import 'package:navigatorium/navigatorium.dart';
 
 class FinishedStageSelection extends StatelessWidget {
 
@@ -114,13 +115,13 @@ class FinishedStageSelection extends StatelessWidget {
             padding: const EdgeInsets.only(top: 5),
             child: InkWell(
               onTap: (){
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => StagesPage(
+                Navigatorium.instance.changeWidget(
+                  context,
+                  child: StagesPage(
                     episode: episode,
                     stage: stage,
                   )
-                ));
+                );
               },
               borderRadius: BorderRadius.circular(10),
               child: Container(

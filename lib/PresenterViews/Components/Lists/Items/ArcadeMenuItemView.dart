@@ -2,6 +2,7 @@ import 'package:findpairs/Widgets/Pages/SelectArcadeStage.dart';
 import 'package:findpairs/Widgets/Pages/StagesPage.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
+import 'package:navigatorium/navigatorium.dart';
 
 class ArcadeMenuItemView{
 
@@ -51,15 +52,18 @@ class ArcadeMenuItemView{
   }
 
   Future<void> gotoStage(String episode, int stage) async{
-    return await Navigator.of(currentContext()).push(MaterialPageRoute(
-      builder: (context) => StagesPage(stage: stage, episode: episode)
-    ));
+    return await Navigatorium.instance.push(currentContext(),
+      child: StagesPage(
+        stage: stage,
+        episode: episode,
+      )
+    );
   }
 
   Future<void> goToSelectionStage() async{
-    return await Navigator.of(currentContext()).push(MaterialPageRoute(
-      builder: (context) => SelectArcadeStage()
-    ));
+    return await Navigatorium.instance.push(currentContext(),
+      child: SelectArcadeStage()
+    );
   }
 
   BuildContext currentContext(){
