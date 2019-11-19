@@ -111,7 +111,7 @@ class CardView{
       ),
       TargetFocus(
         identify: "target3",
-        keyTarget: timeKey,
+        keyTarget: lifeKey,
         contents: [
           ContentTarget(
             align: AlignContent.bottom,

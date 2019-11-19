@@ -11,6 +11,7 @@ class ClockTimer extends StatefulWidget {
   final StreamSink<ArcadeTimer> sinker;
   final Stream<ArcadeTimer> stream;
   final StreamSink<int> timerSink;
+  final Key key;
 
   ClockTimer({
     @required this.counter,
@@ -18,7 +19,7 @@ class ClockTimer extends StatefulWidget {
     @required this.critTime,
     @required this.stream,
     @required this.timerSink,
-    Key key}):super(key:key);
+    @required this.key});
 
   @override
   _ClockTimerState createState() => new _ClockTimerState();
@@ -53,6 +54,7 @@ class _ClockTimerState extends State<ClockTimer> with TickerProviderStateMixin, 
         child: Center(
           child: Text(
             presenter.countDown.toString(),
+            key: widget.key,
             style: Theme.of(context).textTheme.display2.apply(
               color: Colors.white
             ),
