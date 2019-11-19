@@ -30,5 +30,4 @@ class FrontCardPresenter extends BaseComponentPresenter{
       print("firework on");
     }
   }
-
 }

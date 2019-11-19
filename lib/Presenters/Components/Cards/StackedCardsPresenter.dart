@@ -63,27 +63,25 @@ class StackedCardsPresenter extends BaseComponentPresenter{
 
   onListenCardPaired(int val){
     //must remove last stacked card and insert into first stacked card
-    print("listinening val card paired : "+val.toString());
-    print("stacked Card Length : "+stackedCards.length.toString());
     String stval = "";
     for(int i=0; i < stackedCards.length;i ++){
       stval+= stackedCards[i].toString()+",";
     }
     print("val stack : "+stval);
-    stackedCards.removeLast();
+    destroyCardSink.add(val);
     stval = "";
     for(int i=0; i < stackedCards.length;i ++){
       stval+= stackedCards[i].toString()+",";
     }
     print("after remove stack : "+stval);
-    destroyCardSink.add(val);
   }
 
   onListenRefillCard(bool isval) async{
     if(isval){
+      stackedCards.removeLast();
+      print("stacked card : stacked card length => "+stackedCards.length.toString());
       Random rand = Random();
-      print("card length : "+boardCards.length.toString());
-      if(stackedCards.length - 1 > boardCards.length){
+      if(stackedCards.length > boardCards.length){
         stackedCards.insert(0, CommonUtil.instance.getUniqueRandom(
           max: 32,
           reference: stackedCards
@@ -110,7 +108,10 @@ class StackedCardsPresenter extends BaseComponentPresenter{
           if(tmpVal.length > 0){
             stackedCards.insert(0, tmpVal[rand.nextInt(tmpVal.length)]);
           }else{
-            stackedCards.insert(0, rand.nextInt(32));
+            stackedCards.insert(0, CommonUtil.instance.getUniqueRandom(
+              max: 32,
+              reference: stackedCards
+            ));
           }
         }
       }

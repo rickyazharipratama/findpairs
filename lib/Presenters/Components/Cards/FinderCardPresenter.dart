@@ -130,16 +130,14 @@ class FinderCardPresenter extends BaseComponentPresenter{
   }
 
   reconfigAfterPaired(int pairedVal) async{
-    // _summary.getScoreFromStore();
-    // _finderAssets.setCurrentFormationByScore(_summary.score);
-    // if(_finderAssets.currentCardFormation.total > _boardCards)
-    
     int index = _boardCards.indexOf(pairedVal);
     Map<String,int> dataChange = Map();
+    print("boardCard : stacked card length => "+_stackedCards.length.toString());
     if(_stackedCards.length - 1 > _boardCards.length){
       // ratio must 1
       if(_boardCards.contains(_stackedCards[_stackedCards.length - 2])){
         //execution when boardcard have value same as last stacked
+        print("boardCard contains next last stack");
         Random rand = Random();
         if(index >= 0 ){
           dataChange['old'] = _boardCards[index];
@@ -152,15 +150,10 @@ class FinderCardPresenter extends BaseComponentPresenter{
         }
       }else{
         //execute when boardCard have no same value with last stacked card
+        print("boardCard not contains next last stack");
         if(index >= 0){
           dataChange['old'] = _boardCards[index];
           _boardCards[index] = _stackedCards[_stackedCards.length - 2];
-          dataChange['new'] = _boardCards[index];
-        }else{
-          //probabably not gonna happen
-          Random rand = Random();
-          dataChange['old'] = _boardCards[index];
-          _boardCards[rand.nextInt(_boardCards.length)] = _stackedCards[_stackedCards.length - 2];
           dataChange['new'] = _boardCards[index];
         }
       }
@@ -169,13 +162,13 @@ class FinderCardPresenter extends BaseComponentPresenter{
       if(index >= 0){
         dataChange['old'] = _boardCards[index];
         if(_boardCards.contains(_stackedCards[_stackedCards.length - 2])){
-          print("boardCard contains next last stack");
+          print("greater - boardCard contains next last stack");
           _boardCards[index] = CommonUtil.instance.getUniqueRandom(
             max : 32,
             reference: boardCards
           );
         }else{
-          print("boardCard not contains next last stack");
+          print("greater - boardCard not contains next last stack");
           _boardCards[index] = _stackedCards[_stackedCards.length - 2];
         }
         dataChange['new'] = _boardCards[index];
@@ -188,13 +181,7 @@ class FinderCardPresenter extends BaseComponentPresenter{
 
   onListenCardValue(int val) async{
     FinderSumaryScore score = FinderSumaryScore();
-    print("pairing card : "+ _stackedCards.last.toString()+" : "+val.toString());
-    String bc = "";
-    for(int i= 0; i < boardCards.length; i++){
-      bc+=_boardCards[i].toString()+", ";
-    }
     await score.getScoreFromStore();
-    print("boardCard value : "+bc);
     await score.getCorrectMoveFromStore();
     if(_stackedCards.last == val){
       //paired

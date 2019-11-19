@@ -58,9 +58,8 @@ class StackedCardItemPresenter extends BaseComponentPresenter{
   }
 
   onListenDestroyCard(int val){
-    print("incominge destroy val: "+val.toString());
     if(this.val == val){
-      print("destroying card val :"+val.toString());
+      print("value : "+val.toString());
       view.animationController.forward(from: 0);
     }
   }
