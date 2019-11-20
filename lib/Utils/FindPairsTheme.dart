@@ -44,6 +44,11 @@ class FindPairsTheme{
         color: Color(0xff777777),
         fontSize: 45
       ),
+      display4: TextStyle(
+        fontFamily: "chunky",
+        color: Colors.white,
+        fontSize: 40
+      )
     )
   );
 

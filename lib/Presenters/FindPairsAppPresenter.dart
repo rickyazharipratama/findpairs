@@ -50,6 +50,11 @@ class FindPairsAppPresenter extends BasePresenter{
       systemNavigationBarIconBrightness: Brightness.light
     ));
     debugPrint("keLoad sampai disini");
+    view.setViewState = 0;
+    view.notifyState();
+  }
+
+  Future<void> loadingSound() async{
     await miscSound.loadAll([
       "tick_tock.mp3",
     ]);
@@ -62,8 +67,11 @@ class FindPairsAppPresenter extends BasePresenter{
       "ready_arcade.mp3",
       "start_arcade.mp3"
     ]);
-    view.setViewState = 0;
-    view.notifyState();
+  }
+
+  Future<void> clearSound() async{
+    miscSound.clearCache();
+    particleSound.clearCache();
   }
 
   void clearBackgroundSound(){

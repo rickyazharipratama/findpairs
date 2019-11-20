@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ConstantCollections{
 
-  static const String APPNAME = "find pairs";
+  static const String APPNAME = "flipairs";
   static const int APPVERSION = 1;
 
 

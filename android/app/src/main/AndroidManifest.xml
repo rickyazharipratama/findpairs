@@ -8,8 +8,9 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="findpairs"
-        android:icon="@mipmap/ic_launcher">
+        android:label="flipair"
+        android:icon="@mipmap/ic_find_pairs"
+        android:roundIcon="@mipmap/ic_find_pairs_round">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

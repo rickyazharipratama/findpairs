@@ -2,7 +2,7 @@ import 'package:findpairs/PresenterViews/FindPairsAppPresenterView.dart';
 import 'package:findpairs/Presenters/FindPairsAppPresenter.dart';
 import 'package:findpairs/Utils/ConstantCollections.dart';
 import 'package:findpairs/Utils/FindPairsTheme.dart';
-import 'package:findpairs/Widgets/Pages/LandingPage.dart';
+import 'package:findpairs/Widgets/Pages/Splash.dart';
 import 'package:flutter/material.dart';
 
 class FindPairsApp extends StatefulWidget {
@@ -29,7 +29,7 @@ class _FindPairsAppState extends State<FindPairsApp> with FindPairsAppPresenterV
     return viewState == 0 ? MaterialApp(
       title: ConstantCollections.APPNAME,
       theme: FindPairsTheme.instance.lightFindPairsTheme,
-      home: LandingPage(),
+      home: Splash(),
     ) : Container();
   }
 

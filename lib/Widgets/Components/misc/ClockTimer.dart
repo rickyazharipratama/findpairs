@@ -19,7 +19,7 @@ class ClockTimer extends StatefulWidget {
     @required this.critTime,
     @required this.stream,
     @required this.timerSink,
-    @required this.key});
+    @required this.key}) : super(key:key);
 
   @override
   _ClockTimerState createState() => new _ClockTimerState();
@@ -54,7 +54,6 @@ class _ClockTimerState extends State<ClockTimer> with TickerProviderStateMixin, 
         child: Center(
           child: Text(
             presenter.countDown.toString(),
-            key: widget.key,
             style: Theme.of(context).textTheme.display2.apply(
               color: Colors.white
             ),
