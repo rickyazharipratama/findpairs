@@ -68,6 +68,7 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
             menu: item,
           );
         }
+        return Container();
       }).toList()
     );
   }
