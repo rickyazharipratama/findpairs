@@ -37,6 +37,16 @@ class FindPairsTheme{
         color: Color(0xff777777),
         fontSize: 20
       ),
+      body1: TextStyle(
+        fontFamily: "avocado",
+        color: Colors.white,
+        fontSize: 16
+      ),
+      body2: TextStyle(
+        fontFamily: "avocado",
+        color: Colors.blueAccent,
+        fontSize: 10
+      )
     ),
     primaryTextTheme: TextTheme(
       display1: TextStyle(

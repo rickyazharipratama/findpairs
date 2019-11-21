@@ -31,6 +31,7 @@ dependencies:
   dotted_border: ^1.0.3
   flare_flutter: ^1.7.1
   tutorial_coach_mark: ^0.3.0
+  url_launcher: ^5.2.5
   navigatorium: 
     path: "/Users/lumos/personal/project/flutter-plugin/navigatorium/"
 
@@ -70,6 +71,7 @@ flutter:
     - assets/images/collections.png
     - assets/images/classic.png
     - assets/images/survival.png
+    - assets/images/namaste.png
     - assets/images/galaxy.flr
 
     - assets/images/galaxies/space-ship-3.png

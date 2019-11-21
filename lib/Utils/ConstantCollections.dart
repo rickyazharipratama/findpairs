@@ -44,17 +44,18 @@ class ConstantCollections{
       "borderColor":Color(0x44ff8e1b),
       "gradientColor":Color(0x99f99229),
       "iconColor":Color(0xffd26e18)
+    },
+    {
+      "name":"Credits",
+      "icon":"assets/images/namaste.png",
+      "version":1,
+      "isAvailable": true,
+      "isMaintenance": false,
+      "color":Color(0x99a6f5b5),
+      "borderColor":Color(0x44a4fdb4),
+      "gradientColor":Color(0x99c6f3ce),
+      "iconColor":Color(0xff7ee290)
     }
-    // {
-    //   "name":"Collection",
-    //   "icon":"assets/images/collections.png",
-    //   "version":1,
-    //   "isAvailable": true,
-    //   "isMaintenance": false,
-    //   "color":Color(0xfff77d00),
-    //   "gradientColor":Color(0xfff99229),
-    //   "iconColor":Color(0xffca5d00)
-    // }
   ];
 
 

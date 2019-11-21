@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:findpairs/PresenterViews/Components/Lists/LandingPageMenuView.dart';
 import 'package:findpairs/Presenters/Components/Lists/LandingPageMenuPresenter.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/ArcadeMenuItem.dart';
+import 'package:findpairs/Widgets/Components/Lists/Items/CreditsMenuItem.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/FinderMenuItem.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/MatcherMenuItem.dart';
 import 'package:flutter/material.dart';
@@ -51,13 +52,20 @@ class _LandingPageMenuState extends State<LandingPageMenu> with LandingPageMenuV
             height: getCardHeight(),
             width: getCardWidth(),
           );
-        }else{
+        }else if(item['name'].toString().toLowerCase() == "matcher"){
           return MatcherMenuItem(
             notifyReactiveSink: widget.notifyReactiveSink,
             isActive: presenter.menus.indexOf(item) == activePage, 
             menu: item,
             height: getCardHeight(),
             width: getCardWidth(),
+          );
+        }else if(item['name'].toString().toLowerCase() == "credits"){
+          return CreditsMenuItem(
+            height: getCardHeight(),
+            width: getCardWidth(),
+            isActive: presenter.menus.indexOf(item) == activePage,
+            menu: item,
           );
         }
       }).toList()
