@@ -106,9 +106,9 @@ class SurvivalCardRacePresenter extends BaseComponentPresenter{
       max = view.thirdCardAnimation.value;
     }
     if(max >= view.compareLine){
-      print("comparing area");
+      CommonUtil.instance.showLog(log:"comparing area");
       if(!_isCorrectAlreadyBroadcast){
-        print("comparing prepare broadcast");
+        CommonUtil.instance.showLog(log:"comparing prepare broadcast");
         _isCorrectAlreadyBroadcast = true;
         if(_dragTarget == null){
           //should end
@@ -138,9 +138,9 @@ class SurvivalCardRacePresenter extends BaseComponentPresenter{
         }
       }
     }else if(max >= view.restrictMoveLine){
-      print("restricting area");
+      CommonUtil.instance.showLog(log:"restricting area");
       if(!isRestrictedActivate){
-        print("restricted card");
+        CommonUtil.instance.showLog(log:"restricted card");
         setRestrictedActivate = true;
         restrictDragTargetSink.add(isRestrictedActivate);
       }

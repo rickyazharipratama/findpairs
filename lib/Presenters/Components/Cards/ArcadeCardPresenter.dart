@@ -8,10 +8,10 @@ import 'package:findpairs/Models/ArcadeSetting.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/CardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
 import 'package:findpairs/Utils/ArcadeUtils.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Utils/ConstantCollections.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:findpairs/Utils/SoundManager.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ArcadeCardPresenter extends BaseComponentPresenter{
@@ -134,22 +134,30 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   showTutorial() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     bool isAlready = pref.getBool(ConstantCollections.PREF_ARCADE_TUTORIAL);
-    print("show tutorial");
+     CommonUtil.instance.showLog(
+       log: "show tutorial"
+    );
     if(isAlready == null || !isAlready){
       Future.delayed(
-      const Duration(milliseconds: 1500),
-      (){
-        print("prepare to show");
-        print(pauseType.toString());
-        if(pauseType == GamePauseType.onGameresume){
-          print("show tutorial");
-          pauseSink.add(GamePauseType.onGamePause);
-          view.showTutorial(
-            onFinished: onFinishedTutorial
+        const Duration(milliseconds: 1500),
+        (){
+          CommonUtil.instance.showLog(
+            log:"prepare to show"
           );
+          CommonUtil.instance.showLog(
+            log: pauseType.toString()
+          );
+          if(pauseType == GamePauseType.onGameresume){
+            CommonUtil.instance.showLog(
+              log:"show tutorial"
+            );
+            pauseSink.add(GamePauseType.onGamePause);
+            view.showTutorial(
+              onFinished: onFinishedTutorial
+            );
+          }
         }
-      }
-    );
+      );
     }
   }
 
@@ -188,7 +196,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
   }
 
   addSelectedCard(ArcadeCardValue card) async{
-    debugPrint("selected card = "+card.value.toString());
+    CommonUtil.instance.showLog(log:"selected card = "+card.value.toString());
     selectedCards.add(card);
     if(selectedCards.length == 2){
       _restrictStream.add(true);
@@ -206,7 +214,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
       }else{
         for( int i = 0; i < selectedCards.length; i++){
           Timer(Duration(milliseconds: 500 + (i * 150)),() async{
-            debugPrint("iterasi : "+ i.toString());
+            CommonUtil.instance.showLog(log:"iterasi : "+ i.toString());
             await flippingBackCard(selectedCards[i].key);
             if(i+1 == selectedCards.length){
               selectedCards.clear();
@@ -256,7 +264,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
 
   void allCardIsPaired(){
     if(mustPaired == 0){
-      print("all is paired");
+      CommonUtil.instance.showLog(log:"all is paired");
       arcadeTimerSinker.add(ArcadeTimer.onGameFinished);
     }
   }
@@ -268,10 +276,10 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
       double currentScoreByLife = currentLife * dividerLife;
       double currentScoreByTime = _currentCountDown * dividerTime;
       double totalScore = currentScoreByLife + currentScoreByTime;
-      print("current cd :"+_currentCountDown.toString());
-      print("currentScore by life : "+currentScoreByLife.toString());
-      print("current score by time : "+currentScoreByTime.toString());
-      print("total score : "+ totalScore.toString());
+      CommonUtil.instance.showLog(log:"current cd :"+_currentCountDown.toString());
+      CommonUtil.instance.showLog(log:"currentScore by life : "+currentScoreByLife.toString());
+      CommonUtil.instance.showLog(log:"current score by time : "+currentScoreByTime.toString());
+      CommonUtil.instance.showLog(log:"total score : "+ totalScore.toString());
       int star = getStarScore(totalScore);
       FindPairsApp.of(view.currentContext()).presenter.miscSound.fixedPlayer.stop();
       SoundManager.manager.play(
@@ -293,7 +301,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
         if(this.stages < log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs.length){
           log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages].setLocked = false;
           this.setStages = log.episodes[log.episodes.indexWhere((ep)=> ep.episode == this.episode)].logs[this.stages].stage;
-          print("stages "+this.stages.toString());
+          CommonUtil.instance.showLog(log:"stages "+this.stages.toString());
           log.savingToPreference();
           stageSink.add(this.stages);
           reInitiateGame();
@@ -385,7 +393,7 @@ class ArcadeCardPresenter extends BaseComponentPresenter{
 
   reInitiateGame() async{
     _cardsValue.forEach((val) async{
-      print("reinitiate card");
+      CommonUtil.instance.showLog(log:"reinitiate card");
       await flippingBackCard(val.key);
     });
     selectedCards.clear();

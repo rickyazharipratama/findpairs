@@ -1,5 +1,6 @@
 import 'package:findpairs/PresenterViews/Components/Text/LandingPageTitleView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class LandingPageTitlePresenter extends BaseComponentPresenter{
   }
 
   onReceiveSinker(Map<String,dynamic> data){
-    debugPrint("receive broadcast : "+data['name'].toString());
+    CommonUtil.instance.showLog(log:"receive broadcast : "+data['name'].toString());
     String oldTitle = "";
     Color oldColor  = Colors.red;
     if(title != null){

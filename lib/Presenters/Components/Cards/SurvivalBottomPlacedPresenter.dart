@@ -1,5 +1,6 @@
 import 'package:findpairs/PresenterViews/Components/Cards/SurvivalBottomPlacedView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 
 class SurvivalBottomPlacedPresenter extends BaseComponentPresenter{
 
@@ -23,7 +24,7 @@ class SurvivalBottomPlacedPresenter extends BaseComponentPresenter{
   }
 
   listenIsCardCorrect(bool val){
-    print("card correct : "+val.toString());
+    CommonUtil.instance.showLog(log:"card correct : "+val.toString());
     if(val){
       view.setRightAnimation();
     }else{

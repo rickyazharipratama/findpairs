@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:findpairs/Models/Particles.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/Items/StackedCardItemView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:flutter/material.dart';
 
 class StackedCardItemPresenter extends BaseComponentPresenter{
@@ -59,7 +60,7 @@ class StackedCardItemPresenter extends BaseComponentPresenter{
 
   onListenDestroyCard(int val){
     if(this.val == val){
-      print("value : "+val.toString());
+      CommonUtil.instance.showLog(log:"value : "+val.toString());
       view.animationController.forward(from: 0);
     }
   }

@@ -1,6 +1,7 @@
 import 'package:findpairs/Models/ArcadeCardValue.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/Items/FrontCardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 
 class FrontCardPresenter extends BaseComponentPresenter{
 
@@ -27,7 +28,7 @@ class FrontCardPresenter extends BaseComponentPresenter{
 
   listenPaired(int val){
     if(value.key == val){
-      print("firework on");
+      CommonUtil.instance.showLog(log:"firework on");
     }
   }
 }

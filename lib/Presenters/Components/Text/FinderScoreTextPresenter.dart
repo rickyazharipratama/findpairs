@@ -1,6 +1,7 @@
 import 'package:findpairs/Models/FinderSumaryScore.dart';
 import 'package:findpairs/PresenterViews/Components/Text/FinderScoreTextView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 
 class FinderScoreTextPresenter extends BaseComponentPresenter{
 
@@ -36,7 +37,7 @@ class FinderScoreTextPresenter extends BaseComponentPresenter{
   onListenStreamScore(int val) async{
     _summaryScore.setScore = _summaryScore.score + val;
     await _summaryScore.setScoreToStore();
-    print("increasing score to :" + totalScore.toString()+"from incoming val : "+val.toString());
+    CommonUtil.instance.showLog(log:"increasing score to :" + totalScore.toString()+"from incoming val : "+val.toString());
     view.notifyState();
   }
 

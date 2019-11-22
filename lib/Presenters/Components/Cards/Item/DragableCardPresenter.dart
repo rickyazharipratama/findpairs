@@ -1,5 +1,6 @@
 import 'package:findpairs/PresenterViews/Components/Cards/Items/DragableCardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:flutter/foundation.dart';
 
 class DragableCardPresenter extends BaseComponentPresenter{
@@ -27,14 +28,14 @@ class DragableCardPresenter extends BaseComponentPresenter{
   bool get isDragAccepted => _isDragAccepted;
 
   void cardAlreadyAccepted(){
-    print("card already accepted");
+    CommonUtil.instance.showLog(log:"card already accepted");
     _isDragAccepted = true;
     view.notifyState();
     draggedComplete();
   }
 
   void resetDragAccepted({int val : 0}){
-    print("reseting card");
+    CommonUtil.instance.showLog(log:"reseting card");
     _isDragAccepted = false;
     setValue = val;
     view.notifyState();

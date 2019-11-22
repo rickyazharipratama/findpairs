@@ -1,5 +1,6 @@
 import 'package:findpairs/PresenterViews/Components/Lists/ArcadeLifesView.dart';
 import 'package:findpairs/Presenters/Components/Lists/ArcadeLifesPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/ArcadeLifeItem.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/ArcadeLifeItemExtended.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +36,8 @@ class _ArcadeLifesState extends State<ArcadeLifes> with  ArcadeLifesView{
 
   @override
   Widget build(BuildContext context) {
-    print("extend : "+presenter.extendedLifes.toString());
-    print("lifes : "+presenter.lifes.length.toString());
+    CommonUtil.instance.showLog(log:"extend : "+presenter.extendedLifes.toString());
+    CommonUtil.instance.showLog(log:"lifes : "+presenter.lifes.length.toString());
     return Container(
       width: 130,
       height: 50,

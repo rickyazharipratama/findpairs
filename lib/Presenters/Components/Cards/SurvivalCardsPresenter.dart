@@ -76,12 +76,12 @@ class SurvivalCardsPresenter extends BaseComponentPresenter{
   }
 
   void listenfinishingAnimation(bool isVal){
-    print("finishing animation");
+    CommonUtil.instance.showLog(log:"finishing animation");
     view.notifyState();
   }
 
   updatingCard(){
-    print("updating card list");
+    CommonUtil.instance.showLog(log:"updating card list");
     shouldAnimatedSink.add(true);
     SoundManager.manager.play(
       player: FindPairsApp.of(view.currentContext()).presenter.particleSound,

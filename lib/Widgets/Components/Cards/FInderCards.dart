@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:findpairs/PresenterViews/Components/Cards/FinderCardView.dart';
 import 'package:findpairs/Presenters/Components/Cards/FinderCardPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Widgets/Components/Cards/Items/FInderFlipCard.dart';
 import 'package:flutter/material.dart';
 
@@ -58,7 +59,7 @@ class _FinderCardsState extends State<FinderCards> with FinderCardView{
                     skiprow+= presenter.finderAssets.currentCardFormation.formations[i];
                   }
                 }
-                print("index : "+(skiprow+index).toString());
+                CommonUtil.instance.showLog(log:"index : "+(skiprow+index).toString());
                 GlobalKey key = GlobalKey();
                 return FinderFlipCard(
                   key: (skiprow+index) != presenter.boardCards.length -1 ? key : widget.flipCardKey,

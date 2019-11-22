@@ -1,6 +1,7 @@
 import 'package:findpairs/Models/SoundModel.dart';
 import 'package:findpairs/PresenterViews/Components/Buttons/SoundActionButtonView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:flutter/animation.dart';
 
 class SoundActionButtonPresenter extends BaseComponentPresenter{
@@ -21,7 +22,9 @@ class SoundActionButtonPresenter extends BaseComponentPresenter{
   }
 
   listenReactiveStream(bool isVal) async{
-    print("called by sink");
+    CommonUtil.instance.showLog(
+      log: "called by sink"
+    );
     bool oldVal = soundControl.isSilentMode;
     await soundControl.getValueFromPreference();
     if(oldVal != soundControl.isSilentMode){

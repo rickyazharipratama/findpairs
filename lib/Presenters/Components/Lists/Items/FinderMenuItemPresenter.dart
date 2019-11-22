@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:findpairs/Models/FinderSumaryScore.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/FinderMenuItemView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 
 class FinderMenuItemPresenter extends BaseComponentPresenter{
 
@@ -34,7 +35,7 @@ class FinderMenuItemPresenter extends BaseComponentPresenter{
     await score.getTotalMoveFromStore();
     await score.getScoreFromStore();
     await score.getRatioFromStore();
-    print("score : "+score.score.toString());
+    CommonUtil.instance.showLog(log:"score : "+score.score.toString());
     if(score.totalMove > 0 || score.score > 0){
       setNeedAdvancedMenu = true;
       view.controller.forward(from: 0);
@@ -47,7 +48,7 @@ class FinderMenuItemPresenter extends BaseComponentPresenter{
 
   void openingFinderPage() async{
      await view.openFinderStage();
-      print("manggil ini");
+      CommonUtil.instance.showLog(log:"manggil ini");
       notifyReactiveSink.add(true);
       checkingFinder(isInfo: true);
   }
@@ -58,7 +59,7 @@ class FinderMenuItemPresenter extends BaseComponentPresenter{
     await score.removeCorrectMoveFromStore();
     await score.removeRatioFromStore();
     await score.removeTotalMoveFromStore();
-    print("check score : "+score.score.toString());
+    CommonUtil.instance.showLog(log:"check score : "+score.score.toString());
     openingFinderPage();
   }
 

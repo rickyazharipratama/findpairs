@@ -1,5 +1,6 @@
 import 'package:findpairs/PresenterViews/Pages/SelectArcadeStageView.dart';
 import 'package:findpairs/Presenters/Pages/SelectArcadeStagePresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Widgets/Components/Buttons/PauseActionButton.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/ArcadeSelections/FinishedStageSelection.dart';
 import 'package:findpairs/Widgets/Components/Lists/Items/ArcadeSelections/LockStageSelection.dart';
@@ -56,7 +57,7 @@ class _SelectArcadeStageState extends State<SelectArcadeStage> with SelectArcade
                 child: viewMode == 0 ?
                 ListView(
                   children: List.generate((episode.logs.length / 3).ceil(), (i){
-                    print("index "+i.toString());
+                    CommonUtil.instance.showLog(log:"index "+i.toString());
                     int start = i*3;
                     int end = start + 3;
                     if(end > episode.logs.length){

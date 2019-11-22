@@ -4,9 +4,9 @@ import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/Models/ArcadeCardValue.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/Items/FlipCardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:findpairs/Utils/SoundManager.dart';
-import 'package:flutter/cupertino.dart';
 
 class FlipCardPresenter extends BaseComponentPresenter{
 
@@ -64,7 +64,7 @@ class FlipCardPresenter extends BaseComponentPresenter{
   needToFlipBack(int val){
     if(val == value.key){
       if(view.isOpen){
-        debugPrint("flipping back: "+DateTime.now().millisecondsSinceEpoch.toString()+", with value: "+value.value.toString()+" & key: "+value.key.toString());
+        CommonUtil.instance.showLog(log:"flipping back: "+DateTime.now().millisecondsSinceEpoch.toString()+", with value: "+value.value.toString()+" & key: "+value.key.toString());
         view.setOpen = false;
         view.animationController.reverse();
       }
@@ -72,7 +72,7 @@ class FlipCardPresenter extends BaseComponentPresenter{
   }
 
   onlisteningArcadeTimer(ArcadeTimer timer){
-    debugPrint("start shaking");
+    CommonUtil.instance.showLog(log:"start shaking");
     if(timer == ArcadeTimer.onAlmostTimeUp){
       if(!view.isStartShaking){
         view.setStartShaking = true;

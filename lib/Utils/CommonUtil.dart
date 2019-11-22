@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:findpairs/Utils/ConstantCollections.dart';
+
 class CommonUtil{
 
   static CommonUtil instance =  CommonUtil();
@@ -54,5 +56,12 @@ class CommonUtil{
     }else{
       return score.toString();
     }
-  }  
+  } 
+
+
+  void showLog({String log}){
+    if(ConstantCollections.ENVIRONMENT == ConstantCollections.DEVELOPMENT){
+      print(log);
+    }
+  }
 }

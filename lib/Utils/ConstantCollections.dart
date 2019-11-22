@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 
 class ConstantCollections{
 
+  static const String DEVELOPMENT = "dev";
+  static const String PRODUCTION = "prod";
+
+  static const String ENVIRONMENT = PRODUCTION;
+
   static const String APPNAME = "flipairs";
   static const int APPVERSION = 1;
 

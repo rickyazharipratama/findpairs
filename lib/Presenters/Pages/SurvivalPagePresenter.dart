@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:findpairs/Models/SurvivalScore.dart';
 import 'package:findpairs/PresenterViews/Pages/SurvivalPageView.dart';
 import 'package:findpairs/Presenters/Pages/BasePagePresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Utils/ConstantCollections.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +38,8 @@ class SurvivalPagePresenter extends BasePagePresenter{
   rekapScore(SurvivalScore sc) async{
     score = SurvivalScore();
     await score.getFromStore();
-    print("last score : "+score.score.toString());
-    print("new Score : "+sc.score.toString());
+    CommonUtil.instance.showLog(log:"last score : "+score.score.toString());
+    CommonUtil.instance.showLog(log:"new Score : "+sc.score.toString());
     if(score.score < sc.score){
       //new best record
       sc.setFromStore();
@@ -128,7 +129,7 @@ class SurvivalPagePresenter extends BasePagePresenter{
   }
 
   finishTutorial() async{
-    print("finishing tutorial");
+    CommonUtil.instance.showLog(log:"finishing tutorial");
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setBool(ConstantCollections.PREF_MATCHER_TUTORIAL, true);
     if(pauseType == GamePauseType.onGamePause){

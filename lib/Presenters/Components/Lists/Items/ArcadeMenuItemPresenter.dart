@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:findpairs/Models/ArcadeLogPlayer.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/ArcadeMenuItemView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 
 class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
 
@@ -34,7 +35,7 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
 
 
   void checkingStages()async {
-    print("checking stages");
+    CommonUtil.instance.showLog(log:"checking stages");
     ArcadeLogPlayer log = ArcadeLogPlayer();
     await log.retrieveData();
     if(log.episodes == null){
@@ -46,7 +47,7 @@ class ArcadeMenuItemPeresenter extends BaseComponentPresenter{
   }
 
   initiateArcade() async{
-    print("initiate Stage");
+    CommonUtil.instance.showLog(log:"initiate Stage");
     ArcadeLogPlayer log = ArcadeLogPlayer.initialize();
     log.episodes[0].logs[0].setLocked = false;
     log.savingToPreference();

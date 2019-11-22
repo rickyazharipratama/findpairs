@@ -1,3 +1,4 @@
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:flutter/material.dart';
 
 class SurvivalBottomPlacedView{
@@ -43,9 +44,9 @@ class SurvivalBottomPlacedView{
       if(status == AnimationStatus.completed){
         animationController.reverse();
       }else if(status == AnimationStatus.dismissed){
-        print("current counter : "+_counter.toString());
+        CommonUtil.instance.showLog(log:"current counter : "+_counter.toString());
         if(_counter < 2){
-          print("animation counter : "+_counter.toString());
+          CommonUtil.instance.showLog(log:"animation counter : "+_counter.toString());
           _counter++;
           animationController.forward();
         }else{

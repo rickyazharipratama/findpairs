@@ -1,3 +1,4 @@
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:findpairs/Widgets/Modals/CompleteArcadeModal.dart';
 import 'package:findpairs/Widgets/Modals/NegativeArcadeModal.dart';
@@ -27,13 +28,13 @@ class CardView{
     double cardWidth = ((getWidth() - (10 * horizontal)) / horizontal);
     double tempHeight = getCardHeight(cardWidth);
     double totalTempHeight = (tempHeight+10) * vertical;
-    print("total temp height : "+totalTempHeight.toString());
-    print("space height : "+ getHeight().toString());
+    CommonUtil.instance.showLog(log:"total temp height : "+totalTempHeight.toString());
+    CommonUtil.instance.showLog(log:"space height : "+ getHeight().toString());
 
     while (totalTempHeight >= getHeight()){
       cardWidth-= 2;
       totalTempHeight = (getCardHeight(cardWidth) + 10) * vertical;
-      print("total temp height : "+totalTempHeight.toString());
+      CommonUtil.instance.showLog(log:"total temp height : "+totalTempHeight.toString());
     }
     return cardWidth;
   }

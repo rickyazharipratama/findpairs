@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/PresenterViews/Components/Cards/Items/FinderFlipCardView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Utils/SoundManager.dart';
 import 'package:flutter/widgets.dart';
 
@@ -80,11 +81,11 @@ class FinderFlipCardPresenter extends BaseComponentPresenter{
 
   onListenRestrictionCard(bool isVal){
     setRestrictCard = isVal;
-    print("restricted tap card val :"+this.val.toString());
+    CommonUtil.instance.showLog(log:"restricted tap card val :"+this.val.toString());
   }
 
   onListenValueChange(Map<String,int> data){
-    print("value change : "+ data['old'].toString()+":"+this.val.toString()+" to "+data['new'].toString());
+    CommonUtil.instance.showLog(log:"value change : "+ data['old'].toString()+":"+this.val.toString()+" to "+data['new'].toString());
     if(data['old'] == this.val){
       this.updatedVal = data['new'];
       this.isValueUpdated = true;

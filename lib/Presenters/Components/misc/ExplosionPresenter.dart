@@ -1,6 +1,7 @@
 
 import 'package:findpairs/PresenterViews/Components/misc/ExplosionView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
@@ -40,7 +41,7 @@ class ExplosionPresenter extends BaseComponentPresenter{
 
   onListenStream(bool isVal){
     if(isVal){
-      print("explosion count");
+      CommonUtil.instance.showLog(log:"explosion count");
       if(byteData == null || view.imageSize == null){
         RenderRepaintBoundary boundary = view.globalKey.currentContext.findRenderObject();
         boundary.toImage().then((img){

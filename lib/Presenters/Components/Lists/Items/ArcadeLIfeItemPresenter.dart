@@ -5,6 +5,7 @@ import 'package:findpairs/FindPairsApp.dart';
 import 'package:findpairs/Models/Painters/ParticleModel.dart';
 import 'package:findpairs/PresenterViews/Components/Lists/Items/ArcadeLifeItemView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Utils/SoundManager.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
@@ -55,9 +56,9 @@ class ArcadeLifeItemPresenter extends BaseComponentPresenter{
   int get tag => _tag;
 
   void onListenLifeStream(int val){
-    print("=====");
-    print(val.toString()+" : "+_tag.toString());
-    print("=======");
+    CommonUtil.instance.showLog(log:"=====");
+    CommonUtil.instance.showLog(log:val.toString()+" : "+_tag.toString());
+    CommonUtil.instance.showLog(log:"=======");
 
     if(val == _tag){
       explode();

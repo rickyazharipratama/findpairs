@@ -67,19 +67,19 @@ class StackedCardsPresenter extends BaseComponentPresenter{
     for(int i=0; i < stackedCards.length;i ++){
       stval+= stackedCards[i].toString()+",";
     }
-    print("val stack : "+stval);
+    CommonUtil.instance.showLog(log:"val stack : "+stval);
     destroyCardSink.add(val);
     stval = "";
     for(int i=0; i < stackedCards.length;i ++){
       stval+= stackedCards[i].toString()+",";
     }
-    print("after remove stack : "+stval);
+    CommonUtil.instance.showLog(log:"after remove stack : "+stval);
   }
 
   onListenRefillCard(bool isval) async{
     if(isval){
       stackedCards.removeLast();
-      print("stacked card : stacked card length => "+stackedCards.length.toString());
+      CommonUtil.instance.showLog(log:"stacked card : stacked card length => "+stackedCards.length.toString());
       Random rand = Random();
       if(stackedCards.length > boardCards.length){
         stackedCards.insert(0, CommonUtil.instance.getUniqueRandom(

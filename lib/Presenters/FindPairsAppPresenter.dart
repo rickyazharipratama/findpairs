@@ -2,6 +2,7 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:findpairs/PresenterViews/FindPairsAppPresenterView.dart';
 import 'package:findpairs/Presenters/BasePresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
@@ -49,7 +50,7 @@ class FindPairsAppPresenter extends BasePresenter{
       systemNavigationBarColor: Color(0xff252525),
       systemNavigationBarIconBrightness: Brightness.light
     ));
-    debugPrint("keLoad sampai disini");
+    CommonUtil.instance.showLog(log:"keLoad sampai disini");
     view.setViewState = 0;
     view.notifyState();
   }

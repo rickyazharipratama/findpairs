@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:findpairs/PresenterViews/Components/Cards/CardView.dart';
 import 'package:findpairs/Presenters/Components/Cards/ArcadeCardPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 import 'package:findpairs/Utils/EnumUtils.dart';
 import 'package:findpairs/Widgets/Components/Cards/Items/FlipCard.dart';
 import 'package:findpairs/Widgets/Components/Lists/ArcadeLifes.dart';
@@ -68,8 +69,8 @@ class _ArcadeCardState extends State<ArcadeCard> with CardView{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: rows.map((row){
-                      print("screen width : "+MediaQuery.of(context).size.width.toString());
-                      print("card width : "+getCardWidth(presenter.setting.horizontal, presenter.setting.vertical).toString());
+                      CommonUtil.instance.showLog(log:"screen width : "+MediaQuery.of(context).size.width.toString());
+                      CommonUtil.instance.showLog(log:"card width : "+getCardWidth(presenter.setting.horizontal, presenter.setting.vertical).toString());
                       return FlipCard(
                         key: row,
                         width: getCardWidth(presenter.setting.horizontal, presenter.setting.vertical),

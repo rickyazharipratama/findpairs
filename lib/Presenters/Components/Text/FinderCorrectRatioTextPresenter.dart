@@ -1,5 +1,6 @@
 import 'package:findpairs/PresenterViews/Components/Text/FInderCorrectRatioTextView.dart';
 import 'package:findpairs/Presenters/Components/BaseComponentPresenter.dart';
+import 'package:findpairs/Utils/CommonUtil.dart';
 
 class FinderCorrectRatioTextPresenter extends BaseComponentPresenter{
 
@@ -22,7 +23,7 @@ class FinderCorrectRatioTextPresenter extends BaseComponentPresenter{
   }
 
   listenUpdateRatio(double val){
-    print("incoming ratio : "+val.toString());
+    CommonUtil.instance.showLog(log:"incoming ratio : "+val.toString());
     setRatio = val;
     view.notifyState();
   }
